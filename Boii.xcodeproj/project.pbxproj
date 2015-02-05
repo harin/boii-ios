@@ -7,12 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE158C431A8281AB00D73743 /* MenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE158C421A8281AB00D73743 /* MenuCollectionViewCell.swift */; };
+		CE17DFDF1A7A013A0066A5BA /* RestaurantTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE17DFDE1A7A013A0066A5BA /* RestaurantTableViewController.swift */; };
+		CE17DFE21A7A0A140066A5BA /* toofast.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE17DFE11A7A0A140066A5BA /* toofast.jpg */; };
 		CE27DCFC1A64108C006CFDC9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE27DCFB1A64108C006CFDC9 /* AppDelegate.swift */; };
 		CE27DCFE1A64108C006CFDC9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE27DCFD1A64108C006CFDC9 /* ViewController.swift */; };
 		CE27DD011A64108C006CFDC9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE27DCFF1A64108C006CFDC9 /* Main.storyboard */; };
 		CE27DD031A64108C006CFDC9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE27DD021A64108C006CFDC9 /* Images.xcassets */; };
 		CE27DD061A64108C006CFDC9 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE27DD041A64108C006CFDC9 /* LaunchScreen.xib */; };
 		CE27DD121A64108C006CFDC9 /* BoiiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE27DD111A64108C006CFDC9 /* BoiiTests.swift */; };
+		CE784B591A680D09003A4815 /* MenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE784B581A680D09003A4815 /* MenuTableViewController.swift */; };
+		CE784B5B1A680DF7003A4815 /* MenuStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE784B5A1A680DF7003A4815 /* MenuStore.swift */; };
+		CE784B5D1A680E02003A4815 /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE784B5C1A680E02003A4815 /* Menu.swift */; };
+		CE784B5F1A681292003A4815 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE784B5E1A681292003A4815 /* SwiftyJSON.swift */; };
+		CE907ADE1A81DE1100CAB9A5 /* toofast-375w@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE907ADD1A81DE1100CAB9A5 /* toofast-375w@2x.jpg */; };
+		CE907AE21A82569B00CAB9A5 /* DrinkCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE907AE11A82569B00CAB9A5 /* DrinkCollectionViewController.swift */; };
+		CE907AE51A826CD400CAB9A5 /* starbuck_coffee@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE907AE31A826CD400CAB9A5 /* starbuck_coffee@2x.jpg */; };
+		CE907AE61A826CD400CAB9A5 /* starbuck_coffee@3x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE907AE41A826CD400CAB9A5 /* starbuck_coffee@3x.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,6 +37,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CE158C421A8281AB00D73743 /* MenuCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuCollectionViewCell.swift; sourceTree = "<group>"; };
+		CE17DFDE1A7A013A0066A5BA /* RestaurantTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantTableViewController.swift; sourceTree = "<group>"; };
+		CE17DFE11A7A0A140066A5BA /* toofast.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = toofast.jpg; sourceTree = "<group>"; };
 		CE27DCF61A64108C006CFDC9 /* Boii.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Boii.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE27DCFA1A64108C006CFDC9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE27DCFB1A64108C006CFDC9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -36,6 +50,14 @@
 		CE27DD0B1A64108C006CFDC9 /* BoiiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BoiiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE27DD101A64108C006CFDC9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE27DD111A64108C006CFDC9 /* BoiiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoiiTests.swift; sourceTree = "<group>"; };
+		CE784B581A680D09003A4815 /* MenuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuTableViewController.swift; sourceTree = "<group>"; };
+		CE784B5A1A680DF7003A4815 /* MenuStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuStore.swift; sourceTree = "<group>"; };
+		CE784B5C1A680E02003A4815 /* Menu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
+		CE784B5E1A681292003A4815 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftyJSON.swift; path = ../SwiftyJSON.swift; sourceTree = "<group>"; };
+		CE907ADD1A81DE1100CAB9A5 /* toofast-375w@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "toofast-375w@2x.jpg"; sourceTree = "<group>"; };
+		CE907AE11A82569B00CAB9A5 /* DrinkCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrinkCollectionViewController.swift; sourceTree = "<group>"; };
+		CE907AE31A826CD400CAB9A5 /* starbuck_coffee@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "starbuck_coffee@2x.jpg"; sourceTree = "<group>"; };
+		CE907AE41A826CD400CAB9A5 /* starbuck_coffee@3x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "starbuck_coffee@3x.jpg"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +78,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CE17DFE01A7A0A050066A5BA /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				CE907AE31A826CD400CAB9A5 /* starbuck_coffee@2x.jpg */,
+				CE907AE41A826CD400CAB9A5 /* starbuck_coffee@3x.jpg */,
+				CE907ADD1A81DE1100CAB9A5 /* toofast-375w@2x.jpg */,
+				CE17DFE11A7A0A140066A5BA /* toofast.jpg */,
+			);
+			name = Assets;
+			sourceTree = "<group>";
+		};
 		CE27DCED1A64108C006CFDC9 = {
 			isa = PBXGroup;
 			children = (
@@ -77,9 +110,16 @@
 		CE27DCF81A64108C006CFDC9 /* Boii */ = {
 			isa = PBXGroup;
 			children = (
+				CE17DFE01A7A0A050066A5BA /* Assets */,
 				CE27DCFB1A64108C006CFDC9 /* AppDelegate.swift */,
 				CE27DCFD1A64108C006CFDC9 /* ViewController.swift */,
 				CE27DCFF1A64108C006CFDC9 /* Main.storyboard */,
+				CE784B581A680D09003A4815 /* MenuTableViewController.swift */,
+				CE784B5A1A680DF7003A4815 /* MenuStore.swift */,
+				CE784B5C1A680E02003A4815 /* Menu.swift */,
+				CE17DFDE1A7A013A0066A5BA /* RestaurantTableViewController.swift */,
+				CE158C421A8281AB00D73743 /* MenuCollectionViewCell.swift */,
+				CE907AE11A82569B00CAB9A5 /* DrinkCollectionViewController.swift */,
 				CE27DD021A64108C006CFDC9 /* Images.xcassets */,
 				CE27DD041A64108C006CFDC9 /* LaunchScreen.xib */,
 				CE27DCF91A64108C006CFDC9 /* Supporting Files */,
@@ -90,6 +130,7 @@
 		CE27DCF91A64108C006CFDC9 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				CE784B5E1A681292003A4815 /* SwiftyJSON.swift */,
 				CE27DCFA1A64108C006CFDC9 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -193,8 +234,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE27DD011A64108C006CFDC9 /* Main.storyboard in Resources */,
+				CE907AE51A826CD400CAB9A5 /* starbuck_coffee@2x.jpg in Resources */,
 				CE27DD061A64108C006CFDC9 /* LaunchScreen.xib in Resources */,
+				CE907ADE1A81DE1100CAB9A5 /* toofast-375w@2x.jpg in Resources */,
+				CE17DFE21A7A0A140066A5BA /* toofast.jpg in Resources */,
 				CE27DD031A64108C006CFDC9 /* Images.xcassets in Resources */,
+				CE907AE61A826CD400CAB9A5 /* starbuck_coffee@3x.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -212,8 +257,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE784B5B1A680DF7003A4815 /* MenuStore.swift in Sources */,
+				CE907AE21A82569B00CAB9A5 /* DrinkCollectionViewController.swift in Sources */,
+				CE158C431A8281AB00D73743 /* MenuCollectionViewCell.swift in Sources */,
 				CE27DCFE1A64108C006CFDC9 /* ViewController.swift in Sources */,
+				CE17DFDF1A7A013A0066A5BA /* RestaurantTableViewController.swift in Sources */,
 				CE27DCFC1A64108C006CFDC9 /* AppDelegate.swift in Sources */,
+				CE784B5F1A681292003A4815 /* SwiftyJSON.swift in Sources */,
+				CE784B591A680D09003A4815 /* MenuTableViewController.swift in Sources */,
+				CE784B5D1A680E02003A4815 /* Menu.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -407,6 +459,7 @@
 				CE27DD171A64108C006CFDC9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CE27DD181A64108C006CFDC9 /* Build configuration list for PBXNativeTarget "BoiiTests" */ = {
 			isa = XCConfigurationList;
@@ -415,6 +468,7 @@
 				CE27DD1A1A64108C006CFDC9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
