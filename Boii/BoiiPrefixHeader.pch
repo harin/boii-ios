@@ -1,0 +1,18 @@
+//
+//  BoiiPrefixHeader.pch
+//  Boii
+//
+//  Created by Harin Sanghirun on 8/2/58.
+//  Copyright (c) พ.ศ. 2558 Harin Sanghirun. All rights reserved.
+//
+
+#ifndef Boii_BoiiPrefixHeader_pch
+#define Boii_BoiiPrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+
+
+#endif

@@ -9,5 +9,74 @@
 import UIKit
 
 class MenuCollectionViewCell: UICollectionViewCell {
-    let identifer = "drinkMenuCell"
+    @IBOutlet weak var priceLabel: UILabel!
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var titleLabel: UILabel!
+    
+//    required init(coder aDecoder: NSCoder) {
+//        super.init(coder: aDecoder)
+//
+//    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+//        if let imageView = self.imageView? {
+//            var layer = CAGradientLayer()
+//            layer.frame = imageView.bounds
+//            
+//            var endColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.9).CGColor //clear
+//            var startColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.1).CGColor // black
+//            layer.colors = [startColor, endColor]
+//            layer.startPoint = CGPointMake(0.5, 1.0)
+//            layer.endPoint   = CGPointMake(0.5, 0.5)
+//            
+//            imageView.layer.mask = layer
+//            
+//            imageView.contentMode = .ScaleAspectFill
+//        }
+    }
+    
+    func initImage(imageName: String){
+        //only set image if it does not exist.
+        if self.imageView.image == nil {
+            let image = UIImage(named: imageName)
+            self.imageView.image = imageWithGradient(image)
+        }
+    }
+    
+    func imageWithGradient(img:UIImage!) -> UIImage{
+        
+        
+        UIGraphicsBeginImageContext(img.size)
+        var context = UIGraphicsGetCurrentContext()
+        
+        img.drawAtPoint(CGPointMake(0, 0))
+        
+        let colorSpace = CGColorSpaceCreateDeviceRGB()
+        let locations:[CGFloat] = [0.50, 1.0]
+        //1 = opaque
+        //0 = transparent
+        let bottom = UIColor(red: 0, green: 0, blue: 0, alpha: 1).CGColor
+        let top = UIColor(red: 0, green: 0, blue: 0, alpha: 0).CGColor
+        
+        let gradient = CGGradientCreateWithColors(colorSpace,
+            [top, bottom], locations)
+        
+        
+        let startPoint = CGPointMake(img.size.width/2, 0)
+        let endPoint = CGPointMake(img.size.width/2, img.size.height)
+        
+        CGContextDrawLinearGradient(context, gradient, startPoint, endPoint, 0)
+        
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        
+        UIGraphicsEndImageContext()
+        
+        return image
+    }
+
+    
+    
+    
 }

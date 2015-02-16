@@ -23,6 +23,13 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         updateMenuAction(self);
+        
+        let cartButton = UIButton.buttonWithType(UIButtonType.Custom) as UIButton
+        cartButton.setTitle("(2)", forState: UIControlState.Normal)
+        
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: cartButton as UIView)
+        
     }
 
     override func didReceiveMemoryWarning() {

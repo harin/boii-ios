@@ -13,17 +13,25 @@ private let reuseIdentifier = "drinkMenuCell"
 class DrinkCollectionViewController:
     UICollectionViewController,
     UICollectionViewDelegateFlowLayout {
+    
+    let defaultThumbnail : UIImage? = UIImage(named: "starbuck_coffee.jpg")
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Register cell classes
-        self.collectionView!.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        self.tabBarController?.title = "starbuck"
 
         // Do any additional setup after loading the view.
+        
+        let barButton = CartBarButtonItem() as CartBarButtonItem
+        barButton.viewController = self
+        barButton.isLoggedIn = true
+        
+        self.tabBarController?.navigationItem.rightBarButtonItem = barButton
+        
+//        self.edgesForExtendedLayout = UIRectEdge.All
+//        self.collectionView?
+        
+            //UIEdgeInsetsMake(0.0, 0.0, CGRectGetHeight(self.tabBarController?.tabBar.frame.height), 0.0)
     }
 
     override func didReceiveMemoryWarning() {
@@ -53,57 +61,103 @@ class DrinkCollectionViewController:
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as UICollectionViewCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as MenuCollectionViewCell
         
-        print( cell is MenuCollectionViewCell )
-        
-        
-
-        
-        cell.backgroundColor = UIColor.lightGrayColor()
+        cell.priceLabel.text = "$500"
+        cell.titleLabel.text = "CoCoCrunchies"
+        cell.initImage("starbuck_coffee.jpg")
         
         return cell
     }
+    
+    
 
     // MARK: UICollectionViewDelegate
 
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(collectionView: UICollectionView, shouldHighlightItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-    */
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+     /*
+        let contentView = UIView()
+        contentView.backgroundColor = UIColor.redColor()
+        contentView.layer.cornerRadius = 12.0
+        contentView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        contentView.contentMode = .ScaleAspectFill
+        contentView.frame = CGRectMake(0.0, 0.0, 300.0, 400.0)
+        
+        let imgView = UIImageView(image: defaultThumbnail)
+        let addButton = UIButton.buttonWithType( UIButtonType.Custom ) as UIButton
+        
+        addButton.addTarget(self, action: "addButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
+        addButton.setTitle("add to Cart", forState: UIControlState.Normal)
+        addButton.backgroundColor = UIColor.greenColor()
+        addButton.setTranslatesAutoresizingMaskIntoConstraints(false)
 
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-    */
+        
+        let cancelButton = UIButton.buttonWithType(UIButtonType.Custom) as UIButton
+        cancelButton.addTarget(self, action: "cancelButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
+        cancelButton.setTitle("Cancel", forState: UIControlState.Normal)
+        cancelButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        cancelButton.backgroundColor = UIColor.purpleColor()
+        
+        contentView.addSubview(imgView)
+        contentView.addSubview(addButton)
+        contentView.addSubview(cancelButton)
+//        
+        let views = ["imgView":imgView, "addButton":addButton, "cancelButton":cancelButton]
+//
+        let buttonsHorizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
+            "H:|[addButton][cancelButton(==addButton)]|",
+            options: NSLayoutFormatOptions.AlignAllCenterY, metrics: nil, views: views)
 
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(collectionView: UICollectionView, shouldShowMenuForItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return false
-    }
+        let imageViewVerticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
+            "V:|[imgView(200)][addButton]|",
+            options: nil, metrics: nil, views: views)
 
-    override func collectionView(collectionView: UICollectionView, canPerformAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) -> Bool {
-        return false
-    }
+        let imageViewHorizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
+            "H:|[imgView(300)]|",
+            options: NSLayoutFormatOptions.AlignAllCenterY, metrics: nil, views: views)
+        
+//
+        contentView.addConstraints(buttonsHorizontalConstraints)
+        contentView.addConstraints(imageViewVerticalConstraints)
+        contentView.addConstraints(imageViewHorizontalConstraints)
+        */
+        
+        
+        let contentView = NSBundle.mainBundle().loadNibNamed("MenuDetailView", owner: self, options: nil).first as UIView
 
-    override func collectionView(collectionView: UICollectionView, performAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) {
+        
+        let imageView = contentView.viewWithTag(301) as UIImageView
+        imageView.image = defaultThumbnail?.crop( imageView.bounds )
+
+        
+        let addToCartButton = contentView.viewWithTag(401) as UIButton
+        addToCartButton.addTarget(self, action: "addButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
+        let cancelButton = contentView.viewWithTag(402) as UIButton
+        cancelButton.addTarget(self, action: "cancelButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
+        
+        
+        let popup = KLCPopup(contentView: contentView)
+        popup.show()
+        
+    }
     
+    func cancelButtonPressed(sender: AnyObject) {
+        if sender is UIView {
+            sender.dismissPresentingPopup()
+        }
     }
-    */
     
+    func addButtonPressed(sender: AnyObject) {
+        println("addButtonPressed")
+    }
     
     // MARK: UICollectionViewDelegateFlowLayout
-    private let sectionInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-
+    private let sectionInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0,right: 0)
+    private let interitemSpacing: CGFloat = 0.5
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         
-        let width = self.view.frame.width / 2 - 2 * sectionInsets.left - 2 * sectionInsets.right
+        let width = self.view.frame.width / 2 -  interitemSpacing
         let height = (4 * width) / 3
         
         return CGSize(width: width, height: height)
@@ -112,8 +166,14 @@ class DrinkCollectionViewController:
     
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
-        
         return sectionInsets
     }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return interitemSpacing
+    }
+    
+    
+    
 
 }

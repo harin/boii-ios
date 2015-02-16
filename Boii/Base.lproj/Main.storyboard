@@ -153,7 +153,7 @@
         <scene sceneID="lCD-t9-Ufh">
             <objects>
                 <tableViewController id="yAL-jk-0Lc" customClass="RestaurantTableViewController" customModule="Boii" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="175" sectionHeaderHeight="22" sectionFooterHeight="22" id="LTl-qZ-z9w">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="197" sectionHeaderHeight="22" sectionFooterHeight="22" id="LTl-qZ-z9w">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -224,16 +224,16 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2ui-Na-SgR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1575" y="174"/>
+            <point key="canvasLocation" x="1478" y="196"/>
         </scene>
-        <!--Drinks-->
+        <!--Test-->
         <scene sceneID="efG-B6-GBo">
             <objects>
-                <collectionViewController id="yTD-ng-izM" customClass="DrinkCollectionViewController" customModule="Boii" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="wuC-CP-Eh3">
+                <collectionViewController title="Test" id="yTD-ng-izM" customClass="DrinkCollectionViewController" customModule="Boii" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" dataMode="prototypes" id="wuC-CP-Eh3">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.69999999999999996" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="ylC-wI-Og8">
                             <size key="itemSize" width="200" height="200"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -247,9 +247,49 @@
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" tag="100" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="V10-PI-8bv">
+                                            <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="201" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="฿500" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yp1-pg-AHT">
+                                            <rect key="frame" x="140" y="24" width="60" height="30"/>
+                                            <color key="backgroundColor" red="0.14901960784313725" green="0.14901960784313725" blue="0.14901960784313725" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="30" id="5Em-tu-dce"/>
+                                                <constraint firstAttribute="width" constant="60" id="gBF-yk-TCD"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="200" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="CoCo Crunchies" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MsE-2F-jHe">
+                                            <rect key="frame" x="8" y="152" width="184" height="40"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="22"/>
+                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                            <color key="shadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <size key="shadowOffset" width="1" height="1"/>
+                                        </label>
+                                    </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="yp1-pg-AHT" firstAttribute="top" secondItem="Qmj-ef-m6u" secondAttribute="topMargin" constant="16" id="4ic-nU-iLE"/>
+                                    <constraint firstItem="V10-PI-8bv" firstAttribute="top" secondItem="Qmj-ef-m6u" secondAttribute="top" id="5TM-pJ-cbb"/>
+                                    <constraint firstItem="MsE-2F-jHe" firstAttribute="leading" secondItem="Qmj-ef-m6u" secondAttribute="leadingMargin" id="87D-EX-FjP"/>
+                                    <constraint firstItem="MsE-2F-jHe" firstAttribute="trailing" secondItem="Qmj-ef-m6u" secondAttribute="trailingMargin" id="gcU-Mu-AaN"/>
+                                    <constraint firstItem="V10-PI-8bv" firstAttribute="leading" secondItem="Qmj-ef-m6u" secondAttribute="leading" id="kWh-rr-Bua"/>
+                                    <constraint firstItem="MsE-2F-jHe" firstAttribute="bottom" secondItem="Qmj-ef-m6u" secondAttribute="bottomMargin" id="mAC-7v-37e"/>
+                                    <constraint firstAttribute="bottom" secondItem="V10-PI-8bv" secondAttribute="bottom" id="ssU-0V-p1l"/>
+                                    <constraint firstItem="yp1-pg-AHT" firstAttribute="trailingMargin" secondItem="Qmj-ef-m6u" secondAttribute="trailingMargin" id="xE7-bD-tBt"/>
+                                    <constraint firstAttribute="trailing" secondItem="V10-PI-8bv" secondAttribute="trailing" id="yTx-02-1pL"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="imageView" destination="V10-PI-8bv" id="8yQ-n1-6pB"/>
+                                    <outlet property="priceLabel" destination="yp1-pg-AHT" id="9fw-6v-SsP"/>
+                                    <outlet property="titleLabel" destination="MsE-2F-jHe" id="c3b-ID-Rkm"/>
+                                </connections>
                             </collectionViewCell>
                         </cells>
                         <connections>
@@ -261,7 +301,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vhd-Pw-iJY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3118" y="-111"/>
+            <point key="canvasLocation" x="3129" y="-224"/>
         </scene>
         <!--Food-->
         <scene sceneID="m91-1P-Pwm">
@@ -296,7 +336,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UbF-4F-XRj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3093" y="602"/>
+            <point key="canvasLocation" x="3137" y="550"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="0te-Xj-tGv">
@@ -315,7 +355,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="erf-Or-KSB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2332" y="118"/>
+            <point key="canvasLocation" x="2282" y="196"/>
         </scene>
         <!--Boii-->
         <scene sceneID="wel-Rw-XZm">

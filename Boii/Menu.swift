@@ -7,10 +7,13 @@
 //
 
 import Foundation
+import UIKit
 
 class Menu: Printable {
     var name: String
     var price: Float
+    var thumbnailImage: UIImage?
+    var originalImageURL: UIImage?
     
     init(name:String, price:Float){
         self.name = name
