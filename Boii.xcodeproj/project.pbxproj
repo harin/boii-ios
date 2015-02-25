@@ -147,10 +147,9 @@
 		CE10C67B1A885C57007CCA40 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				CE784B5A1A680DF7003A4815 /* MenuStore.swift */,
+				CE5EB77B1A9B0A44009DB456 /* AccountManager.swift */,
 				CE4A7BC51A9238E900400F83 /* ShoppingCartStore.swift */,
 				CE782E5F1A95989A000B3E15 /* RestraurantStore.swift */,
-				CE5EB77B1A9B0A44009DB456 /* AccountManager.swift */,
 				CE782E5D1A923CA4000B3E15 /* Restaurant.swift */,
 				CE784B5C1A680E02003A4815 /* MenuItem.swift */,
 				CE455CEB1A9DC2FB007B8B96 /* myLib.swift */,
@@ -227,8 +226,7 @@
 		CE27DCF81A64108C006CFDC9 /* Boii */ = {
 			isa = PBXGroup;
 			children = (
-				CE784B581A680D09003A4815 /* MenuTableViewController.swift */,
-				CE27DCFD1A64108C006CFDC9 /* ViewController.swift */,
+				CE455CED1A9E05FE007B8B96 /* Trash */,
 				CE10C67B1A885C57007CCA40 /* Model */,
 				CE10C67D1A885C7D007CCA40 /* View */,
 				CE10C67C1A885C66007CCA40 /* Controller */,
@@ -265,6 +263,16 @@
 				CE27DD101A64108C006CFDC9 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		CE455CED1A9E05FE007B8B96 /* Trash */ = {
+			isa = PBXGroup;
+			children = (
+				CE784B581A680D09003A4815 /* MenuTableViewController.swift */,
+				CE27DCFD1A64108C006CFDC9 /* ViewController.swift */,
+				CE784B5A1A680DF7003A4815 /* MenuStore.swift */,
+			);
+			name = Trash;
 			sourceTree = "<group>";
 		};
 		CE6158A11A876A440038DB98 /* KLCPopup */ = {

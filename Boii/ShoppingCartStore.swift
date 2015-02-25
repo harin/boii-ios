@@ -12,11 +12,54 @@
 api needed
 
 POST /orders
+/*
+{
+customer_id: String ,
+payed: Boolean ,
+status: String,
+order_datetime: ,
+orderItems: [
+{
+menu_id: ,
+quantity:
+},
+{
+menu_id: ,
+quantity:
+},
+{
+menu_id: ,
+quantity:
+}
+]
+}
 
+Should return
+
+{
+success: Boolean,
+orderCode: String
+}
+*/
 
 */
 
 import Foundation
+
+struct orderItem{
+    var menu_id: String
+    var quantity: Int
+}
+
+struct order{
+    var customer_id: String
+    var payed: Bool
+    var status: String
+    var order_datetime: NSDate
+    var orderItems: [orderItem]
+}
+
+
 
 class ShoppingCartStore {
 
@@ -111,12 +154,55 @@ class ShoppingCartStore {
     }
     
     func sendOrder(){
-        
-        self.ordered += self.toOrder
-        self.toOrder = []
-        
         //send order to server
+
+        postOrder()
         
+        //update local data
+//        self.ordered += self.toOrder
+//        self.toOrder = []
+        
+        
+    }
+    
+    func dataForOrder() -> AnyObject{
+        var orderItems: [AnyObject] = []
+        
+        for menu in toOrder{
+            var orderItem = [
+                "menu_id": menu._id,
+                "quantity": 1
+            ]
+            orderItems.append(orderItem)
+        }
+        
+        var data: AnyObject = [
+            "customer_id": "1234",
+            "orderItems": orderItems
+        ]
+        println("Cart: data to post= \(data)")
+        return data
+    }
+    
+    func postOrder() {
+        var request = NSMutableURLRequest( URL: NSURL(string: domain + orderPath)!)
+        var session = NSURLSession.sharedSession()
+        request.HTTPMethod = "POST"
+        
+        var params: AnyObject = dataForOrder()
+        var jsonData = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: nil)
+        request.HTTPBody = jsonData
+        
+        println(jsonData)
+        
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        
+        var task = session.dataTaskWithRequest(request) { (data, response, error) -> Void in
+            println("Response: \(response)")
+        }
+        
+        task.resume()
     }
     
 }
