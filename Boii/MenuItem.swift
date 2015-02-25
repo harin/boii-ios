@@ -10,26 +10,48 @@ import Foundation
 import UIKit
 
 class MenuItem: Printable {
-    var name: String
-    var price: Float
-    var thumbnailImage: UIImage?
+//    var name: String
+//    var price: Float
+    var thumbnailImage: UIImage = UIImage(named:"starbuck_coffee.jpg")!
     var originalImageURL: UIImage?
-    var isAvailable: Bool
-    var isPromotion: Bool
-    var validUntil: NSDate?
-    var category: String?
-    var ingredient: [String]?
+    var isAvailable: Bool = true
+
+//    var validUntil: NSDate?
+//    var category: String?
+//    var ingredient: [String]?
+//    
+//    init(name:String, price:Float){
+//        self.name = name
+//        self.price = price
+//        self.isAvailable = true
+//        self.isPromotion = false
+//        self.thumbnailImage = UIImage(named:"starbuck_coffee.jpg")
+//    }
+//    
+//    var description: String {
+//        return "Menu { name: \(name) , price: \(price) }"
+//    }
     
-    init(name:String, price:Float){
-        self.name = name
+    var _id: String
+    var price: Double
+    var name: String
+    var type: String
+    
+    var pic_url: String?
+    var categ: String?
+    var promotion: Bool = false
+    var restaurant_name: String?
+    var valid_until: NSDate?
+    
+    init(_id: String, name: String, price: Double, type:String){
+        self._id = _id
         self.price = price
-        self.isAvailable = true
-        self.isPromotion = false
-        self.thumbnailImage = UIImage(named:"starbuck_coffee.jpg")
+        self.name = name
+        self.type = type
     }
     
     var description: String {
-        return "Menu { name: \(name) , price: \(price) }"
+        return "MenuItem { _id: \(_id), name: \(name), price: \(price), pic_url: \(pic_url), categ: \(categ), promotion: \(promotion), restaurant_name: \(restaurant_name), valid_until: \(valid_until) }\n"
     }
     
     

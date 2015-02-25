@@ -39,25 +39,23 @@ class MenuStore {
     //methods
     init(){
 
-        var drink1 = MenuItem(name: "Ice Cream Punch",price: 50)
-        var drink2 = MenuItem(name:"Chocolate Shake",price: 100)
-        var drink3 = MenuItem(name:"Cappucino",price: 80.53)
-        var drink4 = MenuItem(name:"Mocha",price: 80.2)
-        var drink5 = MenuItem(name:"Mochachinno",price: 334)
-        var drink6 = MenuItem(name:"Coke",price: 20)
-        var drink7 = MenuItem(name:"Water", price:8)
-        var drink8 = MenuItem(name:"Orange Juice",price: 60)
+//        var drink1 = MenuItem(name: "Ice Cream Punch",price: 50)
+//        var drink2 = MenuItem(name:"Chocolate Shake",price: 100)
+//        var drink3 = MenuItem(name:"Cappucino",price: 80.53)
+//        var drink4 = MenuItem(name:"Mocha",price: 80.2)
+//        var drink5 = MenuItem(name:"Mochachinno",price: 334)
+//        var drink6 = MenuItem(name:"Coke",price: 20)
+//        var drink7 = MenuItem(name:"Water", price:8)
+//        var drink8 = MenuItem(name:"Orange Juice",price: 60)
         
-        drinks = [drink1, drink2, drink3, drink4, drink5, drink6, drink7, drink8]
+//        drinks = [drink1, drink2, drink3, drink4, drink5, drink6, drink7, drink8]
         foods = []
+        drinks = []
     }
     
     func menuForRestaurant(ID: String) {
         
     }
-    
-
-    
 }
 
 

@@ -26,6 +26,7 @@
 		CE430EF71A8BAB5600B5C7FC /* CartStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE430EF61A8BAB5600B5C7FC /* CartStoryboard.storyboard */; };
 		CE430EF91A8C591100B5C7FC /* x-button.png in Resources */ = {isa = PBXBuildFile; fileRef = CE430EF81A8C591100B5C7FC /* x-button.png */; };
 		CE430EFB1A8CA10900B5C7FC /* OrderReadyNotificationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE430EFA1A8CA10900B5C7FC /* OrderReadyNotificationView.xib */; };
+		CE455CEC1A9DC2FB007B8B96 /* myLib.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE455CEB1A9DC2FB007B8B96 /* myLib.swift */; };
 		CE4A7BB81A91EB0400400F83 /* MenuDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE4A7BB71A91EB0400400F83 /* MenuDetailView.xib */; };
 		CE4A7BBA1A91F57B00400F83 /* UIImage+Crop.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4A7BB91A91F57B00400F83 /* UIImage+Crop.swift */; };
 		CE4A7BC01A9208DF00400F83 /* boii-food-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE4A7BBF1A9208DF00400F83 /* boii-food-icon@2x.png */; };
@@ -82,6 +83,7 @@
 		CE430EF61A8BAB5600B5C7FC /* CartStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CartStoryboard.storyboard; sourceTree = "<group>"; };
 		CE430EF81A8C591100B5C7FC /* x-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "x-button.png"; sourceTree = "<group>"; };
 		CE430EFA1A8CA10900B5C7FC /* OrderReadyNotificationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderReadyNotificationView.xib; sourceTree = "<group>"; };
+		CE455CEB1A9DC2FB007B8B96 /* myLib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = myLib.swift; sourceTree = "<group>"; };
 		CE4A7BB71A91EB0400400F83 /* MenuDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuDetailView.xib; sourceTree = "<group>"; };
 		CE4A7BB91A91F57B00400F83 /* UIImage+Crop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Crop.swift"; sourceTree = "<group>"; };
 		CE4A7BBF1A9208DF00400F83 /* boii-food-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "boii-food-icon@2x.png"; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 				CE5EB77B1A9B0A44009DB456 /* AccountManager.swift */,
 				CE782E5D1A923CA4000B3E15 /* Restaurant.swift */,
 				CE784B5C1A680E02003A4815 /* MenuItem.swift */,
+				CE455CEB1A9DC2FB007B8B96 /* myLib.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -457,6 +460,7 @@
 				CE430EF41A8BAAE800B5C7FC /* CartViewController.swift in Sources */,
 				CE784B591A680D09003A4815 /* MenuTableViewController.swift in Sources */,
 				CE430EEB1A8B08FC00B5C7FC /* LoginViewController.swift in Sources */,
+				CE455CEC1A9DC2FB007B8B96 /* myLib.swift in Sources */,
 				CE784B5D1A680E02003A4815 /* MenuItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

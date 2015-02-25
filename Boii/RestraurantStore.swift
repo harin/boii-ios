@@ -17,7 +17,15 @@ GET /restaurants/:id/menus?type=food
 
 */
 
+
+
 import Foundation
+
+
+let domain = "http://localhost:3000"
+let menuPath = "/api/menus"
+let restaurantPath = "/api/restaurants"
+let orderPath = "/api/orders"
 
 class RestaurantStore {
     //singleton
@@ -39,7 +47,7 @@ class RestaurantStore {
     //methods
     init(){
         
-        
+        /*
         var res1 = Restaurant(_id: "1", name: "Too Fast To Sleep")
         var res2 = Restaurant(_id: "2", name: "Think Tank")
         var res3 = Restaurant(_id: "3", name: "NE8T")
@@ -82,12 +90,146 @@ class RestaurantStore {
             res.foods = foods
         }
         
+        */
     }
     
-    func menuForRestaurant(ID: String) {
+    func fetchMenuForRestaurant(rest: Restaurant) {
+        println("RestaurantStore: fetching menus for \(rest.name)")
+        
+        
+        let path = domain + restaurantPath + "/\(rest._id)/menus"
+        
+        getRequest(path) {
+            (data, session, error, json) -> Void in
+            
+            if json != nil {
+                
+            }
+            
+        }
         
     }
     
+    func fetchRestaurant(){
+        println("RestaurantStore: fetching restaurant")
+        
+        getRequest(domain+restaurantPath) {
+            (data, session, error, json) -> Void in
+            
+            if json != nil {
+                self.parseRestaurantJson(json!)
+            }
+            
+        }
+        
+//        var request = NSMutableURLRequest(URL: NSURL(string:domain + restaurantPath )!)
+//        var session = NSURLSession.sharedSession()
+//        var task = session.dataTaskWithRequest(request){
+//            (data, response, error) -> Void in
+//            if error != nil {
+//                println(error)
+//            } else {
+//                let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil)
+//                
+//                if json != nil {
+//                    self.parseRestaurantJson(json!)
+//                }
+//                
+//            }
+//        }
+//        
+//        task.resume() //send request
+    }
+    
+    
+    
+    
+    func parseRestaurantJson( jsonObject: AnyObject){
+        /*
+        _id: String
+        address: String
+        beaconID: String
+        email: String
+        name: String
+        phone: {"type":String, "number": String}
+        
+        */
+        
+        let json = JSON( jsonObject )
+        
+        println(json)
+        
+        let data = json["data"] // array of restaurant
+        println(data)
+        
+        var result: [Restaurant] = []
+        
+        //parse each menu
+        for (index: String, rest: JSON) in data {
+            
+            let _id         = rest["_id"].string
+            let name        = rest["name"].string
+            
+            if _id != nil && name != nil{
+                let r = Restaurant(_id: _id!, name: name!)
+                
+                if let address = rest["address"].string {
+                    r.address = address
+                }
+                
+                if let beaconID = rest["beaconID"].string {
+                    r.beaconID = beaconID
+                }
+                
+                if let email = rest["email"].string {
+                    r.email = email
+                }
+                let phone = rest["phone"].arrayValue
+                
+                for num in phone {
+                    let type = num["type"].string
+                    let number = num["type"].string
+                    
+                    if type != nil && number != nil {
+                        r.phone.append(tel(type: type!, number: number!))
+                    }
+                }
+                result.append(r)
+            } else {
+                if _id == nil {
+                    println("Error: _id is \(_id)")
+                }
+                if name == nil {
+                    println("Error: name is \(name)")
+                }
+            }
+        }
+        
+        println("Done Parsing \(result.count)items\n Result =\n \(result)")
+        restaurants = result
+        
+        restaurantsNeedUpdate()
+        
+    }
+    
+    
+    func restaurantsNeedUpdate() {
+        
+        println("restaurantStore: restaurant need update notification")
+        let note = NSNotification(name: "restaurantsNeedUpdateNotification", object: self)
+        
+        NSNotificationCenter.defaultCenter().postNotification(note)
+    }
+    
+    func menuForRestaurantNeedUpdate(rest: Restaurant){
+        println("restaurant: restaurant need update notification")
+        
+        let notiName = stringForRestaurantMenuUpdateNotification(rest)
+        let note = NSNotification(name: notiName, object: self)
+        
+        NSNotificationCenter.defaultCenter().postNotification(note)
+    }
+
     
     
 }

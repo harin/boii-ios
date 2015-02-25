@@ -16,7 +16,6 @@ class DrinkCollectionViewController:
     {
     
     let defaultThumbnail : UIImage? = UIImage(named: "starbuck_coffee.jpg")
-    var menu: [MenuItem]?
     var selectedMenu: MenuItem?
     var restaurant: Restaurant?
 
@@ -36,6 +35,21 @@ class DrinkCollectionViewController:
         
             //UIEdgeInsetsMake(0.0, 0.0, CGRectGetHeight(self.tabBarController?.tabBar.frame.height), 0.0)
         
+        
+        if let rest = self.restaurant {
+            let notiName = stringForRestaurantMenuUpdateNotification(rest)
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateMenu:", name: notiName, object: nil)
+        } else {
+            println("DrinkCVC: Error: no restaurant set")
+        }
+        
+    }
+    
+    
+    func updateMenu(sender: AnyObject?){
+        
+        println("DrinkCVC: updating Menu")
+        self.collectionView?.reloadData()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -50,16 +64,6 @@ class DrinkCollectionViewController:
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
 
     // MARK: UICollectionViewDataSource
 
@@ -83,7 +87,7 @@ class DrinkCollectionViewController:
         if let menu = self.restaurant?.drinks {
             cell.priceLabel.text = "฿ \(menu[index].price)"
             cell.titleLabel.text = menu[index].name
-            cell.initImage(menu[index].thumbnailImage!)
+            cell.initImage(menu[index].thumbnailImage)
         }
 
         return cell
@@ -112,7 +116,7 @@ class DrinkCollectionViewController:
             let popup = KLCPopup(contentView: contentView)
             popup.show()
         } else {
-            println(menu)
+            println("drinkCVC: Error: drinks not found in restaurant")
         }
     }
     

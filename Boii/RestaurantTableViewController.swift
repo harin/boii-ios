@@ -36,6 +36,18 @@ class RestaurantTableViewController: UITableViewController {
         self.restaurantStore = RestaurantStore.sharedInstance
         
         self.restaurants = RestaurantStore.sharedInstance.restaurants
+        
+        
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateRestaurant:", name: "restaurantsNeedUpdateNotification", object: nil)
+    }
+    
+    
+    func updateRestaurant(sender: AnyObject?){
+        
+        println("RestaurantTVC: updating restaurants")
+        self.restaurants = RestaurantStore.sharedInstance.restaurants
+        self.tableView.reloadData()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -102,7 +114,6 @@ class RestaurantTableViewController: UITableViewController {
             
         }
 
-        
         // Configure the cell...
 
         return cell

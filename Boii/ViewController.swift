@@ -82,8 +82,8 @@ class ViewController: UIViewController {
                     price = -1
                 }
                 
-                var newMenu = MenuItem(name: name!, price: Float(price!)) //found nil when unwrapping an Optional value (price)
-                menus?.append(newMenu)
+//                var newMenu = MenuItem(name: name!, price: Float(price!)) //found nil when unwrapping an Optional value (price)
+//                menus?.append(newMenu)
                 
             }
             
