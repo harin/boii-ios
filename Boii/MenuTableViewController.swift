@@ -10,7 +10,7 @@ import UIKit
 
 class MenuTableViewController: UITableViewController {
     
-    var menus: [Menu]?
+    var menus: [MenuItem]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,7 +57,7 @@ class MenuTableViewController: UITableViewController {
             cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "cell")
         }
         
-        if let m:[Menu] = menus{
+        if let m:[MenuItem] = menus{
             cell!.textLabel?.text = "\(m[ indexPath.row ].name) \(m[indexPath.row].price)"
         }
         
@@ -81,7 +81,7 @@ class MenuTableViewController: UITableViewController {
 
     
     
-    func sendOrderToServer(m:Menu) {
+    func sendOrderToServer(m:MenuItem) {
         var request = NSMutableURLRequest(URL: NSURL(string:"http://localhost:3000/api/orders")!)
         
         //get data ready

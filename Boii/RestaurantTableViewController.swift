@@ -6,10 +6,18 @@
 //  Copyright (c) พ.ศ. 2558 Harin Sanghirun. All rights reserved.
 //
 
+/*
+จ่ายเงินก่อน
+connect to facebook
+QR code
+*/
 import UIKit
 
 class RestaurantTableViewController: UITableViewController {
     var defaultImg: UIImage?
+    var restaurantStore: RestaurantStore?
+    var restaurants: [Restaurant]?
+    var shoppingCart: ShoppingCartStore = ShoppingCartStore.sharedInstance
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,10 +27,22 @@ class RestaurantTableViewController: UITableViewController {
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
-        let barButton = CartBarButtonItem() as CartBarButtonItem
-        barButton.viewController = self
+        let barButton = CartBarButtonItem.sharedInstance
+        
+        println("RestaurantTable: isLoggedIn = \(barButton.isLoggedIn)" )
         
         self.navigationItem.rightBarButtonItem = barButton
+        
+        self.restaurantStore = RestaurantStore.sharedInstance
+        
+        self.restaurants = RestaurantStore.sharedInstance.restaurants
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let barButton = self.navigationItem.rightBarButtonItem as CartBarButtonItem
+        barButton.viewController = self
         
     }
 
@@ -42,7 +62,12 @@ class RestaurantTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return 5
+        
+        if let store = restaurantStore {
+            return store.restaurants.count
+        }
+        
+        return 0
     }
 
     
@@ -52,25 +77,14 @@ class RestaurantTableViewController: UITableViewController {
         var backgroundImgView = tableView.viewWithTag(200) as UIImageView
         var titleLabel = tableView.viewWithTag(100) as UILabel
         
-        titleLabel.text = "Hello World!"
-        titleLabel.textColor = UIColor.whiteColor()
-        
-        
-        //set image
-        backgroundImgView.image = UIImage(named: "toofast-375w.jpg")
-        backgroundImgView.contentMode = .ScaleAspectFill
-       
-
-        
-        //add filter to image
-        if let img = defaultImg? {
+        if let restaurant = restaurants?[indexPath.row] {
             
-            backgroundImgView.image = img
+            titleLabel.text = restaurant.name
+            titleLabel.textColor = UIColor.whiteColor()
             
-        } else {
-            
-            var newImg: UIImage? = UIImage(named: "toofast-375w.jpg")
-            var inputImage = CIImage(CGImage: newImg?.CGImage)
+            //apply filter to image
+            var newImg = restaurant.thumbnailImage
+            var inputImage = CIImage(CGImage: newImg.CGImage)
             var context = CIContext(options: nil)
             
             var filter = CIFilter(name: "CIVignette")
@@ -84,12 +98,31 @@ class RestaurantTableViewController: UITableViewController {
             defaultImg = UIImage(CGImage: cgImg)
             
             backgroundImgView.image = defaultImg
-
+    
+            
         }
+
         
         // Configure the cell...
 
         return cell
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if segue.identifier == "selectRestaurantSegue" {
+            
+            if let cell = sender as UITableViewCell? {
+                if let index = self.tableView.indexPathForCell(cell) as NSIndexPath? {
+                    let dest = segue.destinationViewController as MenuTabBarController
+                    
+                    if let targetRest = self.restaurants?[index.row] {
+                        dest.rest = targetRest
+                        
+                    }
+                }
+            }
+        }
     }
     
 

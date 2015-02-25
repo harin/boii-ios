@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     
     var resultBuffer: String?
     var JSONBuffer: JSON?
-    var menus: [Menu]?
+    var menus: [MenuItem]?
 
     @IBOutlet weak var menuTextView: UITextView!
     @IBOutlet weak var updateButton: UIButton!
@@ -82,7 +82,7 @@ class ViewController: UIViewController {
                     price = -1
                 }
                 
-                var newMenu = Menu(name: name!, price: Float(price!)) //found nil when unwrapping an Optional value (price)
+                var newMenu = MenuItem(name: name!, price: Float(price!)) //found nil when unwrapping an Optional value (price)
                 menus?.append(newMenu)
                 
             }

@@ -9,15 +9,23 @@
 import Foundation
 import UIKit
 
-class Menu: Printable {
+class MenuItem: Printable {
     var name: String
     var price: Float
     var thumbnailImage: UIImage?
     var originalImageURL: UIImage?
+    var isAvailable: Bool
+    var isPromotion: Bool
+    var validUntil: NSDate?
+    var category: String?
+    var ingredient: [String]?
     
     init(name:String, price:Float){
         self.name = name
         self.price = price
+        self.isAvailable = true
+        self.isPromotion = false
+        self.thumbnailImage = UIImage(named:"starbuck_coffee.jpg")
     }
     
     var description: String {

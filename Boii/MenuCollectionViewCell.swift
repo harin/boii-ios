@@ -37,10 +37,10 @@ class MenuCollectionViewCell: UICollectionViewCell {
 //        }
     }
     
-    func initImage(imageName: String){
+    func initImage(image: UIImage){
         //only set image if it does not exist.
         if self.imageView.image == nil {
-            let image = UIImage(named: imageName)
+            
             self.imageView.image = imageWithGradient(image)
         }
     }

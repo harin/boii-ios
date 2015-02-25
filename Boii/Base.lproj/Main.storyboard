@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="1c9-qf-7sY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="1c9-qf-7sY">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -153,22 +153,22 @@
         <scene sceneID="lCD-t9-Ufh">
             <objects>
                 <tableViewController id="yAL-jk-0Lc" customClass="RestaurantTableViewController" customModule="Boii" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="197" sectionHeaderHeight="22" sectionFooterHeight="22" id="LTl-qZ-z9w">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="200" sectionHeaderHeight="22" sectionFooterHeight="22" id="LTl-qZ-z9w">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="restaurantCell" rowHeight="170" id="iRl-GV-GG2">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="restaurantCell" rowHeight="200" id="iRl-GV-GG2">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iRl-GV-GG2" id="eW4-6w-sgw">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" tag="200" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0NY-bY-13A">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="170"/>
+                                        <imageView userInteractionEnabled="NO" tag="200" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0NY-bY-13A">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="198"/>
                                             <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DNn-qw-0LF">
-                                            <rect key="frame" x="28" y="70" width="544" height="30"/>
+                                            <rect key="frame" x="28" y="85" width="544" height="30"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
@@ -211,7 +211,7 @@
                                     </variation>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="Wha-3O-Dmy" kind="show" id="hDu-Bm-RMJ"/>
+                                    <segue destination="Wha-3O-Dmy" kind="show" identifier="selectRestaurantSegue" id="hDu-Bm-RMJ"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -297,7 +297,7 @@
                             <outlet property="delegate" destination="yTD-ng-izM" id="v3K-7F-kUL"/>
                         </connections>
                     </collectionView>
-                    <tabBarItem key="tabBarItem" title="Drinks" id="GQr-KO-C9z"/>
+                    <tabBarItem key="tabBarItem" title="Drinks" image="boii-drinks-icon.png" id="GQr-KO-C9z"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vhd-Pw-iJY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -332,16 +332,16 @@
                             <outlet property="delegate" destination="UKr-Ho-8NV" id="nKX-bX-qND"/>
                         </connections>
                     </collectionView>
-                    <tabBarItem key="tabBarItem" title="Food" id="8ni-HD-vAh"/>
+                    <tabBarItem key="tabBarItem" title="Food" image="boii-food-icon.png" id="8ni-HD-vAh"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UbF-4F-XRj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3137" y="550"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Menu Tab Bar Controller-->
         <scene sceneID="0te-Xj-tGv">
             <objects>
-                <tabBarController id="Wha-3O-Dmy" sceneMemberID="viewController">
+                <tabBarController id="Wha-3O-Dmy" customClass="MenuTabBarController" customModule="Boii" customModuleProvider="target" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="Or4-0w-g36">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
@@ -376,4 +376,8 @@
             <point key="canvasLocation" x="793" y="196"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="boii-drinks-icon.png" width="45" height="45"/>
+        <image name="boii-food-icon.png" width="45" height="45"/>
+    </resources>
 </document>

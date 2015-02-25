@@ -12,18 +12,21 @@ private let reuseIdentifier = "drinkMenuCell"
 
 class DrinkCollectionViewController:
     UICollectionViewController,
-    UICollectionViewDelegateFlowLayout {
+    UICollectionViewDelegateFlowLayout
+    {
     
     let defaultThumbnail : UIImage? = UIImage(named: "starbuck_coffee.jpg")
+    var menu: [MenuItem]?
+    var selectedMenu: MenuItem?
+    var restaurant: Restaurant?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tabBarController?.title = "starbuck"
+        self.tabBarController?.title = restaurant?.name
 
         // Do any additional setup after loading the view.
         
-        let barButton = CartBarButtonItem() as CartBarButtonItem
-        barButton.viewController = self
+        let barButton = CartBarButtonItem.sharedInstance
         barButton.isLoggedIn = true
         
         self.tabBarController?.navigationItem.rightBarButtonItem = barButton
@@ -32,6 +35,15 @@ class DrinkCollectionViewController:
 //        self.collectionView?
         
             //UIEdgeInsetsMake(0.0, 0.0, CGRectGetHeight(self.tabBarController?.tabBar.frame.height), 0.0)
+        
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let barButton = self.tabBarController?.navigationItem.rightBarButtonItem as CartBarButtonItem
+        barButton.viewController = self
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -57,88 +69,51 @@ class DrinkCollectionViewController:
 
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        
+        if let menu = self.restaurant?.drinks {
+            return menu.count
+        }
+        return 0
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as MenuCollectionViewCell
         
-        cell.priceLabel.text = "$500"
-        cell.titleLabel.text = "CoCoCrunchies"
-        cell.initImage("starbuck_coffee.jpg")
-        
+        let index = indexPath.row
+        if let menu = self.restaurant?.drinks {
+            cell.priceLabel.text = "฿ \(menu[index].price)"
+            cell.titleLabel.text = menu[index].name
+            cell.initImage(menu[index].thumbnailImage!)
+        }
+
         return cell
     }
-    
-    
 
     // MARK: UICollectionViewDelegate
 
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-     /*
-        let contentView = UIView()
-        contentView.backgroundColor = UIColor.redColor()
-        contentView.layer.cornerRadius = 12.0
-        contentView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        contentView.contentMode = .ScaleAspectFill
-        contentView.frame = CGRectMake(0.0, 0.0, 300.0, 400.0)
-        
-        let imgView = UIImageView(image: defaultThumbnail)
-        let addButton = UIButton.buttonWithType( UIButtonType.Custom ) as UIButton
-        
-        addButton.addTarget(self, action: "addButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
-        addButton.setTitle("add to Cart", forState: UIControlState.Normal)
-        addButton.backgroundColor = UIColor.greenColor()
-        addButton.setTranslatesAutoresizingMaskIntoConstraints(false)
-
-        
-        let cancelButton = UIButton.buttonWithType(UIButtonType.Custom) as UIButton
-        cancelButton.addTarget(self, action: "cancelButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
-        cancelButton.setTitle("Cancel", forState: UIControlState.Normal)
-        cancelButton.setTranslatesAutoresizingMaskIntoConstraints(false)
-        cancelButton.backgroundColor = UIColor.purpleColor()
-        
-        contentView.addSubview(imgView)
-        contentView.addSubview(addButton)
-        contentView.addSubview(cancelButton)
-//        
-        let views = ["imgView":imgView, "addButton":addButton, "cancelButton":cancelButton]
-//
-        let buttonsHorizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
-            "H:|[addButton][cancelButton(==addButton)]|",
-            options: NSLayoutFormatOptions.AlignAllCenterY, metrics: nil, views: views)
-
-        let imageViewVerticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
-            "V:|[imgView(200)][addButton]|",
-            options: nil, metrics: nil, views: views)
-
-        let imageViewHorizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
-            "H:|[imgView(300)]|",
-            options: NSLayoutFormatOptions.AlignAllCenterY, metrics: nil, views: views)
-        
-//
-        contentView.addConstraints(buttonsHorizontalConstraints)
-        contentView.addConstraints(imageViewVerticalConstraints)
-        contentView.addConstraints(imageViewHorizontalConstraints)
-        */
-        
         
         let contentView = NSBundle.mainBundle().loadNibNamed("MenuDetailView", owner: self, options: nil).first as UIView
+        
+        if let menu = self.restaurant?.drinks {
+            let imageView = contentView.viewWithTag(301) as UIImageView
+            
+            self.selectedMenu = menu[indexPath.row]
 
-        
-        let imageView = contentView.viewWithTag(301) as UIImageView
-        imageView.image = defaultThumbnail?.crop( imageView.bounds )
-
-        
-        let addToCartButton = contentView.viewWithTag(401) as UIButton
-        addToCartButton.addTarget(self, action: "addButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
-        let cancelButton = contentView.viewWithTag(402) as UIButton
-        cancelButton.addTarget(self, action: "cancelButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
-        
-        
-        let popup = KLCPopup(contentView: contentView)
-        popup.show()
-        
+            imageView.image = selectedMenu!.thumbnailImage
+            imageView.clipsToBounds = true
+            
+            let addToCartButton = contentView.viewWithTag(401) as UIButton
+            addToCartButton.addTarget(self, action: "addButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
+            let cancelButton = contentView.viewWithTag(402) as UIButton
+            cancelButton.addTarget(self, action: "cancelButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
+            
+            
+            let popup = KLCPopup(contentView: contentView)
+            popup.show()
+        } else {
+            println(menu)
+        }
     }
     
     func cancelButtonPressed(sender: AnyObject) {
@@ -149,6 +124,50 @@ class DrinkCollectionViewController:
     
     func addButtonPressed(sender: AnyObject) {
         println("addButtonPressed")
+        
+        // Check and Initialize Shopping Cart
+        if ShoppingCartStore.sharedInstance.restaurant == nil {
+            println("\(_stdlib_getTypeName(self)): Initializing CartStore's restaurant")
+            ShoppingCartStore.sharedInstance.restaurant = self.restaurant
+        }
+        
+        if let ID = self.restaurant?._id {
+            if ShoppingCartStore.sharedInstance.restaurant?._id == ID {
+            
+                if let order = selectedMenu? {
+                    ShoppingCartStore.sharedInstance.toOrder.append(order)
+                } else {
+                    println("failed to add to cart")
+                }
+                
+                if sender is UIView {
+                    sender.dismissPresentingPopup()
+                }
+            } else {
+                //ask to change restaurant
+                
+                let msg = "Would you like to change your current restaurant to \(self.restaurant!.name)"
+                let alert = UIAlertController(title: "This is a different restaurant", message: msg, preferredStyle: UIAlertControllerStyle.Alert);
+                let YESAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default) {
+                    (action) in
+                    
+                    ShoppingCartStore.sharedInstance.switchToRestaurant(self.restaurant!)
+                }
+                
+                let NOAction = UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel) { (action) in
+                    
+                }
+                
+                alert.addAction(YESAction)
+                alert.addAction(NOAction)
+                
+                KLCPopup.dismissAllPopups()
+                
+                self.presentViewController(alert, animated: true) {
+                    
+                }
+            }
+        }
     }
     
     // MARK: UICollectionViewDelegateFlowLayout
@@ -162,7 +181,6 @@ class DrinkCollectionViewController:
         
         return CGSize(width: width, height: height)
     }
-    
     
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {

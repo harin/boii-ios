@@ -12,9 +12,11 @@ private let placeOrderCell = "PlaceOrderCell"
 private let orderItemCell = "OrderItemCell"
 
 class CartViewController: UITableViewController {
+    var cartStore: ShoppingCartStore?
+    
         
     override func viewDidLoad() {
-        super.viewDidLoad()
+        super.viewDidLoad();
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -32,9 +34,10 @@ class CartViewController: UITableViewController {
 
         headerView.addSubview(orderCodeLabel)
         
-        
-        
         self.tableView.tableHeaderView = headerView
+        
+        
+        cartStore = ShoppingCartStore.sharedInstance
     }
 
     override func didReceiveMemoryWarning() {
@@ -47,7 +50,7 @@ class CartViewController: UITableViewController {
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
-        return 2
+        return 3
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -58,8 +61,19 @@ class CartViewController: UITableViewController {
         if section == 0 {
             //Place Order
             nRow = 1
+        } else if section == 1 {
+            if let ordered = self.cartStore?.ordered{
+                nRow = ordered.count
+            } else {
+                nRow = 0
+            }
         } else {
-            nRow = 5
+            if let toOrder = self.cartStore?.toOrder{
+                nRow = toOrder.count
+            } else {
+                nRow = 0
+            }
+
         }
         
         return nRow
@@ -72,31 +86,68 @@ class CartViewController: UITableViewController {
         
         if indexPath.section == 0 {
             cell = tableView.dequeueReusableCellWithIdentifier(placeOrderCell, forIndexPath: indexPath) as UITableViewCell
+        } else if indexPath.section == 1 {
+            cell = tableView.dequeueReusableCellWithIdentifier("OrderedItemCell", forIndexPath: indexPath) as UITableViewCell
+            
+            let nameLabel = cell.viewWithTag(300) as UILabel
+            let priceLabel = cell.viewWithTag(301) as UILabel
+            
+            if let ordered = self.cartStore?.ordered {
+                nameLabel.text = ordered[indexPath.row].name
+                priceLabel.text = "$ \(ordered[indexPath.row].price)"
+            }
+            
         } else {
-            cell = tableView.dequeueReusableCellWithIdentifier(orderItemCell, forIndexPath: indexPath) as UITableViewCell
+            cell = tableView.dequeueReusableCellWithIdentifier("UnorderedItemCell", forIndexPath: indexPath) as UITableViewCell
+            
+            let nameLabel = cell.viewWithTag(300) as UILabel
+            let priceLabel = cell.viewWithTag(301) as UILabel
+            
+            if let toOrder = self.cartStore?.toOrder {
+                nameLabel.text = toOrder[indexPath.row].name
+                priceLabel.text = "$ \(toOrder[indexPath.row].price)"
+            }
         }
-
-
-        // Configure the cell...
 
         return cell
     }
 
+    @IBAction func removeButtonAction(sender: AnyObject) {
+        
+        if let clickedCell = sender.superview??.superview as? UITableViewCell {
+            if let clickedPath = self.tableView.indexPathForCell(clickedCell) {
+                cartStore?.toOrder.removeAtIndex(clickedPath.row)
+                self.tableView.reloadData()
+            }
+        }
+
+    }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.section == 0 {
-            println("have to implement send order")
-            
             self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
+            sendOrder()
             
-            let contentView = NSBundle.mainBundle().loadNibNamed("OrderReadyNotificationView", owner: self, options: nil).first as UIView
-            
-            let orderIDLabel = contentView.viewWithTag(300) as UILabel
-            orderIDLabel.text = "999"
-            
-            let popup = KLCPopup(contentView: contentView)
-            popup.show()
         }
+    }
+    
+    func sendOrder() {
+        if self.cartStore?.toOrder.count > 0 {
+            self.cartStore?.sendOrder()
+            self.tableView.reloadData()
+        }
+        
+    }
+    
+    func orderReadyNotification () {
+        let contentView = NSBundle.mainBundle().loadNibNamed("OrderReadyNotificationView", owner: self, options: nil).first as UIView
+        
+        let orderIDLabel = contentView.viewWithTag(300) as UILabel
+        orderIDLabel.text = "999"
+        
+        let popup = KLCPopup(contentView: contentView)
+        popup.show()
+
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
