@@ -48,8 +48,13 @@ class DrinkCollectionViewController:
     
     func updateMenu(sender: AnyObject?){
         
-        println("DrinkCVC: updating Menu")
-        self.collectionView?.reloadData()
+        dispatch_async(dispatch_get_main_queue(), {
+            
+            println("DrinkCVC: updating Menu \(NSThread.currentThread())")
+            self.collectionView?.reloadData()
+        })
+        
+
     }
     
     override func viewWillAppear(animated: Bool) {

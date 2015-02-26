@@ -178,6 +178,7 @@ class ShoppingCartStore {
         
         var data: AnyObject = [
             "customer_id": "1234",
+            "restaurant_id": "1234",
             "orderItems": orderItems
         ]
         println("Cart: data to post= \(data)")
@@ -193,7 +194,7 @@ class ShoppingCartStore {
         var jsonData = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: nil)
         request.HTTPBody = jsonData
         
-        println(jsonData)
+//        println(jsonData)
         
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")

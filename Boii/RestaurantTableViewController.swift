@@ -45,9 +45,16 @@ class RestaurantTableViewController: UITableViewController {
     
     func updateRestaurant(sender: AnyObject?){
         
-        println("RestaurantTVC: updating restaurants")
-        self.restaurants = RestaurantStore.sharedInstance.restaurants
-        self.tableView.reloadData()
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            
+            // DO SOMETHING ON THE MAINTHREAD
+            self.tableView.reloadData()
+            println("RestaurantTVC: updating restaurants \(NSThread.currentThread())")
+            self.restaurants = RestaurantStore.sharedInstance.restaurants
+        })
+
+        
     }
     
     override func viewWillAppear(animated: Bool) {
