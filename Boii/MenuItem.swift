@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class MenuItem: Printable {
+class MenuItem: NSObject, Printable, NSCoding {
 //    var name: String
 //    var price: Float
     var thumbnailImage: UIImage = UIImage(named:"starbuck_coffee.jpg")!
@@ -48,11 +48,28 @@ class MenuItem: Printable {
         self.price = price
         self.name = name
         self.type = type
+        
+        super.init()
     }
     
-    var description: String {
+    override var description: String {
         return "MenuItem { _id: \(_id), name: \(name), price: \(price), pic_url: \(pic_url), categ: \(categ), promotion: \(promotion), restaurant_name: \(restaurant_name), valid_until: \(valid_until) }\n"
     }
-    
+    func encodeWithCoder(aCoder: NSCoder) {
+        aCoder.encodeObject(_id, forKey: "_id")
+        aCoder.encodeDouble(price, forKey: "price")
+        aCoder.encodeObject(name, forKey: "name")
+        aCoder.encodeObject(type, forKey: "type")
+    }
+    required init(coder aDecoder: NSCoder) {
+        //        self.myCourses  = aDecoder.decodeObjectForKey("myCourses") as? Dictionary
+
+        self._id = aDecoder.decodeObjectForKey("_id") as String!
+        self.price = aDecoder.decodeDoubleForKey("price") as Double!
+        self.name = aDecoder.decodeObjectForKey("name") as String!
+        self.type = aDecoder.decodeObjectForKey("type") as String!
+        
+        super.init()
+    }
     
 }

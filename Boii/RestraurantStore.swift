@@ -44,8 +44,14 @@ class RestaurantStore {
     //properties
     
     var restaurants: [Restaurant] = []
+    
     //methods
     init(){
+        let path = self.restArchivePath()
+        var rest = NSKeyedUnarchiver.unarchiveObjectWithFile(path) as [Restaurant]?
+        if let r = rest {
+            restaurants = r
+        }
         
         /*
         var res1 = Restaurant(_id: "1", name: "Too Fast To Sleep")
@@ -91,6 +97,16 @@ class RestaurantStore {
         }
         
         */
+    }
+    
+    func restArchivePath() -> String {
+        let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
+        return documentDirectory.stringByAppendingPathComponent("items.archive")
+    }
+    
+    func saveChanges() -> Bool {
+        let path = self.restArchivePath()
+        return NSKeyedArchiver.archiveRootObject(restaurants, toFile: path)
     }
     
     func fetchMenuForRestaurant(rest: Restaurant) {

@@ -14,7 +14,7 @@ struct tel {
     var number: String
 }
 
-class Restaurant: Printable {
+class Restaurant: NSObject, NSCoding, Printable  {
     
     var _id: String
     var name: String
@@ -29,6 +29,8 @@ class Restaurant: Printable {
     var drinkList: [MenuItem]
     
     var foodList: [MenuItem]
+    
+    
     
     var drinks: [MenuItem] {
         get {
@@ -50,10 +52,33 @@ class Restaurant: Printable {
         self.name = name
         drinkList = []
         foodList = []
+        
+        super.init()
     }
     
+    required init(coder aDecoder: NSCoder) {
+        //        self.myCourses  = aDecoder.decodeObjectForKey("myCourses") as? Dictionary
+        
+        self._id = aDecoder.decodeObjectForKey("_id") as String!
+        self.name = aDecoder.decodeObjectForKey("name") as String!
+        self.drinkList = aDecoder.decodeObjectForKey("drinkList") as [MenuItem]
+        self.foodList = aDecoder.decodeObjectForKey("foodList") as [MenuItem]
+        
+        super.init()
+
+        
+    }
     
-    var description: String {
+    func encodeWithCoder(aCoder: NSCoder) {
+        aCoder.encodeObject(_id, forKey: "_id")
+        aCoder.encodeObject(name, forKey: "name")
+        aCoder.encodeObject(drinkList, forKey: "drinkList")
+        aCoder.encodeObject(foodList, forKey: "foodList")
+    }
+
+    
+    
+    override var description: String {
         return "Restaurant { _id: \(_id), name: \(name), address: \(address), beaconID: \(beaconID), email: \(email), phone: \(phone)\n"
     }
     
