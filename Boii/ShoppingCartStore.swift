@@ -59,8 +59,6 @@ struct order{
     var orderItems: [orderItem]
 }
 
-
-
 class ShoppingCartStore {
 
     var restaurant: Restaurant? // current restaurant

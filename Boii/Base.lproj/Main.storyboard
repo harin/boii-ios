@@ -341,7 +341,7 @@
         <!--Menu Tab Bar Controller-->
         <scene sceneID="0te-Xj-tGv">
             <objects>
-                <tabBarController id="Wha-3O-Dmy" customClass="MenuTabBarController" customModule="Boii" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController restorationIdentifier="MenuTabBarController" storyboardIdentifier="MenuTabBarController" id="Wha-3O-Dmy" customClass="MenuTabBarController" customModule="Boii" customModuleProvider="target" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="Or4-0w-g36">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>

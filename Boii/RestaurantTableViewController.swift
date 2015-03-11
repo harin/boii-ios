@@ -27,41 +27,38 @@ class RestaurantTableViewController: UITableViewController {
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
-        let barButton = CartBarButtonItem.sharedInstance
-        
-        println("RestaurantTable: isLoggedIn = \(barButton.isLoggedIn)" )
-        
-        self.navigationItem.rightBarButtonItem = barButton
-        
+
         self.restaurantStore = RestaurantStore.sharedInstance
-        
         self.restaurants = RestaurantStore.sharedInstance.restaurants
         
-        
-        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateRestaurant:", name: "restaurantsNeedUpdateNotification", object: nil)
+        
+        // Set right bar button
+        let barButton = CartBarButtonItem.sharedInstance
+        println("RestaurantTable: isLoggedIn = \(barButton.isLoggedIn)" )
+        barButton.viewController = self
+        self.navigationItem.rightBarButtonItem = barButton
+        
+        // Set left bar button
+        let leftBarButton = RestaurantShortcutBarButtonItem()
+        leftBarButton.viewController = self
+        self.navigationItem.leftBarButtonItem = leftBarButton
+        
     }
     
-    
     func updateRestaurant(sender: AnyObject?){
-        
-        
         dispatch_async(dispatch_get_main_queue(), {
-            
             // DO SOMETHING ON THE MAINTHREAD
             self.tableView.reloadData()
             println("RestaurantTVC: updating restaurants \(NSThread.currentThread())")
             self.restaurants = RestaurantStore.sharedInstance.restaurants
         })
-
-        
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        let barButton = self.navigationItem.rightBarButtonItem as CartBarButtonItem
-        barButton.viewController = self
+//        let barButton = self.navigationItem.rightBarButtonItem as CartBarButtonItem
         
     }
 
@@ -136,7 +133,6 @@ class RestaurantTableViewController: UITableViewController {
                     
                     if let targetRest = self.restaurants?[index.row] {
                         dest.rest = targetRest
-                        
                     }
                 }
             }

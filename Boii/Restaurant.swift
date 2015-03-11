@@ -21,6 +21,8 @@ class Restaurant: NSObject, NSCoding, Printable  {
     
     var address: String?
     var beaconID: String?
+    var beaconMajor: Int?
+    var beaconMinor: Int?
     var email: String?
     var phone: [tel] = []
     var thumbnailImage: UIImage = UIImage(named:"toofast-375w.jpg")!
@@ -65,7 +67,6 @@ class Restaurant: NSObject, NSCoding, Printable  {
         self.foodList = aDecoder.decodeObjectForKey("foodList") as [MenuItem]
         
         super.init()
-
         
     }
     
@@ -79,7 +80,7 @@ class Restaurant: NSObject, NSCoding, Printable  {
     
     
     override var description: String {
-        return "Restaurant { _id: \(_id), name: \(name), address: \(address), beaconID: \(beaconID), email: \(email), phone: \(phone)\n"
+        return "Restaurant { _id: \(_id), name: \(name), address: \(address), beaconMajor: \(beaconMajor), beaconMinor: \(beaconMinor),email: \(email), phone: \(phone)\n"
     }
     
     
@@ -149,7 +150,7 @@ class Restaurant: NSObject, NSCoding, Printable  {
                     
                     m.valid_until = date
                 }
-                
+
                 switch type! {
                 case "drink":
                     drinkResult.append(m)

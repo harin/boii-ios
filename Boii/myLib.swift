@@ -8,6 +8,11 @@
 
 import Foundation
 
+let domain = "http://192.168.1.49:3000"
+let menuPath = "/api/menus"
+let restaurantPath = "/api/restaurants"
+let orderPath = "/api/orders"
+
 func getRequest( urlString: String, callback:((NSData!, NSURLResponse!, NSError!, json: AnyObject?) -> Void)?){
     var request = NSMutableURLRequest(URL: NSURL( string: urlString )!)
     var session = NSURLSession.sharedSession()

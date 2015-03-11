@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1C4C6BDF406328825C74D79F /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0331B6EE5A568BDE35A2BB5D /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		CE00E5621AB068D90005B4E5 /* BeaconManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE00E5611AB068D90005B4E5 /* BeaconManager.swift */; };
+		CE00E5641AB06B930005B4E5 /* RestaurantShortcutBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE00E5631AB06B930005B4E5 /* RestaurantShortcutBarButtonItem.swift */; };
 		CE10C67F1A885CCC007CCA40 /* CartBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE10C67E1A885CCC007CCA40 /* CartBarButtonItem.swift */; };
 		CE158C431A8281AB00D73743 /* MenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE158C421A8281AB00D73743 /* MenuCollectionViewCell.swift */; };
 		CE17DFDF1A7A013A0066A5BA /* RestaurantTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE17DFDE1A7A013A0066A5BA /* RestaurantTableViewController.swift */; };
@@ -61,6 +63,8 @@
 /* Begin PBXFileReference section */
 		0331B6EE5A568BDE35A2BB5D /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		58086E8DCE6C4E9C8B573F92 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		CE00E5611AB068D90005B4E5 /* BeaconManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeaconManager.swift; sourceTree = "<group>"; };
+		CE00E5631AB06B930005B4E5 /* RestaurantShortcutBarButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantShortcutBarButtonItem.swift; sourceTree = "<group>"; };
 		CE10C67E1A885CCC007CCA40 /* CartBarButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartBarButtonItem.swift; sourceTree = "<group>"; };
 		CE158C421A8281AB00D73743 /* MenuCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuCollectionViewCell.swift; sourceTree = "<group>"; };
 		CE17DFDE1A7A013A0066A5BA /* RestaurantTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantTableViewController.swift; sourceTree = "<group>"; };
@@ -147,6 +151,7 @@
 		CE10C67B1A885C57007CCA40 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				CE00E5611AB068D90005B4E5 /* BeaconManager.swift */,
 				CE5EB77B1A9B0A44009DB456 /* AccountManager.swift */,
 				CE4A7BC51A9238E900400F83 /* ShoppingCartStore.swift */,
 				CE782E5F1A95989A000B3E15 /* RestraurantStore.swift */,
@@ -180,6 +185,7 @@
 				CE27DD041A64108C006CFDC9 /* LaunchScreen.xib */,
 				CE27DD021A64108C006CFDC9 /* Images.xcassets */,
 				CE10C67E1A885CCC007CCA40 /* CartBarButtonItem.swift */,
+				CE00E5631AB06B930005B4E5 /* RestaurantShortcutBarButtonItem.swift */,
 				CE158C421A8281AB00D73743 /* MenuCollectionViewCell.swift */,
 				CE430EF81A8C591100B5C7FC /* x-button.png */,
 				CE430EF01A8B0F1600B5C7FC /* UIView+IBCornerRadius.swift */,
@@ -456,6 +462,7 @@
 				CE6158A41A876A440038DB98 /* KLCPopup.m in Sources */,
 				CE907AE21A82569B00CAB9A5 /* DrinkCollectionViewController.swift in Sources */,
 				CE158C431A8281AB00D73743 /* MenuCollectionViewCell.swift in Sources */,
+				CE00E5621AB068D90005B4E5 /* BeaconManager.swift in Sources */,
 				CE27DCFE1A64108C006CFDC9 /* ViewController.swift in Sources */,
 				CE17DFDF1A7A013A0066A5BA /* RestaurantTableViewController.swift in Sources */,
 				CE430EF11A8B0F1600B5C7FC /* UIView+IBCornerRadius.swift in Sources */,
@@ -468,6 +475,7 @@
 				CE430EF41A8BAAE800B5C7FC /* CartViewController.swift in Sources */,
 				CE784B591A680D09003A4815 /* MenuTableViewController.swift in Sources */,
 				CE430EEB1A8B08FC00B5C7FC /* LoginViewController.swift in Sources */,
+				CE00E5641AB06B930005B4E5 /* RestaurantShortcutBarButtonItem.swift in Sources */,
 				CE455CEC1A9DC2FB007B8B96 /* myLib.swift in Sources */,
 				CE784B5D1A680E02003A4815 /* MenuItem.swift in Sources */,
 			);

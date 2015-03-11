@@ -33,9 +33,7 @@ class CartViewController: UITableViewController {
         orderCodeLabel.textAlignment = NSTextAlignment.Center
 
         headerView.addSubview(orderCodeLabel)
-        
         self.tableView.tableHeaderView = headerView
-        
         
         cartStore = ShoppingCartStore.sharedInstance
     }

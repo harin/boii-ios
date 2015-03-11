@@ -141,17 +141,38 @@ class DrinkCollectionViewController:
         }
         
         if let ID = self.restaurant?._id {
+            // Check if current cart is for current restaurant
             if ShoppingCartStore.sharedInstance.restaurant?._id == ID {
-            
-                if let order = selectedMenu? {
-                    ShoppingCartStore.sharedInstance.toOrder.append(order)
-                } else {
-                    println("failed to add to cart")
-                }
                 
-                if sender is UIView {
-                    sender.dismissPresentingPopup()
+                //Check if in region, if not disallow ordering
+                if BeaconManager.sharedInstance.closestBeacon != nil {
+                    if let order = selectedMenu? {
+                        ShoppingCartStore.sharedInstance.toOrder.append(order)
+                    } else {
+                        println("failed to add to cart")
+                    }
+                    
+                    if sender is UIView {
+                        sender.dismissPresentingPopup()
+                    }
+                } else {
+                    if sender is UIView {
+                        sender.dismissPresentingPopup()
+                    }
+                    
+                    var alert = UIAlertController(title: "Cannot Order", message: "You must be in the restaurant to order", preferredStyle: .Alert)
+                    
+ 
+                    var cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
+                        (aciton) -> Void in
+                    })
+                    
+                    alert.addAction(cancel)
+                    
+                    self.presentViewController(alert, animated: true, completion: nil)
+                    
                 }
+
             } else {
                 //ask to change restaurant
                 

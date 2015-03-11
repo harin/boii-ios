@@ -19,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         RestaurantStore.sharedInstance.fetchRestaurant()
+        BeaconManager.sharedInstance.start()
         
         return true
     }
