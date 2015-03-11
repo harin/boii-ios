@@ -159,8 +159,8 @@ class ShoppingCartStore {
         postOrder()
         
         //update local data
-//        self.ordered += self.toOrder
-//        self.toOrder = []
+        self.ordered += self.toOrder
+        self.toOrder = []
         
         
     }
