@@ -21,6 +21,7 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        AccountManager.sharedInstance.login("test@bob.com", password: "123456", callback: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -29,6 +30,31 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func loginAction(sender: AnyObject) {
+        let email = self.emailTextField.text
+        let password = self.passwordTextField.text
+        
+        println("LoginVC: Logging user in");
+        //perform some format check here
+        
+        
+        var hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        AccountManager.sharedInstance.login(email , password: password) {
+            (success) in
+            
+            println("callback called");
+            
+            dispatch_async(dispatch_get_main_queue(), {
+                hud.hide(true);
+                self.navigationController?.popViewControllerAnimated(true);
+            });
+        }
+        
+        //show some loading action.
+        
+        
+        //dismiss view controller if successful
+        
+        //else show why failed
         
     }
 

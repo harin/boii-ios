@@ -10,5 +10,6 @@
 #define Boii_Boii_Bridging_Header_h
 
 #import "KLCPopup.h"
+#import "MBProgressHUD.h"
 
 #endif

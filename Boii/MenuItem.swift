@@ -12,25 +12,17 @@ import UIKit
 class MenuItem: NSObject, Printable, NSCoding {
 //    var name: String
 //    var price: Float
-    var thumbnailImage: UIImage = UIImage(named:"starbuck_coffee.jpg")!
+    var thumbnailImage: UIImage {
+        if image != nil {
+            return image!
+        } else {
+            return defaultImage
+        }
+    }
     var originalImageURL: UIImage?
+    var image: UIImage?
+    var defaultImage:UIImage = UIImage(named:"You-Still-Drink-Soda.jpg")!
     var isAvailable: Bool = true
-
-//    var validUntil: NSDate?
-//    var category: String?
-//    var ingredient: [String]?
-//    
-//    init(name:String, price:Float){
-//        self.name = name
-//        self.price = price
-//        self.isAvailable = true
-//        self.isPromotion = false
-//        self.thumbnailImage = UIImage(named:"starbuck_coffee.jpg")
-//    }
-//    
-//    var description: String {
-//        return "Menu { name: \(name) , price: \(price) }"
-//    }
     
     var _id: String
     var price: Double
@@ -62,7 +54,6 @@ class MenuItem: NSObject, Printable, NSCoding {
         aCoder.encodeObject(type, forKey: "type")
     }
     required init(coder aDecoder: NSCoder) {
-        //        self.myCourses  = aDecoder.decodeObjectForKey("myCourses") as? Dictionary
 
         self._id = aDecoder.decodeObjectForKey("_id") as String!
         self.price = aDecoder.decodeDoubleForKey("price") as Double!

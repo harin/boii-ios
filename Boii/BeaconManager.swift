@@ -49,7 +49,7 @@ class BeaconManager: NSObject, CLLocationManagerDelegate {
         println("Initializing BeaconManager")
         locationManager.delegate = self
         
-        if CLLocationManager.authorizationStatus() != CLAuthorizationStatus.Authorized {
+        if CLLocationManager.authorizationStatus() != CLAuthorizationStatus.AuthorizedAlways {
             locationManager.requestAlwaysAuthorization()
         }
         
@@ -87,7 +87,7 @@ class BeaconManager: NSObject, CLLocationManagerDelegate {
     }
     
     func locationManager(manager: CLLocationManager!, didRangeBeacons beacons: [AnyObject]!, inRegion region: CLBeaconRegion!) {
-//        println("Entered: didRangeBeacons: \(beacons)")
+        println("Entered: didRangeBeacons: \(beacons)")
 
         if beacons.count > 0 {
         } else {

@@ -54,7 +54,7 @@ class MenuCollectionViewCell: UICollectionViewCell {
         img.drawAtPoint(CGPointMake(0, 0))
         
         let colorSpace = CGColorSpaceCreateDeviceRGB()
-        let locations:[CGFloat] = [0.50, 1.0]
+        let locations:[CGFloat] = [0.25, 1.0]
         //1 = opaque
         //0 = transparent
         let bottom = UIColor(red: 0, green: 0, blue: 0, alpha: 1).CGColor
@@ -63,9 +63,11 @@ class MenuCollectionViewCell: UICollectionViewCell {
         let gradient = CGGradientCreateWithColors(colorSpace,
             [top, bottom], locations)
         
-        
-        let startPoint = CGPointMake(img.size.width/2, 0)
-        let endPoint = CGPointMake(img.size.width/2, img.size.height)
+        //coordinate inverted
+        //bottom of image
+        let startPoint = CGPointMake(img.size.width/2, -img.size.height)
+        //top of image
+        let endPoint = CGPointMake(img.size.width/2, img.size.height * 2)
         
         CGContextDrawLinearGradient(context, gradient, startPoint, endPoint, 0)
         

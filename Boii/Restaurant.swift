@@ -27,16 +27,18 @@ class Restaurant: NSObject, NSCoding, Printable  {
     var phone: [tel] = []
     var thumbnailImage: UIImage = UIImage(named:"toofast-375w.jpg")!
 
-    
     var drinkList: [MenuItem]
-    
     var foodList: [MenuItem]
     
-    
+    var requireIBeacon: Bool = false;
+    var lastFetch: NSDate = NSDate(timeIntervalSince1970: 0);
+    var sinceLastFetch: Double {
+        return  NSDate().timeIntervalSinceDate(self.lastFetch);
+    }
     
     var drinks: [MenuItem] {
         get {
-            if drinkList.count == 0 {
+            if drinkList.count == 0 && self.sinceLastFetch > 300{
                 fetchMenu()
             }
             return drinkList
@@ -57,7 +59,12 @@ class Restaurant: NSObject, NSCoding, Printable  {
         
         super.init()
     }
+    override var description: String {
+        return "Restaurant { _id: \(_id), name: \(name), address: \(address), beaconMajor: \(beaconMajor), beaconMinor: \(beaconMinor),email: \(email), phone: \(phone)\n"
+    }
     
+    
+    // MARK: NSCoding
     required init(coder aDecoder: NSCoder) {
         //        self.myCourses  = aDecoder.decodeObjectForKey("myCourses") as? Dictionary
         
@@ -69,7 +76,6 @@ class Restaurant: NSObject, NSCoding, Printable  {
         super.init()
         
     }
-    
     func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeObject(_id, forKey: "_id")
         aCoder.encodeObject(name, forKey: "name")
@@ -79,32 +85,34 @@ class Restaurant: NSObject, NSCoding, Printable  {
 
     
     
-    override var description: String {
-        return "Restaurant { _id: \(_id), name: \(name), address: \(address), beaconMajor: \(beaconMajor), beaconMinor: \(beaconMinor),email: \(email), phone: \(phone)\n"
-    }
-    
+    // MARK: API accessing methods
     
     func fetchMenu() {
-        println("Restaurant (\(self.name)): fetching menus")
-        let path = domain + restaurantPath + "/\(self._id)/menus"
-        println("Restaurant: Fetching Menu from path = \(path)")
         
-        getRequest(path) {
-            (data, session, error, json) -> Void in
+        //Only fetch if more than 5 minutes since last fetch;
+        if (self.sinceLastFetch > 300) {
+            self.lastFetch = NSDate();
+            println("Restaurant (\(self.name)): fetching menus")
+            let path = domain + restaurantPath + "/\(self._id)/menus"
+            println("Restaurant: Fetching Menu from path = \(path)")
             
-            if json != nil {
-                self.parseMenuJson(json!)
+            getRequest(path) {
+                (data, session, error, json) -> Void in
+                
+                if json != nil {
+                    self.parseMenuJson(json!)
+                }
             }
-            
         }
         
+
     }
     
     func parseMenuJson( jsonObject: AnyObject){
         
         let json = JSON( jsonObject )
         
-        println(json)
+//        println(json)
         
         let data = json["data"] // array of menu
         println(data)
@@ -119,7 +127,7 @@ class Restaurant: NSObject, NSCoding, Printable  {
         
         //parse each menu
         for (index: String, menu: JSON) in data {
-            
+            println(menu);
             let _id         = menu["_id"].string
             let name        = menu["name"].string
             let price       = menu["price"].number?.doubleValue

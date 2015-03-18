@@ -26,7 +26,7 @@ class DrinkCollectionViewController:
         // Do any additional setup after loading the view.
         
         let barButton = CartBarButtonItem.sharedInstance
-        barButton.isLoggedIn = true
+
         
         self.tabBarController?.navigationItem.rightBarButtonItem = barButton
         
@@ -145,7 +145,7 @@ class DrinkCollectionViewController:
             if ShoppingCartStore.sharedInstance.restaurant?._id == ID {
                 
                 //Check if in region, if not disallow ordering
-                if BeaconManager.sharedInstance.closestBeacon != nil {
+                if BeaconManager.sharedInstance.closestBeacon != nil || self.restaurant!.requireIBeacon == false {
                     if let order = selectedMenu? {
                         ShoppingCartStore.sharedInstance.toOrder.append(order)
                     } else {

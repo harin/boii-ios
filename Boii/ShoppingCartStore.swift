@@ -59,7 +59,7 @@ struct order{
     var orderItems: [orderItem]
 }
 
-class ShoppingCartStore {
+class ShoppingCartStore: NSObject {
 
     var restaurant: Restaurant? // current restaurant
     var ordered: [MenuItem] {
@@ -104,9 +104,12 @@ class ShoppingCartStore {
     //properties
 
     //methods
-    init(){
+    override init(){
+        
         self.ordered = []
         self.toOrder = []
+        
+        super.init()
     }
     
     func switchToRestaurant(rest: Restaurant){
@@ -199,6 +202,8 @@ class ShoppingCartStore {
         
         var task = session.dataTaskWithRequest(request) { (data, response, error) -> Void in
             println("Response: \(response)")
+            //Set Order Code
+            
         }
         
         task.resume()

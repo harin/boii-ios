@@ -28,7 +28,7 @@ class RestaurantShortcutBarButtonItem: UIBarButtonItem {
         super.init()
         
         shortcutButton.setTitle("", forState: UIControlState.Normal)
-        shortcutButton.frame = CGRectMake(0, 0, 20, 20)
+        shortcutButton.frame = CGRectMake(0, 0, 70, 20)
         shortcutButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
         shortcutButton.setTitleColor(UIColor.redColor(), forState: UIControlState.Highlighted)
         shortcutButton.addTarget(self, action: "shortcutButtonAction:", forControlEvents: UIControlEvents.TouchUpInside)

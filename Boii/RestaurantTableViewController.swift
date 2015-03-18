@@ -35,8 +35,7 @@ class RestaurantTableViewController: UITableViewController {
         
         // Set right bar button
         let barButton = CartBarButtonItem.sharedInstance
-        println("RestaurantTable: isLoggedIn = \(barButton.isLoggedIn)" )
-        barButton.viewController = self
+
         self.navigationItem.rightBarButtonItem = barButton
         
         // Set left bar button
@@ -44,6 +43,15 @@ class RestaurantTableViewController: UITableViewController {
         leftBarButton.viewController = self
         self.navigationItem.leftBarButtonItem = leftBarButton
         
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        // Need to re-set viewcontroller of barbutton when view appear.
+        let barButton = self.navigationItem.rightBarButtonItem as CartBarButtonItem?
+        if barButton != nil {
+            barButton?.viewController = self
+        }
+
     }
     
     func updateRestaurant(sender: AnyObject?){
@@ -57,9 +65,7 @@ class RestaurantTableViewController: UITableViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
 //        let barButton = self.navigationItem.rightBarButtonItem as CartBarButtonItem
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -114,8 +120,6 @@ class RestaurantTableViewController: UITableViewController {
             defaultImg = UIImage(CGImage: cgImg)
             
             backgroundImgView.image = defaultImg
-    
-            
         }
 
         // Configure the cell...

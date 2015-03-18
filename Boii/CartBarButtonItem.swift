@@ -8,11 +8,14 @@
 
 import UIKit
 
+private var myContext = 0
+
 class CartBarButtonItem: UIBarButtonItem {
-    var isLoggedIn: Bool = false
     var viewController: UIViewController?
     let cartButton = UIButton.buttonWithType(UIButtonType.Custom) as UIButton
     let cartStore: ShoppingCartStore = ShoppingCartStore.sharedInstance
+    let accountManager: AccountManager = AccountManager.sharedInstance
+
 
     class var sharedInstance: CartBarButtonItem {
         struct Static {
@@ -30,17 +33,25 @@ class CartBarButtonItem: UIBarButtonItem {
     override init() {
         super.init()
         
-        cartButton.setTitle("(\(cartStore.totalOrder))", forState: UIControlState.Normal)
-        cartButton.frame = CGRectMake(0, 0, 20, 20)
+        cartButton.setTitle("Login", forState: UIControlState.Normal)
+        cartButton.frame = CGRectMake(0, 0, 60, 20)
         cartButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
         cartButton.setTitleColor(UIColor.redColor(), forState: UIControlState.Highlighted)
         cartButton.addTarget(self, action: "cartButtonAction:", forControlEvents: UIControlEvents.TouchUpInside)
+
         
-//        self.viewController = vc
+
         
         self.customView = cartButton
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "cartUpdate:", name: "cartUpdateNotification", object: nil)
+        
+        //Observe authToken of accountManager
+        accountManager.addObserver(self, forKeyPath: "authToken", options: .New, context: &myContext)
+    }
+    
+    deinit{
+        accountManager.removeObserver(self, forKeyPath: "authToken", context: &myContext)
     }
     
     required init(coder aDecoder: NSCoder){
@@ -48,7 +59,7 @@ class CartBarButtonItem: UIBarButtonItem {
     }
     
     func cartButtonAction(sender: AnyObject){
-        if isLoggedIn {
+        if AccountManager.sharedInstance.isLoggedIn {
             // show cart
             let storyboard = UIStoryboard(name: "CartStoryboard", bundle: nil) as UIStoryboard
             let loginController = storyboard.instantiateViewControllerWithIdentifier("CartViewController") as CartViewController
@@ -65,6 +76,28 @@ class CartBarButtonItem: UIBarButtonItem {
     
     func cartUpdate( sender: AnyObject? ){
         cartButton.setTitle("(\(cartStore.totalOrder))", forState: UIControlState.Normal)
+    }
+    
+    func setTitle( title: String){
+        cartButton.setTitle( title, forState: .Normal)
+    }
+    
+    // MARK: KVO
+    override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
+        println("CartBarButtonItem: ObserveValueForKey:\(keyPath)")
+        if context == &myContext {
+            dispatch_async(dispatch_get_main_queue()){
+                if self.accountManager.isLoggedIn {
+                    self.setTitle("cart(\(self.cartStore.totalOrder)")
+                } else {
+                    self.setTitle("Login")
+                }
+            }
+
+
+        } else {
+            super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)
+        }
     }
     
 }
