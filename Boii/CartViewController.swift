@@ -10,10 +10,11 @@ import UIKit
 
 private let placeOrderCell = "PlaceOrderCell"
 private let orderItemCell = "OrderItemCell"
+private var myContext = 0
 
 class CartViewController: UITableViewController {
-    var cartStore: ShoppingCartStore?
-    
+    var cartStore: ShoppingCartStore = ShoppingCartStore.sharedInstance
+    var orderCodeLabel = UILabel()
         
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -25,8 +26,8 @@ class CartViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
         let headerView = UIView(frame: CGRectMake(0, 0, self.view.bounds.width, 30.0 ))
-        let orderCodeLabel = UILabel(frame: headerView.bounds) as UILabel
-        orderCodeLabel.text = "Order Code 857"
+        orderCodeLabel.frame = headerView.frame
+        orderCodeLabel.text = ""
         orderCodeLabel.backgroundColor = UIColor.blackColor()
         orderCodeLabel.textColor = UIColor.whiteColor()
         orderCodeLabel.tag = 500
@@ -35,7 +36,23 @@ class CartViewController: UITableViewController {
         headerView.addSubview(orderCodeLabel)
         self.tableView.tableHeaderView = headerView
         
-        cartStore = ShoppingCartStore.sharedInstance
+        self.navigationItem.rightBarButtonItem = LogoutBarButtonItem()
+
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear( animated)
+        cartStore.addObserver(self, forKeyPath: "order_code", options: .New, context: &myContext)
+        AccountManager.sharedInstance.addObserver(self, forKeyPath: "authToken", options: .New, context: &myContext)
+        if let code = self.cartStore.order_code {
+            self.orderCodeLabel.text = "Order Code \(code)"
+        }
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        cartStore.removeObserver(self, forKeyPath: "order_code")
+        AccountManager.sharedInstance.removeObserver(self, forKeyPath: "authToken")
     }
 
     override func didReceiveMemoryWarning() {
@@ -43,6 +60,31 @@ class CartViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    
+    override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
+        if context == &myContext {
+            switch keyPath{
+            case "order_code":
+                if let code = self.cartStore.order_code {
+                    dispatch_async(dispatch_get_main_queue()){
+                        if code != "" {
+                            self.orderCodeLabel.text = "Order Code \(code)"
+                        } else {
+                            self.orderCodeLabel.text = ""
+                        }
+                    }
+                }
+            case "authToken":
+                self.navigationController?.popViewControllerAnimated(true)
+            default:
+                println("CartView: Unknown keyPath observed")
+            }
+            
+        } else {
+            super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)
+        }
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -60,18 +102,10 @@ class CartViewController: UITableViewController {
             //Place Order
             nRow = 1
         } else if section == 1 {
-            if let ordered = self.cartStore?.ordered{
-                nRow = ordered.count
-            } else {
-                nRow = 0
-            }
-        } else {
-            if let toOrder = self.cartStore?.toOrder{
-                nRow = toOrder.count
-            } else {
-                nRow = 0
-            }
+            nRow = self.cartStore.ordered.count
 
+        } else {
+            nRow = self.cartStore.toOrder.count
         }
         
         return nRow
@@ -90,10 +124,10 @@ class CartViewController: UITableViewController {
             let nameLabel = cell.viewWithTag(300) as UILabel
             let priceLabel = cell.viewWithTag(301) as UILabel
             
-            if let ordered = self.cartStore?.ordered {
+            let ordered = self.cartStore.ordered
                 nameLabel.text = ordered[indexPath.row].name
                 priceLabel.text = "$ \(ordered[indexPath.row].price)"
-            }
+            
             
         } else {
             cell = tableView.dequeueReusableCellWithIdentifier("UnorderedItemCell", forIndexPath: indexPath) as UITableViewCell
@@ -101,10 +135,10 @@ class CartViewController: UITableViewController {
             let nameLabel = cell.viewWithTag(300) as UILabel
             let priceLabel = cell.viewWithTag(301) as UILabel
             
-            if let toOrder = self.cartStore?.toOrder {
+            let toOrder = self.cartStore.toOrder
                 nameLabel.text = toOrder[indexPath.row].name
                 priceLabel.text = "$ \(toOrder[indexPath.row].price)"
-            }
+            
         }
 
         return cell
@@ -114,7 +148,7 @@ class CartViewController: UITableViewController {
         
         if let clickedCell = sender.superview??.superview as? UITableViewCell {
             if let clickedPath = self.tableView.indexPathForCell(clickedCell) {
-                cartStore?.toOrder.removeAtIndex(clickedPath.row)
+                cartStore.toOrder.removeAtIndex(clickedPath.row)
                 self.tableView.reloadData()
             }
         }
@@ -130,8 +164,8 @@ class CartViewController: UITableViewController {
     }
     
     func sendOrder() {
-        if self.cartStore?.toOrder.count > 0 {
-            self.cartStore?.sendOrder()
+        if self.cartStore.toOrder.count > 0 {
+            self.cartStore.sendOrder()
             self.tableView.reloadData()
         }
         

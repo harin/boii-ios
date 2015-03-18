@@ -39,9 +39,6 @@ class CartBarButtonItem: UIBarButtonItem {
         cartButton.setTitleColor(UIColor.redColor(), forState: UIControlState.Highlighted)
         cartButton.addTarget(self, action: "cartButtonAction:", forControlEvents: UIControlEvents.TouchUpInside)
 
-        
-
-        
         self.customView = cartButton
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "cartUpdate:", name: "cartUpdateNotification", object: nil)

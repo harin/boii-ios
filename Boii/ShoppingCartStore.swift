@@ -62,6 +62,8 @@ struct order{
 class ShoppingCartStore: NSObject {
 
     var restaurant: Restaurant? // current restaurant
+    var accountManager: AccountManager = AccountManager.sharedInstance
+    dynamic var order_code: String?
     var ordered: [MenuItem] {
         didSet {
             notifyCartUpdate()
@@ -137,14 +139,12 @@ class ShoppingCartStore: NSObject {
             self.restaurant = rest
             self.ordered = []
             self.toOrder = []
-            
         }
         
         let noAction = UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel) {
             (action) in
             
         }
-        
         alertController.addAction(yesAction)
         alertController.addAction(noAction)
         
@@ -166,7 +166,7 @@ class ShoppingCartStore: NSObject {
         
     }
     
-    func dataForOrder() -> AnyObject{
+    func dataForOrder(user_id: String) -> AnyObject{
         var orderItems: [AnyObject] = []
         
         for menu in toOrder{
@@ -178,8 +178,8 @@ class ShoppingCartStore: NSObject {
         }
         
         var data: AnyObject = [
-            "customer_id": "1234",
-            "restaurant_id": "1234",
+            "customer_id": "\(user_id)",
+            "restaurant_id": "\(self.restaurant!._id)",
             "orderItems": orderItems
         ]
         println("Cart: data to post= \(data)")
@@ -187,34 +187,43 @@ class ShoppingCartStore: NSObject {
     }
     
     func postOrder() {
-        var request = NSMutableURLRequest( URL: NSURL(string: domain + orderPath)!)
-        var session = NSURLSession.sharedSession()
-        request.HTTPMethod = "POST"
-        
-        var params: AnyObject = dataForOrder()
-        var jsonData = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: nil)
-        request.HTTPBody = jsonData
-        
-//        println(jsonData)
-        
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        
-        var task = session.dataTaskWithRequest(request) { (data, response, error) -> Void in
-            println("Response: \(response)")
-            //Set Order Code
-            
+        if let token = accountManager.authToken {
+            if let user_id = accountManager.userId {
+                if let rest_id = restaurant?._id {
+                    var request = NSMutableURLRequest( URL: NSURL(string: domain + orderPath)!)
+                    var session = NSURLSession.sharedSession()
+                    request.HTTPMethod = "POST"
+                    let authToken = AccountManager.sharedInstance.authToken
+                    
+                    var params: AnyObject = dataForOrder(user_id)
+                    var jsonData = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: nil)
+                    request.HTTPBody = jsonData
+                    
+                    request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                    request.addValue("application/json", forHTTPHeaderField: "Accept")
+                    request.addValue(token, forHTTPHeaderField: "X-Auth-Token")
+                    request.addValue(user_id, forHTTPHeaderField: "X-User-Id")
+
+                    
+                        var task = session.dataTaskWithRequest(request) { (rawData, response, error) -> Void in
+                            println("Response: \(response)")
+                            println("Data: \(NSString(data: rawData, encoding: NSUTF8StringEncoding))")
+                            //Set Order Code
+                            if let data = rawData {
+                                var json = JSON(data: data)
+                                if let code = json["order_code"].string {
+                                    self.order_code = code
+                                } else {
+                                    println("Cart: ERROR - \(json)")
+                                }
+                            }
+                        }
+                        
+                        task.resume()
+                }
+            }
         }
         
-        task.resume()
     }
     
 }
-
-/*
-Handing Cart when user want to switch restaurant they're in.
-
-
-
-
-*/

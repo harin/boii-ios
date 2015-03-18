@@ -74,6 +74,46 @@ class AccountManager: NSObject {
         task.resume()
     }
     
+    func logout(){
+
+        if let token = self.authToken{
+            if let user_id = self.userId{
+                var request = NSMutableURLRequest( URL: NSURL(string: domain + logoutPath)!)
+                var session = NSURLSession.sharedSession()
+                request.HTTPMethod = "GET"
+            
+                request.addValue(token, forHTTPHeaderField: "X-Auth-Token")
+                request.addValue(user_id, forHTTPHeaderField: "X-User-Id")
+                
+                var task = session.dataTaskWithRequest(request) { (rawData, response, error) -> Void in
+                    println("Response: \(response)")
+                    println("Data: \(NSString(data: rawData, encoding: NSUTF8StringEncoding))")
+                    //Set Order Code
+                    if let data = rawData {
+                        var json = JSON(data: data)
+                        if let status = json["status"].string {
+                            if status == "success" {
+                                println("You are logged out")
+
+                            } else {
+                                println("Cart: ERROR - \(status)")
+                            }
+                        } else {
+                            println("Cart: ERROR - \(json)")
+        
+
+                        }
+                    }
+                }
+                task.resume()
+            }
+        }
+        self.userId = nil
+        self.authToken = nil
+        
+
+    }
+    
     
     
 }

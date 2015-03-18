@@ -28,6 +28,7 @@
 		CE430EF71A8BAB5600B5C7FC /* CartStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE430EF61A8BAB5600B5C7FC /* CartStoryboard.storyboard */; };
 		CE430EF91A8C591100B5C7FC /* x-button.png in Resources */ = {isa = PBXBuildFile; fileRef = CE430EF81A8C591100B5C7FC /* x-button.png */; };
 		CE430EFB1A8CA10900B5C7FC /* OrderReadyNotificationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE430EFA1A8CA10900B5C7FC /* OrderReadyNotificationView.xib */; };
+		CE4441F61AB986D50045C99A /* LogoutBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4441F51AB986D50045C99A /* LogoutBarButtonItem.swift */; };
 		CE455CEC1A9DC2FB007B8B96 /* myLib.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE455CEB1A9DC2FB007B8B96 /* myLib.swift */; };
 		CE4A7BB81A91EB0400400F83 /* MenuDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE4A7BB71A91EB0400400F83 /* MenuDetailView.xib */; };
 		CE4A7BBA1A91F57B00400F83 /* UIImage+Crop.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4A7BB91A91F57B00400F83 /* UIImage+Crop.swift */; };
@@ -91,6 +92,7 @@
 		CE430EF61A8BAB5600B5C7FC /* CartStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CartStoryboard.storyboard; sourceTree = "<group>"; };
 		CE430EF81A8C591100B5C7FC /* x-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "x-button.png"; sourceTree = "<group>"; };
 		CE430EFA1A8CA10900B5C7FC /* OrderReadyNotificationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderReadyNotificationView.xib; sourceTree = "<group>"; };
+		CE4441F51AB986D50045C99A /* LogoutBarButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoutBarButtonItem.swift; sourceTree = "<group>"; };
 		CE455CEB1A9DC2FB007B8B96 /* myLib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = myLib.swift; sourceTree = "<group>"; };
 		CE4A7BB71A91EB0400400F83 /* MenuDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuDetailView.xib; sourceTree = "<group>"; };
 		CE4A7BB91A91F57B00400F83 /* UIImage+Crop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Crop.swift"; sourceTree = "<group>"; };
@@ -188,13 +190,12 @@
 		CE10C67D1A885C7D007CCA40 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				CE4441F41AB986BA0045C99A /* BarButtonItem */,
 				CE27DCFF1A64108C006CFDC9 /* Main.storyboard */,
 				CE430EEE1A8B0BFE00B5C7FC /* LoginStoryboard.storyboard */,
 				CE430EF61A8BAB5600B5C7FC /* CartStoryboard.storyboard */,
 				CE27DD041A64108C006CFDC9 /* LaunchScreen.xib */,
 				CE27DD021A64108C006CFDC9 /* Images.xcassets */,
-				CE10C67E1A885CCC007CCA40 /* CartBarButtonItem.swift */,
-				CE00E5631AB06B930005B4E5 /* RestaurantShortcutBarButtonItem.swift */,
 				CE158C421A8281AB00D73743 /* MenuCollectionViewCell.swift */,
 				CE430EF81A8C591100B5C7FC /* x-button.png */,
 				CE430EF01A8B0F1600B5C7FC /* UIView+IBCornerRadius.swift */,
@@ -280,6 +281,16 @@
 				CE27DD101A64108C006CFDC9 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		CE4441F41AB986BA0045C99A /* BarButtonItem */ = {
+			isa = PBXGroup;
+			children = (
+				CE10C67E1A885CCC007CCA40 /* CartBarButtonItem.swift */,
+				CE00E5631AB06B930005B4E5 /* RestaurantShortcutBarButtonItem.swift */,
+				CE4441F51AB986D50045C99A /* LogoutBarButtonItem.swift */,
+			);
+			name = BarButtonItem;
 			sourceTree = "<group>";
 		};
 		CE455CED1A9E05FE007B8B96 /* Trash */ = {
@@ -495,6 +506,7 @@
 				CE27DCFC1A64108C006CFDC9 /* AppDelegate.swift in Sources */,
 				CE4A7BC61A9238E900400F83 /* ShoppingCartStore.swift in Sources */,
 				CEE0D3681A9888E800CAA53D /* MenuTabBarController.swift in Sources */,
+				CE4441F61AB986D50045C99A /* LogoutBarButtonItem.swift in Sources */,
 				CE430EED1A8B094400B5C7FC /* RegisterViewController.swift in Sources */,
 				CE784B5F1A681292003A4815 /* SwiftyJSON.swift in Sources */,
 				CE782E5E1A923CA4000B3E15 /* Restaurant.swift in Sources */,

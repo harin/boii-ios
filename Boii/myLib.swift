@@ -12,6 +12,8 @@ let domain = "http://localhost:3000"
 let menuPath = "/api/menus"
 let restaurantPath = "/api/restaurants"
 let orderPath = "/api/orders"
+let loginPath = "/api/login"
+let logoutPath = "/api/logout"
 
 func getRequest( urlString: String, callback:((NSData!, NSURLResponse!, NSError!, json: AnyObject?) -> Void)?){
     var request = NSMutableURLRequest(URL: NSURL( string: urlString )!)
