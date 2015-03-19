@@ -57,9 +57,10 @@ class RestaurantTableViewController: UITableViewController {
     func updateRestaurant(sender: AnyObject?){
         dispatch_async(dispatch_get_main_queue(), {
             // DO SOMETHING ON THE MAINTHREAD
-            self.tableView.reloadData()
+            
             println("RestaurantTVC: updating restaurants \(NSThread.currentThread())")
             self.restaurants = RestaurantStore.sharedInstance.restaurants
+            self.tableView.reloadData()
         })
     }
     

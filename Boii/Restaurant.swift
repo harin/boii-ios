@@ -27,8 +27,8 @@ class Restaurant: NSObject, NSCoding, Printable  {
     var phone: [tel] = []
     var thumbnailImage: UIImage = UIImage(named:"toofast-375w.jpg")!
 
-    var drinkList: [MenuItem]
-    var foodList: [MenuItem]
+    private var drinkList: [MenuItem]
+    private var foodList: [MenuItem]
     
     var requireIBeacon: Bool = false;
     var lastFetch: NSDate = NSDate(timeIntervalSince1970: 0);

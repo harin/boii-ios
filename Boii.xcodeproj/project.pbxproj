@@ -29,6 +29,8 @@
 		CE430EF91A8C591100B5C7FC /* x-button.png in Resources */ = {isa = PBXBuildFile; fileRef = CE430EF81A8C591100B5C7FC /* x-button.png */; };
 		CE430EFB1A8CA10900B5C7FC /* OrderReadyNotificationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE430EFA1A8CA10900B5C7FC /* OrderReadyNotificationView.xib */; };
 		CE4441F61AB986D50045C99A /* LogoutBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4441F51AB986D50045C99A /* LogoutBarButtonItem.swift */; };
+		CE4441F91ABAAAC20045C99A /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4441F81ABAAAC20045C99A /* SwiftyJSON.swift */; };
+		CE4441FB1ABAAB7D0045C99A /* FoodCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4441FA1ABAAB7D0045C99A /* FoodCollectionViewController.swift */; };
 		CE455CEC1A9DC2FB007B8B96 /* myLib.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE455CEB1A9DC2FB007B8B96 /* myLib.swift */; };
 		CE4A7BB81A91EB0400400F83 /* MenuDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE4A7BB71A91EB0400400F83 /* MenuDetailView.xib */; };
 		CE4A7BBA1A91F57B00400F83 /* UIImage+Crop.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4A7BB91A91F57B00400F83 /* UIImage+Crop.swift */; };
@@ -47,7 +49,6 @@
 		CE784B591A680D09003A4815 /* MenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE784B581A680D09003A4815 /* MenuTableViewController.swift */; };
 		CE784B5B1A680DF7003A4815 /* MenuStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE784B5A1A680DF7003A4815 /* MenuStore.swift */; };
 		CE784B5D1A680E02003A4815 /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE784B5C1A680E02003A4815 /* MenuItem.swift */; };
-		CE784B5F1A681292003A4815 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE784B5E1A681292003A4815 /* SwiftyJSON.swift */; };
 		CE907ADE1A81DE1100CAB9A5 /* toofast-375w@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE907ADD1A81DE1100CAB9A5 /* toofast-375w@2x.jpg */; };
 		CE907AE21A82569B00CAB9A5 /* DrinkCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE907AE11A82569B00CAB9A5 /* DrinkCollectionViewController.swift */; };
 		CE907AE51A826CD400CAB9A5 /* starbuck_coffee@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE907AE31A826CD400CAB9A5 /* starbuck_coffee@2x.jpg */; };
@@ -93,6 +94,8 @@
 		CE430EF81A8C591100B5C7FC /* x-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "x-button.png"; sourceTree = "<group>"; };
 		CE430EFA1A8CA10900B5C7FC /* OrderReadyNotificationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderReadyNotificationView.xib; sourceTree = "<group>"; };
 		CE4441F51AB986D50045C99A /* LogoutBarButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoutBarButtonItem.swift; sourceTree = "<group>"; };
+		CE4441F81ABAAAC20045C99A /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
+		CE4441FA1ABAAB7D0045C99A /* FoodCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodCollectionViewController.swift; sourceTree = "<group>"; };
 		CE455CEB1A9DC2FB007B8B96 /* myLib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = myLib.swift; sourceTree = "<group>"; };
 		CE4A7BB71A91EB0400400F83 /* MenuDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuDetailView.xib; sourceTree = "<group>"; };
 		CE4A7BB91A91F57B00400F83 /* UIImage+Crop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Crop.swift"; sourceTree = "<group>"; };
@@ -114,7 +117,6 @@
 		CE784B581A680D09003A4815 /* MenuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuTableViewController.swift; sourceTree = "<group>"; };
 		CE784B5A1A680DF7003A4815 /* MenuStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuStore.swift; sourceTree = "<group>"; };
 		CE784B5C1A680E02003A4815 /* MenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuItem.swift; sourceTree = "<group>"; };
-		CE784B5E1A681292003A4815 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftyJSON.swift; path = ../SwiftyJSON.swift; sourceTree = "<group>"; };
 		CE907ADD1A81DE1100CAB9A5 /* toofast-375w@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "toofast-375w@2x.jpg"; sourceTree = "<group>"; };
 		CE907AE11A82569B00CAB9A5 /* DrinkCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrinkCollectionViewController.swift; sourceTree = "<group>"; };
 		CE907AE31A826CD400CAB9A5 /* starbuck_coffee@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "starbuck_coffee@2x.jpg"; sourceTree = "<group>"; };
@@ -176,11 +178,11 @@
 		CE10C67C1A885C66007CCA40 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				CE27DCFB1A64108C006CFDC9 /* AppDelegate.swift */,
 				CE430EF21A8BAAE800B5C7FC /* CartViewController.swift */,
 				CE17DFDE1A7A013A0066A5BA /* RestaurantTableViewController.swift */,
 				CEE0D3671A9888E800CAA53D /* MenuTabBarController.swift */,
 				CE907AE11A82569B00CAB9A5 /* DrinkCollectionViewController.swift */,
+				CE4441FA1ABAAB7D0045C99A /* FoodCollectionViewController.swift */,
 				CE430EEA1A8B08FC00B5C7FC /* LoginViewController.swift */,
 				CE430EEC1A8B094400B5C7FC /* RegisterViewController.swift */,
 			);
@@ -195,13 +197,10 @@
 				CE430EEE1A8B0BFE00B5C7FC /* LoginStoryboard.storyboard */,
 				CE430EF61A8BAB5600B5C7FC /* CartStoryboard.storyboard */,
 				CE27DD041A64108C006CFDC9 /* LaunchScreen.xib */,
-				CE27DD021A64108C006CFDC9 /* Images.xcassets */,
-				CE158C421A8281AB00D73743 /* MenuCollectionViewCell.swift */,
-				CE430EF81A8C591100B5C7FC /* x-button.png */,
-				CE430EF01A8B0F1600B5C7FC /* UIView+IBCornerRadius.swift */,
-				CE4A7BB91A91F57B00400F83 /* UIImage+Crop.swift */,
 				CE430EFA1A8CA10900B5C7FC /* OrderReadyNotificationView.xib */,
 				CE4A7BB71A91EB0400400F83 /* MenuDetailView.xib */,
+				CE27DD021A64108C006CFDC9 /* Images.xcassets */,
+				CE158C421A8281AB00D73743 /* MenuCollectionViewCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -209,6 +208,7 @@
 		CE17DFE01A7A0A050066A5BA /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				CE430EF81A8C591100B5C7FC /* x-button.png */,
 				CE4A7BC11A92094900400F83 /* boii-drinks-icon@2x.png */,
 				CE907AE31A826CD400CAB9A5 /* starbuck_coffee@2x.jpg */,
 				CE75AB321AB8959200599179 /* You-Still-Drink-Soda@3x.jpg */,
@@ -243,6 +243,8 @@
 		CE27DCF81A64108C006CFDC9 /* Boii */ = {
 			isa = PBXGroup;
 			children = (
+				CE27DCFB1A64108C006CFDC9 /* AppDelegate.swift */,
+				CE4441F71ABAAA780045C99A /* Libraries */,
 				CE455CED1A9E05FE007B8B96 /* Trash */,
 				CE10C67B1A885C57007CCA40 /* Model */,
 				CE10C67D1A885C7D007CCA40 /* View */,
@@ -256,10 +258,10 @@
 		CE27DCF91A64108C006CFDC9 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				CE4441F81ABAAAC20045C99A /* SwiftyJSON.swift */,
 				CE75AB341AB93EE200599179 /* MBProgressHUD */,
 				CE6158A11A876A440038DB98 /* KLCPopup */,
 				CE61589F1A8768FE0038DB98 /* Boii-Bridging-Header.h */,
-				CE784B5E1A681292003A4815 /* SwiftyJSON.swift */,
 				CE27DCFA1A64108C006CFDC9 /* Info.plist */,
 				CE6158A01A8769D90038DB98 /* BoiiPrefixHeader.pch */,
 			);
@@ -291,6 +293,15 @@
 				CE4441F51AB986D50045C99A /* LogoutBarButtonItem.swift */,
 			);
 			name = BarButtonItem;
+			sourceTree = "<group>";
+		};
+		CE4441F71ABAAA780045C99A /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				CE430EF01A8B0F1600B5C7FC /* UIView+IBCornerRadius.swift */,
+				CE4A7BB91A91F57B00400F83 /* UIImage+Crop.swift */,
+			);
+			name = Libraries;
 			sourceTree = "<group>";
 		};
 		CE455CED1A9E05FE007B8B96 /* Trash */ = {
@@ -492,6 +503,7 @@
 				CE4A7BBA1A91F57B00400F83 /* UIImage+Crop.swift in Sources */,
 				CE782E601A95989A000B3E15 /* RestraurantStore.swift in Sources */,
 				CE10C67F1A885CCC007CCA40 /* CartBarButtonItem.swift in Sources */,
+				CE4441FB1ABAAB7D0045C99A /* FoodCollectionViewController.swift in Sources */,
 				CE5EB77C1A9B0A44009DB456 /* AccountManager.swift in Sources */,
 				CE6158A51A876A880038DB98 /* BoiiPrefixHeader.pch in Sources */,
 				CE784B5B1A680DF7003A4815 /* MenuStore.swift in Sources */,
@@ -507,8 +519,8 @@
 				CE4A7BC61A9238E900400F83 /* ShoppingCartStore.swift in Sources */,
 				CEE0D3681A9888E800CAA53D /* MenuTabBarController.swift in Sources */,
 				CE4441F61AB986D50045C99A /* LogoutBarButtonItem.swift in Sources */,
+				CE4441F91ABAAAC20045C99A /* SwiftyJSON.swift in Sources */,
 				CE430EED1A8B094400B5C7FC /* RegisterViewController.swift in Sources */,
-				CE784B5F1A681292003A4815 /* SwiftyJSON.swift in Sources */,
 				CE782E5E1A923CA4000B3E15 /* Restaurant.swift in Sources */,
 				CE430EF41A8BAAE800B5C7FC /* CartViewController.swift in Sources */,
 				CE784B591A680D09003A4815 /* MenuTableViewController.swift in Sources */,

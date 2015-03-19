@@ -19,9 +19,11 @@ class MenuTabBarController: UITabBarController, UITabBarControllerDelegate {
         println("menutab did load")
         
         if let rest = self.rest {
-            let drinkVC = self.viewControllers?[0] as DrinkCollectionViewController
+            let drinkVC = self.viewControllers?[0] as? DrinkCollectionViewController
+            let foodVC = self.viewControllers?[1] as? FoodCollectionViewController
             
-            drinkVC.restaurant = rest
+            drinkVC?.restaurant = rest
+            foodVC?.restaurant = rest
         }
     }
 

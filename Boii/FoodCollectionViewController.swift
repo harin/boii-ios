@@ -1,28 +1,28 @@
 //
-//  DrinkCollectionViewController.swift
+//  FoodCollectionViewController.swift
 //  Boii
 //
-//  Created by Harin Sanghirun on 4/2/58.
+//  Created by Harin Sanghirun on 19/3/58.
 //  Copyright (c) พ.ศ. 2558 Harin Sanghirun. All rights reserved.
 //
 
 import UIKit
 
-private let reuseIdentifier = "drinkMenuCell"
+private let reuseIdentifier = "foodMenuCell"
 
-class DrinkCollectionViewController:
+class FoodCollectionViewController:
     UICollectionViewController,
     UICollectionViewDelegateFlowLayout
-    {
+{
     
     let defaultThumbnail : UIImage? = UIImage(named: "starbuck_coffee.jpg")
     var selectedMenu: MenuItem?
     var restaurant: Restaurant?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBarController?.title = restaurant?.name
-
+        
         // Do any additional setup after loading the view.
         
         let barButton = CartBarButtonItem.sharedInstance
@@ -41,12 +41,11 @@ class DrinkCollectionViewController:
     func updateMenu(sender: AnyObject?){
         
         dispatch_async(dispatch_get_main_queue(), {
-            
             println("DrinkCVC: updating Menu \(NSThread.currentThread())")
             self.collectionView?.reloadData()
         })
         
-
+        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -56,50 +55,50 @@ class DrinkCollectionViewController:
         barButton.viewController = self
         
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     // MARK: UICollectionViewDataSource
-
+    
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
     }
-
+    
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        if let menu = self.restaurant?.drinks {
+        if let menu = self.restaurant?.foods {
             return menu.count
         }
         return 0
     }
-
+    
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as MenuCollectionViewCell
         
         let index = indexPath.row
-        if let menu = self.restaurant?.drinks {
+        if let menu = self.restaurant?.foods {
             cell.priceLabel.text = "฿ \(menu[index].price)"
             cell.titleLabel.text = menu[index].name
             cell.initImage(menu[index].thumbnailImage)
         }
-
+        
         return cell
     }
-
+    
     // MARK: UICollectionViewDelegate
-
+    
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         
         let contentView = NSBundle.mainBundle().loadNibNamed("MenuDetailView", owner: self, options: nil).first as UIView
         
-        if let menu = self.restaurant?.drinks {
+        if let menu = self.restaurant?.foods {
             let imageView = contentView.viewWithTag(301) as UIImageView
             
             self.selectedMenu = menu[indexPath.row]
-
+            
             imageView.image = selectedMenu!.thumbnailImage
             imageView.clipsToBounds = true
             
@@ -112,7 +111,7 @@ class DrinkCollectionViewController:
             let popup = KLCPopup(contentView: contentView)
             popup.show()
         } else {
-            println("drinkCVC: Error: drinks not found in restaurant")
+            println("foodCVC: Error: drinks not found in restaurant")
         }
     }
     
@@ -153,7 +152,7 @@ class DrinkCollectionViewController:
                     
                     var alert = UIAlertController(title: "Cannot Order", message: "You must be in the restaurant to order", preferredStyle: .Alert)
                     
- 
+                    
                     var cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
                         (aciton) -> Void in
                     })
@@ -161,9 +160,8 @@ class DrinkCollectionViewController:
                     alert.addAction(cancel)
                     
                     self.presentViewController(alert, animated: true, completion: nil)
-                    
                 }
-
+                
             } else {
                 //ask to change restaurant
                 
@@ -189,7 +187,7 @@ class DrinkCollectionViewController:
     }
     
     // MARK: UICollectionViewDelegateFlowLayout
-    private let sectionInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0,right: 0)
+    private let sectionInsets = UIEdgeInsets(top: 36.0, left: 0, bottom: 0,right: 0)
     private let interitemSpacing: CGFloat = 0.0
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
@@ -211,5 +209,5 @@ class DrinkCollectionViewController:
     
     
     
-
+    
 }
