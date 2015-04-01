@@ -75,7 +75,7 @@
 		CE158C421A8281AB00D73743 /* MenuCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuCollectionViewCell.swift; sourceTree = "<group>"; };
 		CE17DFDE1A7A013A0066A5BA /* RestaurantTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantTableViewController.swift; sourceTree = "<group>"; };
 		CE17DFE11A7A0A140066A5BA /* toofast.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = toofast.jpg; sourceTree = "<group>"; };
-		CE27DCF61A64108C006CFDC9 /* Boii.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Boii.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE27DCF61A64108C006CFDC9 /* boii.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = boii.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE27DCFA1A64108C006CFDC9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE27DCFB1A64108C006CFDC9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE27DCFD1A64108C006CFDC9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -170,7 +170,6 @@
 				CE782E5F1A95989A000B3E15 /* RestraurantStore.swift */,
 				CE782E5D1A923CA4000B3E15 /* Restaurant.swift */,
 				CE784B5C1A680E02003A4815 /* MenuItem.swift */,
-				CE455CEB1A9DC2FB007B8B96 /* myLib.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -234,7 +233,7 @@
 		CE27DCF71A64108C006CFDC9 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CE27DCF61A64108C006CFDC9 /* Boii.app */,
+				CE27DCF61A64108C006CFDC9 /* boii.app */,
 				CE27DD0B1A64108C006CFDC9 /* BoiiTests.xctest */,
 			);
 			name = Products;
@@ -300,6 +299,7 @@
 			children = (
 				CE430EF01A8B0F1600B5C7FC /* UIView+IBCornerRadius.swift */,
 				CE4A7BB91A91F57B00400F83 /* UIImage+Crop.swift */,
+				CE455CEB1A9DC2FB007B8B96 /* myLib.swift */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -353,8 +353,8 @@
 			dependencies = (
 			);
 			name = Boii;
-			productName = Boii;
-			productReference = CE27DCF61A64108C006CFDC9 /* Boii.app */;
+			productName = boii;
+			productReference = CE27DCF61A64108C006CFDC9 /* boii.app */;
 			productType = "com.apple.product-type.application";
 		};
 		CE27DD0A1A64108C006CFDC9 /* BoiiTests */ = {
@@ -660,8 +660,8 @@
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Boii/BoiiPrefixHeader.pch";
 				INFOPLIST_FILE = Boii/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PRODUCT_NAME = boii;
+				PROVISIONING_PROFILE = "de81ac48-5af3-49f9-aa34-36e8ce774b85";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/Boii/Boii-Bridging-Header.h";
 			};
 			name = Debug;
@@ -678,8 +678,8 @@
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Boii/BoiiPrefixHeader.pch";
 				INFOPLIST_FILE = Boii/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PRODUCT_NAME = boii;
+				PROVISIONING_PROFILE = "de81ac48-5af3-49f9-aa34-36e8ce774b85";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/Boii/Boii-Bridging-Header.h";
 			};
 			name = Release;

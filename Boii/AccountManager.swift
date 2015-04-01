@@ -18,6 +18,11 @@ class AccountManager: NSObject {
     var isLoggedIn: Bool {
         return authToken != nil;
     }
+    var deviceToken: String = "" {
+        didSet {
+            updateDeviceToken()
+        }
+    }
     
     //Singleton
     class var sharedInstance: AccountManager {
@@ -68,7 +73,6 @@ class AccountManager: NSObject {
                 callback!( status == "success" )
             }
         }
-        
         task.resume()
     }
     
@@ -91,7 +95,6 @@ class AccountManager: NSObject {
                 status = json["status"].string
                 println("Status = \(status)")
                 
-                
                 if status == "success" {
                     println("AM: Setting authToken")
                     var data = json["data"]
@@ -107,6 +110,7 @@ class AccountManager: NSObject {
             
             if callback != nil {
                 callback!( status == "success" )
+                UIApplication.sharedApplication().registerForRemoteNotifications()
             }
         }
         
@@ -139,7 +143,6 @@ class AccountManager: NSObject {
                             }
                         } else {
                             println("Cart: ERROR - \(json)")
-    
                         }
                     }
                 }
@@ -151,6 +154,37 @@ class AccountManager: NSObject {
 
     }
     
+    private func updateDeviceToken(){
+        var request = NSMutableURLRequest( URL: NSURL(string: domain + userPath)!)
+        var session = NSURLSession.sharedSession()
+        request.HTTPMethod = "PUT"
+        
+        var params = ["token": self.deviceToken]
+        
+        var jsonData = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: nil)
+        request.HTTPBody = jsonData
+        
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue(self.authToken, forHTTPHeaderField: "X-Auth-Token")
+        request.addValue(self.userId, forHTTPHeaderField: "X-User-Id")
+        
+        var task = session.dataTaskWithRequest(request) {
+            (rawData, response, error) -> Void in
+            if (error != nil) {
+                //handle error
+                println("AM: \(error)")
+                
+            } else {
+                let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(rawData, options: NSJSONReadingOptions.MutableContainers, error: nil)
+                println("AM: \(json)")
+            }
+        }
+        
+        println("AM: updating deviceToken")
+        task.resume()
+
+    }
     
     
 }

@@ -55,7 +55,7 @@ class BeaconManager: NSObject, CLLocationManagerDelegate {
         
         if(UIApplication.instancesRespondToSelector(Selector("registerUserNotificationSettings:")))
         {
-            UIApplication.sharedApplication().registerUserNotificationSettings(UIUserNotificationSettings(forTypes: UIUserNotificationType.Sound | UIUserNotificationType.Alert | UIUserNotificationType.Badge, categories: nil))
+            UIApplication.sharedApplication().registerUserNotificationSettings(UIUserNotificationSettings(forTypes: .Sound | .Alert | .Badge, categories: nil))
         }
         else
         {
@@ -72,7 +72,7 @@ class BeaconManager: NSObject, CLLocationManagerDelegate {
     }
     
     func start(){
-        println("BeaconManager: Starting")
+//        println("BeaconManager: Starting")
         startRanging()
         startMonitoring()
     }
@@ -87,7 +87,7 @@ class BeaconManager: NSObject, CLLocationManagerDelegate {
     }
     
     func locationManager(manager: CLLocationManager!, didRangeBeacons beacons: [AnyObject]!, inRegion region: CLBeaconRegion!) {
-        println("Entered: didRangeBeacons: \(beacons)")
+//        println("Entered: didRangeBeacons: \(beacons)")
 
         if beacons.count > 0 {
         } else {

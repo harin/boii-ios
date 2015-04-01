@@ -13,6 +13,7 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    let accountManager: AccountManager = AccountManager.sharedInstance
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
@@ -21,9 +22,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         RestaurantStore.sharedInstance.fetchRestaurant()
         BeaconManager.sharedInstance.start()
         
-        UIApplication.sharedApplication().registerForRemoteNotificationTypes(.Sound | .Alert)
+        var setting = UIUserNotificationSettings(forTypes: .Sound | .Alert, categories: nil)
+        UIApplication.sharedApplication().registerUserNotificationSettings(setting)
+        
+        if( AccountManager.sharedInstance.isLoggedIn) {
+            UIApplication.sharedApplication().registerForRemoteNotifications()
+        }
+        
+        //Option contains push notification if app is not running when it came
+        
+        if let launchOpts: NSDictionary = launchOptions {
+            var notificationPayload: NSDictionary = launchOpts.objectForKey(UIApplicationLaunchOptionsRemoteNotificationKey) as NSDictionary
+            println(notificationPayload);
+        }
         
         return true
+    }
+    
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+        println("Did Receive Remote Notification");
+        let dictionary: Dictionary = userInfo
+        
+        println("dictionary = \(dictionary)")
+        
+        var order_id = dictionary["order_id"] as? String
+        var order_status = dictionary["order_status"] as? String
+        println("order_id = \(order_id))")
+        println("order_statas = \(order_status)")
+        
+    }
+    
+//    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+//        println("Did Receive Remote Notification with Content Available to fetch");
+//    }
+    
+    func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+        println("Did Received LocalNotification: \(notification)")
     }
 
     func applicationWillResignActive(application: UIApplication) {
@@ -56,10 +90,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+        println("AppDelegate didRegisterForRemoteNotificationsWithDeviceToken");
+        var tokenString = deviceToken.description
+        tokenString = tokenString.stringByReplacingOccurrencesOfString(" ", withString: "")
+        tokenString = tokenString.stringByReplacingOccurrencesOfString("<", withString: "")
+        tokenString = tokenString.stringByReplacingOccurrencesOfString(">", withString: "")
+        println("token = \(tokenString)")
         
-        let tokenString = deviceToken.description
-        
-        println(tokenString)
+        accountManager.deviceToken = tokenString;
+                
+    }
+    
+    func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+        println("FailedToRegesterRemoteNotificationsWithError: \(error)")
     }
 
 }
