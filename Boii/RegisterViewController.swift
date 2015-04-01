@@ -29,6 +29,20 @@ class RegisterViewController: UIViewController {
     }
     
     @IBAction func signUpAction(sender: AnyObject) {
+        
+        
+        var hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+
+        AccountManager.sharedInstance.signup(emailTextField.text, password: passwordTextField.text) {
+            (status) -> Void in
+            dispatch_async(dispatch_get_main_queue(), {
+                println("register status = \(status)");
+
+                hud.hide(true);
+                self.navigationController?.popToRootViewControllerAnimated(true);
+            });
+        }
+        
     }
 
     /*

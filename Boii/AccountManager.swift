@@ -33,6 +33,45 @@ class AccountManager: NSObject {
         return Static.instance!
     }
     
+    func signup(email: String, password: String, callback: ((Bool) -> Void)? ){
+        
+        var url = domain + "/api/users/"
+        var request = NSMutableURLRequest( URL: NSURL(string: url)!)
+        var session = NSURLSession.sharedSession()
+        request.HTTPMethod = "POST"
+        
+        var data = "email=\(email)&password=\(password)"
+        request.HTTPBody = data.dataUsingEncoding(NSUTF8StringEncoding)
+        
+        var task = session.dataTaskWithRequest(request) { (rawData, response, error) -> Void in
+            println("Response: \(response)")
+            var status: String?
+            if let data = rawData {
+                var json = JSON(data: data)
+                println("Json=: \(json)")
+                status = json["status"].string
+                println("Status = \(status)")
+                
+                
+                if status == "success" {
+                    println("AM: Setting authToken")
+
+                    self.authToken = json["authToken"]["token"].string
+                    self.userId = json["userId"].string
+                    
+                } else {
+                    println("AccountManager: Response status = \(status)")
+                    println(NSString(data: rawData, encoding: NSUTF8StringEncoding));
+                }
+            }
+            if callback != nil {
+                callback!( status == "success" )
+            }
+        }
+        
+        task.resume()
+    }
+    
     func login(email: String, password: String, callback: ((Bool) -> Void)? ){
 
         var url = domain + "/api/login/"
@@ -100,8 +139,7 @@ class AccountManager: NSObject {
                             }
                         } else {
                             println("Cart: ERROR - \(json)")
-        
-
+    
                         }
                     }
                 }
@@ -110,7 +148,6 @@ class AccountManager: NSObject {
         }
         self.userId = nil
         self.authToken = nil
-        
 
     }
     
