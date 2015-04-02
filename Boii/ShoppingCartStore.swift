@@ -45,6 +45,7 @@ orderCode: String
 */
 
 import Foundation
+import M13OrderedDictionary
 
 struct orderItem{
     var menu_id: String
@@ -57,6 +58,7 @@ struct order{
     var status: String
     var order_datetime: NSDate
     var orderItems: [orderItem]
+    var orders: M13OrderedDictionary
 }
 
 class ShoppingCartStore: NSObject {
@@ -112,6 +114,23 @@ class ShoppingCartStore: NSObject {
         self.toOrder = []
         
         super.init()
+    }
+    
+    func receivePushForOrderWithId(_order_id: String, status:String) {
+        // Find the Order
+        
+        // Update order status accordingly
+        switch (status) {
+        case "accepted":
+            println("Order accepted")
+        case "rejected":
+            println("Order rejected")
+        case "billed":
+            println("Order billed")
+        default:
+            println("Unsupported order status case")
+        }
+        
     }
     
     func switchToRestaurant(rest: Restaurant){

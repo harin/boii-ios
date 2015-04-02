@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "CE27DCF51A64108C006CFDC9"
-               BuildableName = "Boii.app"
+               BuildableName = "boii.app"
                BlueprintName = "Boii"
                ReferencedContainer = "container:Boii.xcodeproj">
             </BuildableReference>
@@ -57,7 +57,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CE27DCF51A64108C006CFDC9"
-            BuildableName = "Boii.app"
+            BuildableName = "boii.app"
             BlueprintName = "Boii"
             ReferencedContainer = "container:Boii.xcodeproj">
          </BuildableReference>
@@ -77,7 +77,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CE27DCF51A64108C006CFDC9"
-            BuildableName = "Boii.app"
+            BuildableName = "boii.app"
             BlueprintName = "Boii"
             ReferencedContainer = "container:Boii.xcodeproj">
          </BuildableReference>
@@ -96,7 +96,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CE27DCF51A64108C006CFDC9"
-            BuildableName = "Boii.app"
+            BuildableName = "boii.app"
             BlueprintName = "Boii"
             ReferencedContainer = "container:Boii.xcodeproj">
          </BuildableReference>
