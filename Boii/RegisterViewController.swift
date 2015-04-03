@@ -29,7 +29,24 @@ class RegisterViewController: UIViewController {
     }
     
     @IBAction func signUpAction(sender: AnyObject) {
-        
+    
+        //Check password and verify password
+        var password = passwordTextField.text
+        var verify = confirmPasswordTextField.text
+        if password != verify {
+            
+            var alert = UIAlertController(title: "Error", message: "confirm password does not match", preferredStyle: .Alert)
+            
+            var OKAction = UIAlertAction(title: "OK", style: .Default){
+                (action) in
+                
+            }
+            
+            alert.addAction(OKAction)
+            
+            self.presentViewController(alert, animated: true, completion: nil)
+            
+        }
         
         var hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
 

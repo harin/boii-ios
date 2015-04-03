@@ -92,9 +92,9 @@ class Restaurant: NSObject, NSCoding, Printable  {
         //Only fetch if more than 5 minutes since last fetch;
         if (self.sinceLastFetch > 300) {
             self.lastFetch = NSDate();
-            println("Restaurant (\(self.name)): fetching menus")
+            log.debug("Restaurant (\(self.name)): fetching menus")
             let path = domain + restaurantPath + "/\(self._id)/menus"
-            println("Restaurant: Fetching Menu from path = \(path)")
+            log.verbose("Restaurant: Fetching Menu from path = \(path)")
             
             getRequest(path) {
                 (data, session, error, json) -> Void in
@@ -104,18 +104,14 @@ class Restaurant: NSObject, NSCoding, Printable  {
                 }
             }
         }
-        
-
     }
     
     func parseMenuJson( jsonObject: AnyObject){
         
         let json = JSON( jsonObject )
         
-//        println(json)
-        
         let data = json["data"] // array of menu
-        println(data)
+        log.verbose("\(data)")
         
         var result: [MenuItem] = []
         
@@ -180,7 +176,7 @@ class Restaurant: NSObject, NSCoding, Printable  {
                 }
             }
         }
-        println("Done Parsing \(result.count)items\n Result =\n \(result)")
+        log.verbose("Done Parsing \(result.count)items\n Result =\n \(result)")
         
         self.drinkList = drinkResult
         self.foodList = foodResult

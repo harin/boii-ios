@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		1C4C6BDF406328825C74D79F /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0331B6EE5A568BDE35A2BB5D /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		B364E1561ACDA87400A09AC4 /* XCGLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3C8B7121ACD50E600E6032A /* XCGLogger.framework */; };
+		B364E1571ACDA87400A09AC4 /* XCGLogger.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B3C8B7121ACD50E600E6032A /* XCGLogger.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B364E15C1ACE51B100A09AC4 /* OrderedDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = B364E15B1ACE51B100A09AC4 /* OrderedDictionary.swift */; };
+		B3C8B7081ACD306300E6032A /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C8B7071ACD306300E6032A /* Order.swift */; };
 		CE00E5621AB068D90005B4E5 /* BeaconManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE00E5611AB068D90005B4E5 /* BeaconManager.swift */; };
 		CE00E5641AB06B930005B4E5 /* RestaurantShortcutBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE00E5631AB06B930005B4E5 /* RestaurantShortcutBarButtonItem.swift */; };
 		CE10C67F1A885CCC007CCA40 /* CartBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE10C67E1A885CCC007CCA40 /* CartBarButtonItem.swift */; };
@@ -57,6 +61,41 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		B364E1581ACDA87400A09AC4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B3C8B70B1ACD50E600E6032A /* XCGLogger.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 55E3EE4419D76F280068C3A7;
+			remoteInfo = "XCGLogger (iOS)";
+		};
+		B3C8B7111ACD50E600E6032A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B3C8B70B1ACD50E600E6032A /* XCGLogger.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 55E3EE4519D76F280068C3A7;
+			remoteInfo = "XCGLogger (iOS)";
+		};
+		B3C8B7131ACD50E600E6032A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B3C8B70B1ACD50E600E6032A /* XCGLogger.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 554DF41719D76FE7005708BE;
+			remoteInfo = "XCGLogger (OS X)";
+		};
+		B3C8B7151ACD50E600E6032A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B3C8B70B1ACD50E600E6032A /* XCGLogger.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 55E3EE5019D76F280068C3A7;
+			remoteInfo = XCGLoggerTests;
+		};
+		B3C8B7171ACD519D00E6032A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B3C8B70B1ACD50E600E6032A /* XCGLogger.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 55E3EE4419D76F280068C3A7;
+			remoteInfo = "XCGLogger (iOS)";
+		};
 		CE27DD0C1A64108C006CFDC9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = CE27DCEE1A64108C006CFDC9 /* Project object */;
@@ -66,9 +105,26 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		B364E15A1ACDA87400A09AC4 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				B364E1571ACDA87400A09AC4 /* XCGLogger.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		0331B6EE5A568BDE35A2BB5D /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		58086E8DCE6C4E9C8B573F92 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		B364E15B1ACE51B100A09AC4 /* OrderedDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderedDictionary.swift; path = ../../SwiftDataStructures/SwiftDataStructures/OrderedDictionary.swift; sourceTree = "<group>"; };
+		B3C8B7071ACD306300E6032A /* Order.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
+		B3C8B70B1ACD50E600E6032A /* XCGLogger.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = XCGLogger.xcodeproj; path = "../XCGLogger-master/XCGLogger/Library/XCGLogger.xcodeproj"; sourceTree = "<group>"; };
 		CE00E5611AB068D90005B4E5 /* BeaconManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeaconManager.swift; sourceTree = "<group>"; };
 		CE00E5631AB06B930005B4E5 /* RestaurantShortcutBarButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantShortcutBarButtonItem.swift; sourceTree = "<group>"; };
 		CE10C67E1A885CCC007CCA40 /* CartBarButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartBarButtonItem.swift; sourceTree = "<group>"; };
@@ -131,6 +187,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1C4C6BDF406328825C74D79F /* Pods.framework in Frameworks */,
+				B364E1561ACDA87400A09AC4 /* XCGLogger.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -161,6 +218,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		B3C8B70C1ACD50E600E6032A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B3C8B7121ACD50E600E6032A /* XCGLogger.framework */,
+				B3C8B7141ACD50E600E6032A /* XCGLogger.framework */,
+				B3C8B7161ACD50E600E6032A /* XCGLoggerTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		CE10C67B1A885C57007CCA40 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -170,6 +237,7 @@
 				CE782E5F1A95989A000B3E15 /* RestraurantStore.swift */,
 				CE782E5D1A923CA4000B3E15 /* Restaurant.swift */,
 				CE784B5C1A680E02003A4815 /* MenuItem.swift */,
+				B3C8B7071ACD306300E6032A /* Order.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -227,6 +295,7 @@
 				CE27DCF71A64108C006CFDC9 /* Products */,
 				134B9EC9DE5F65D849388AF3 /* Pods */,
 				27A326D12AF78D676371D03F /* Frameworks */,
+				B3C8B70B1ACD50E600E6032A /* XCGLogger.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -297,6 +366,7 @@
 		CE4441F71ABAAA780045C99A /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				B364E15B1ACE51B100A09AC4 /* OrderedDictionary.swift */,
 				CE430EF01A8B0F1600B5C7FC /* UIView+IBCornerRadius.swift */,
 				CE4A7BB91A91F57B00400F83 /* UIImage+Crop.swift */,
 				CE455CEB1A9DC2FB007B8B96 /* myLib.swift */,
@@ -347,10 +417,13 @@
 				CE27DCF41A64108C006CFDC9 /* Resources */,
 				2B0CD2E49EACE8F2F286E8BE /* Embed Pods Frameworks */,
 				4FD5D435B4D3B4686C6CD1A1 /* Copy Pods Resources */,
+				B364E15A1ACDA87400A09AC4 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				B3C8B7181ACD519D00E6032A /* PBXTargetDependency */,
+				B364E1591ACDA87400A09AC4 /* PBXTargetDependency */,
 			);
 			name = Boii;
 			productName = boii;
@@ -405,6 +478,12 @@
 			mainGroup = CE27DCED1A64108C006CFDC9;
 			productRefGroup = CE27DCF71A64108C006CFDC9 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = B3C8B70C1ACD50E600E6032A /* Products */;
+					ProjectRef = B3C8B70B1ACD50E600E6032A /* XCGLogger.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				CE27DCF51A64108C006CFDC9 /* Boii */,
@@ -412,6 +491,30 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		B3C8B7121ACD50E600E6032A /* XCGLogger.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = XCGLogger.framework;
+			remoteRef = B3C8B7111ACD50E600E6032A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B3C8B7141ACD50E600E6032A /* XCGLogger.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = XCGLogger.framework;
+			remoteRef = B3C8B7131ACD50E600E6032A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B3C8B7161ACD50E600E6032A /* XCGLoggerTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = XCGLoggerTests.xctest;
+			remoteRef = B3C8B7151ACD50E600E6032A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		CE27DCF41A64108C006CFDC9 /* Resources */ = {
@@ -511,9 +614,11 @@
 				CE907AE21A82569B00CAB9A5 /* DrinkCollectionViewController.swift in Sources */,
 				CE158C431A8281AB00D73743 /* MenuCollectionViewCell.swift in Sources */,
 				CE75AB3A1AB93EE200599179 /* MBProgressHUD.m in Sources */,
+				B3C8B7081ACD306300E6032A /* Order.swift in Sources */,
 				CE00E5621AB068D90005B4E5 /* BeaconManager.swift in Sources */,
 				CE27DCFE1A64108C006CFDC9 /* ViewController.swift in Sources */,
 				CE17DFDF1A7A013A0066A5BA /* RestaurantTableViewController.swift in Sources */,
+				B364E15C1ACE51B100A09AC4 /* OrderedDictionary.swift in Sources */,
 				CE430EF11A8B0F1600B5C7FC /* UIView+IBCornerRadius.swift in Sources */,
 				CE27DCFC1A64108C006CFDC9 /* AppDelegate.swift in Sources */,
 				CE4A7BC61A9238E900400F83 /* ShoppingCartStore.swift in Sources */,
@@ -542,6 +647,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		B364E1591ACDA87400A09AC4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "XCGLogger (iOS)";
+			targetProxy = B364E1581ACDA87400A09AC4 /* PBXContainerItemProxy */;
+		};
+		B3C8B7181ACD519D00E6032A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "XCGLogger (iOS)";
+			targetProxy = B3C8B7171ACD519D00E6032A /* PBXContainerItemProxy */;
+		};
 		CE27DD0D1A64108C006CFDC9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = CE27DCF51A64108C006CFDC9 /* Boii */;
@@ -656,9 +771,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Boii/BoiiPrefixHeader.pch";
 				INFOPLIST_FILE = Boii/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = boii;
 				PROVISIONING_PROFILE = "de81ac48-5af3-49f9-aa34-36e8ce774b85";
@@ -674,9 +791,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Boii/BoiiPrefixHeader.pch";
 				INFOPLIST_FILE = Boii/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = boii;
 				PROVISIONING_PROFILE = "de81ac48-5af3-49f9-aa34-36e8ce774b85";

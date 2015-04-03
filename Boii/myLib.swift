@@ -8,7 +8,7 @@
 
 import Foundation
 
-let domain = "http://192.168.1.46:3000"
+let domain = "http://localhost:3000"
 let menuPath = "/api/menus"
 let restaurantPath = "/api/restaurants"
 let orderPath = "/api/orders"

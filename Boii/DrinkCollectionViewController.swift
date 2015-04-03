@@ -138,7 +138,7 @@ class DrinkCollectionViewController:
                 //Check if in region, if not disallow ordering
                 if BeaconManager.sharedInstance.closestBeacon != nil || self.restaurant!.requireIBeacon == false {
                     if let order = selectedMenu? {
-                        ShoppingCartStore.sharedInstance.toOrder.append(order)
+                        ShoppingCartStore.sharedInstance.addMenuToCurrentOrder(order)
                     } else {
                         println("failed to add to cart")
                     }
@@ -155,7 +155,7 @@ class DrinkCollectionViewController:
                     
  
                     var cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
-                        (aciton) -> Void in
+                        (action) -> Void in
                     })
                     
                     alert.addAction(cancel)

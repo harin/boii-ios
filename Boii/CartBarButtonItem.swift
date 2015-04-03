@@ -41,7 +41,7 @@ class CartBarButtonItem: UIBarButtonItem {
 
         self.customView = cartButton
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "cartUpdate:", name: "cartUpdateNotification", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "cartUpdate:", name: ShoppingCartStore.notifications.cartUpdateNotificationIdentifier, object: nil)
         
         //Observe authToken of accountManager
         accountManager.addObserver(self, forKeyPath: "authToken", options: .New, context: &myContext)
@@ -72,7 +72,7 @@ class CartBarButtonItem: UIBarButtonItem {
     }
     
     func cartUpdate( sender: AnyObject? ){
-        cartButton.setTitle("(\(cartStore.totalOrder))", forState: UIControlState.Normal)
+        cartButton.setTitle("(\(cartStore.currentOrder.menuItems.count))", forState: UIControlState.Normal)
     }
     
     func setTitle( title: String){
@@ -85,13 +85,11 @@ class CartBarButtonItem: UIBarButtonItem {
         if context == &myContext {
             dispatch_async(dispatch_get_main_queue()){
                 if self.accountManager.isLoggedIn {
-                    self.setTitle("cart(\(self.cartStore.totalOrder)")
+                    self.setTitle("cart(\(self.cartStore.currentOrder.menuItems.count)")
                 } else {
                     self.setTitle("Login")
                 }
             }
-
-
         } else {
             super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)
         }

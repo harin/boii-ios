@@ -137,7 +137,7 @@ class FoodCollectionViewController:
                 //Check if in region, if not disallow ordering
                 if BeaconManager.sharedInstance.closestBeacon != nil || self.restaurant!.requireIBeacon == false {
                     if let order = selectedMenu? {
-                        ShoppingCartStore.sharedInstance.toOrder.append(order)
+                        ShoppingCartStore.sharedInstance.addMenuToCurrentOrder(order)
                     } else {
                         println("failed to add to cart")
                     }

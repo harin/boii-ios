@@ -46,47 +46,26 @@ orderCode: String
 
 import Foundation
 import M13OrderedDictionary
+import XCGLogger
 
-struct orderItem{
-    var menu_id: String
-    var quantity: Int
-}
 
-struct order{
-    var customer_id: String
-    var payed: Bool
-    var status: String
-    var order_datetime: NSDate
-    var orderItems: [orderItem]
-    var orders: M13OrderedDictionary
-}
 
 class ShoppingCartStore: NSObject {
-
     var restaurant: Restaurant? // current restaurant
     var accountManager: AccountManager = AccountManager.sharedInstance
     dynamic var order_code: String?
-    var ordered: [MenuItem] {
-        didSet {
-            notifyCartUpdate()
-        }
-    }
-    var toOrder: [MenuItem] {
-        didSet {
-            notifyCartUpdate()
-        }
-    }
-    var totalOrder: Int {
-        get {
-            return ordered.count + toOrder.count
-        }
-    }
     
-    func notifyCartUpdate(){
-        
-        println("cartStore: cart updated")
-        let note = NSNotification(name: "cartUpdateNotification", object: self)
-        
+    private var currentOrder: Order
+    
+    var ordered: OrderedDictionary<String, Order>
+    
+    struct notifications {
+        static let cartUpdateNotificationIdentifier = "cartUpdateNotification"
+    }
+
+    func notifyCartUpdate() {
+        log.debug("cart updated")
+        let note = NSNotification(name: ShoppingCartStore.notifications.cartUpdateNotificationIdentifier, object: self)
         NSNotificationCenter.defaultCenter().postNotification(note)
     }
     
@@ -96,41 +75,91 @@ class ShoppingCartStore: NSObject {
             static var instance: ShoppingCartStore?
             static var token: dispatch_once_t = 0
         }
-        
         dispatch_once(&Static.token) {
             Static.instance = ShoppingCartStore()
         }
-        
         return Static.instance!
     }
     
+    //init
     
-    //properties
-
-    //methods
     override init(){
-        
-        self.ordered = []
-        self.toOrder = []
+        currentOrder = Order()
+        ordered = OrderedDictionary()
         
         super.init()
     }
     
+    // MARK: Setter and Getter
+    
+    func addMenuToCurrentOrder(_menu: MenuItem){
+        log.debug("adding menu(\(_menu.name)) to current order")
+        self.currentOrder.menuItems.append(_menu)
+        notifyCartUpdate()
+    }
+    
+    func removeMenuFromCurrentOrder( menuIdx: Int ) {
+        self.currentOrder.menuItems.removeAtIndex(menuIdx)
+        notifyCartUpdate()
+    }
+    
+    func getCurrentOrder() -> Order {
+        return self.currentOrder
+    }
+    
+    // MARK: Others
+
+
+    
+    private func initOrders() {
+        self.currentOrder = Order()
+        self.ordered = OrderedDictionary()
+    }
+    
+    
     func receivePushForOrderWithId(_order_id: String, status:String) {
         // Find the Order
+        let orderToUpdate = ordered[_order_id]
         
-        // Update order status accordingly
-        switch (status) {
-        case "accepted":
-            println("Order accepted")
-        case "rejected":
-            println("Order rejected")
-        case "billed":
-            println("Order billed")
-        default:
-            println("Unsupported order status case")
+        if let order = orderToUpdate {
+            // Update order status accordingly
+            order.status = status
+            let title = "Update"
+            let message = "Order with code \(orderToUpdate?.orderCode)"
+            
+            var alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+            var OKAction = UIAlertAction(title: "OK", style: .Default ){
+                (alertAction) in
+                log.debug("OK Pressed")
+            }
+            
+            alert.addAction(OKAction)
+            
+            UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
+            
+            switch (status) {
+            case "accepted":
+                println("Order accepted")
+                // alert
+                
+                // update ui
+                
+            case "rejected":
+                println("Order rejected")
+                // alert
+                
+                // remove from list
+                
+            case "billed":
+                println("Order billed")
+                // alert
+                
+                //remove from list
+                
+            default:
+                println("Unsupported order status case")
+            }
         }
-        
     }
     
     func switchToRestaurant(rest: Restaurant){
@@ -138,17 +167,15 @@ class ShoppingCartStore: NSObject {
         if restaurant != nil {
             //ask whether want to switch restaurant
             self.restaurant = rest
-            self.ordered.removeAll(keepCapacity: false)
-            self.toOrder.removeAll(keepCapacity: false)
-        
+            initOrders()
+            
+            notifyCartUpdate()
+            
         } else {
             //initialize
             self.restaurant = rest
-            
         }
     }
-    
-    
     
     func askToSwitch(rest: Restaurant, viewController:UIViewController){
         let alertController = UIAlertController(title: "", message: "Would you like to switch to \(rest.name)", preferredStyle: UIAlertControllerStyle.Alert)
@@ -156,8 +183,8 @@ class ShoppingCartStore: NSObject {
         let yesAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default) { (action) in
             
             self.restaurant = rest
-            self.ordered = []
-            self.toOrder = []
+            self.initOrders()
+            self.notifyCartUpdate()
         }
         
         let noAction = UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel) {
@@ -167,28 +194,14 @@ class ShoppingCartStore: NSObject {
         alertController.addAction(yesAction)
         alertController.addAction(noAction)
         
-        viewController.presentViewController(alertController, animated: true) {
-            
-        }
-
+        viewController.presentViewController(alertController, animated: true) {}
     }
     
-    func sendOrder(){
-        //send order to server
-
-        postOrder()
-        
-        //update local data
-        self.ordered += self.toOrder
-        self.toOrder = []
-        
-        
-    }
     
-    func dataForOrder(user_id: String) -> AnyObject{
+    private func dataForOrder(user_id: String) -> AnyObject{
         var orderItems: [AnyObject] = []
         
-        for menu in toOrder{
+        for menu in currentOrder.menuItems{
             var orderItem = [
                 "menu_id": menu._id,
                 "quantity": 1
@@ -205,7 +218,7 @@ class ShoppingCartStore: NSObject {
         return data
     }
     
-    func postOrder() {
+    func sendOrder() {
         if let token = accountManager.authToken {
             if let user_id = accountManager.userId {
                 if let rest_id = restaurant?._id {
@@ -222,23 +235,47 @@ class ShoppingCartStore: NSObject {
                     request.addValue("application/json", forHTTPHeaderField: "Accept")
                     request.addValue(token, forHTTPHeaderField: "X-Auth-Token")
                     request.addValue(user_id, forHTTPHeaderField: "X-User-Id")
-
                     
-                        var task = session.dataTaskWithRequest(request) { (rawData, response, error) -> Void in
-                            println("Response: \(response)")
-                            println("Data: \(NSString(data: rawData, encoding: NSUTF8StringEncoding))")
+                    var task = session.dataTaskWithRequest(request) { (rawData, response, error) -> Void in
+                        
+                        if(error == nil) {
+                            //Handle successful request
+                            log.verbose("Response: \(response)")
+                            log.verbose("Data: \(NSString(data: rawData, encoding: NSUTF8StringEncoding))")
                             //Set Order Code
                             if let data = rawData {
                                 var json = JSON(data: data)
-                                if let code = json["order_code"].string {
-                                    self.order_code = code
+                                
+                                let order_code = json["order_code"].string
+                                let order_id = json["order_id"].string
+                                
+                                if order_code != nil && order_id != nil {
+                                    self.order_code = order_code
+                                    
+                                    //update currentOrder and put in ordered
+                                    self.currentOrder.order_id = order_id!
+                                    self.ordered[order_id!] = self.currentOrder
+                                    
+                                    log.debug("\(self.ordered[order_id!])")
+                                    
+                                    //initialize new order
+                                    self.currentOrder = Order()
+                                    
+                                    self.notifyCartUpdate()
+                                    
                                 } else {
-                                    println("Cart: ERROR - \(json)")
+                                    if order_code == nil { log.error("order_code is nil") }
+                                    if order_id   == nil { log.error("order_id is nil") }
                                 }
+                                
                             }
+                        } else {
+                            //Handle request failure
+                            log.error("send order request failed: \(error)")
+                            
                         }
-                        
-                        task.resume()
+                    }
+                    task.resume()
                 }
             }
         }

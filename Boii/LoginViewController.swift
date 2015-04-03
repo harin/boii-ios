@@ -30,12 +30,11 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func loginAction(sender: AnyObject) {
-        let email = self.emailTextField.text
-        let password = self.passwordTextField.text
+        let email = "blob@schmoe.com" //self.emailTextField.text
+        let password = "password"// self.passwordTextField.text
         
         println("LoginVC: Logging user in");
         //perform some format check here
-        
         
         var hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         AccountManager.sharedInstance.login(email , password: password) {

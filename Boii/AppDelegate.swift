@@ -8,6 +8,9 @@
 
 import UIKit
 import CoreData
+import XCGLogger
+
+let log = XCGLogger.defaultInstance()
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,6 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
+        log.setup(logLevel: .Debug, showLogLevel: true, showFileNames: true, showLineNumbers: true, writeToFile: nil)
         // Override point for customization after application launch.
         
         RestaurantStore.sharedInstance.fetchRestaurant()
@@ -39,25 +44,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
-        println("Did Receive Remote Notification");
-        let dictionary: Dictionary = userInfo
-        
-        println("dictionary = \(dictionary)")
-        
-        var order_id = dictionary["order_id"] as? String
-        var order_status = dictionary["order_status"] as? String
-        println("order_id = \(order_id))")
-        println("order_statas = \(order_status)")
-        
-    }
-    
 //    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
 //        println("Did Receive Remote Notification with Content Available to fetch");
 //    }
     
     func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
-        println("Did Received LocalNotification: \(notification)")
+        log.info("Did Received LocalNotification: \(notification)")
     }
 
     func applicationWillResignActive(application: UIApplication) {
@@ -90,7 +82,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
-        println("AppDelegate didRegisterForRemoteNotificationsWithDeviceToken");
+        log.debug("AppDelegate didRegisterForRemoteNotificationsWithDeviceToken");
         var tokenString = deviceToken.description
         tokenString = tokenString.stringByReplacingOccurrencesOfString(" ", withString: "")
         tokenString = tokenString.stringByReplacingOccurrencesOfString("<", withString: "")
@@ -98,12 +90,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         println("token = \(tokenString)")
         
         accountManager.deviceToken = tokenString;
-                
     }
     
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
-        println("FailedToRegesterRemoteNotificationsWithError: \(error)")
+        log.error("FailedToRegesterRemoteNotificationsWithError: \(error)")
     }
 
+    
+    // MARK: Push Notification
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+        println("Did Receive Remote Notification");
+        let dictionary: Dictionary = userInfo
+        
+        println("dictionary = \(dictionary)")
+        
+        let order_id = dictionary["order_id"] as? String
+        let order_status = dictionary["order_status"] as? String
+        println("order_id = \(order_id))")
+        println("order_statas = \(order_status)")
+        if order_id != nil && order_status != nil {
+            ShoppingCartStore.sharedInstance.receivePushForOrderWithId(order_id!, status: order_status!)
+        } else {
+            if order_id     == nil { log.error("order_id is nil") }
+            if order_status == nil { log.error("order_status is nil") }
+        }
+    }
 }
 

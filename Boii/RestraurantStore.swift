@@ -142,10 +142,10 @@ class RestaurantStore {
         
         let json = JSON( jsonObject )
         
-        println(json)
+        log.verbose("\(json)")
         
         let data = json["data"] // array of restaurant
-        println(data)
+        log.verbose("\(data)")
         
         var result: [Restaurant] = []
         
@@ -194,7 +194,7 @@ class RestaurantStore {
             }
         }
         
-        println("Done Parsing \(result.count)items\n Result =\n \(result)")
+        log.verbose("Done Parsing \(result.count)items\n Result =\n \(result)")
         restaurants = result
         
         restaurantsNeedUpdate()
