@@ -11,6 +11,7 @@
 		B364E1561ACDA87400A09AC4 /* XCGLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3C8B7121ACD50E600E6032A /* XCGLogger.framework */; };
 		B364E1571ACDA87400A09AC4 /* XCGLogger.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B3C8B7121ACD50E600E6032A /* XCGLogger.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B364E15C1ACE51B100A09AC4 /* OrderedDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = B364E15B1ACE51B100A09AC4 /* OrderedDictionary.swift */; };
+		B364E15E1ACE98E900A09AC4 /* LoadScreenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B364E15D1ACE98E900A09AC4 /* LoadScreenManager.swift */; };
 		B3C8B7081ACD306300E6032A /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C8B7071ACD306300E6032A /* Order.swift */; };
 		CE00E5621AB068D90005B4E5 /* BeaconManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE00E5611AB068D90005B4E5 /* BeaconManager.swift */; };
 		CE00E5641AB06B930005B4E5 /* RestaurantShortcutBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE00E5631AB06B930005B4E5 /* RestaurantShortcutBarButtonItem.swift */; };
@@ -123,6 +124,7 @@
 		0331B6EE5A568BDE35A2BB5D /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		58086E8DCE6C4E9C8B573F92 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		B364E15B1ACE51B100A09AC4 /* OrderedDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderedDictionary.swift; path = ../../SwiftDataStructures/SwiftDataStructures/OrderedDictionary.swift; sourceTree = "<group>"; };
+		B364E15D1ACE98E900A09AC4 /* LoadScreenManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadScreenManager.swift; sourceTree = "<group>"; };
 		B3C8B7071ACD306300E6032A /* Order.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		B3C8B70B1ACD50E600E6032A /* XCGLogger.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = XCGLogger.xcodeproj; path = "../XCGLogger-master/XCGLogger/Library/XCGLogger.xcodeproj"; sourceTree = "<group>"; };
 		CE00E5611AB068D90005B4E5 /* BeaconManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeaconManager.swift; sourceTree = "<group>"; };
@@ -238,6 +240,7 @@
 				CE782E5D1A923CA4000B3E15 /* Restaurant.swift */,
 				CE784B5C1A680E02003A4815 /* MenuItem.swift */,
 				B3C8B7071ACD306300E6032A /* Order.swift */,
+				B364E15D1ACE98E900A09AC4 /* LoadScreenManager.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -615,6 +618,7 @@
 				CE158C431A8281AB00D73743 /* MenuCollectionViewCell.swift in Sources */,
 				CE75AB3A1AB93EE200599179 /* MBProgressHUD.m in Sources */,
 				B3C8B7081ACD306300E6032A /* Order.swift in Sources */,
+				B364E15E1ACE98E900A09AC4 /* LoadScreenManager.swift in Sources */,
 				CE00E5621AB068D90005B4E5 /* BeaconManager.swift in Sources */,
 				CE27DCFE1A64108C006CFDC9 /* ViewController.swift in Sources */,
 				CE17DFDF1A7A013A0066A5BA /* RestaurantTableViewController.swift in Sources */,

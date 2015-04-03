@@ -26,6 +26,7 @@ class Restaurant: NSObject, NSCoding, Printable  {
     var email: String?
     var phone: [tel] = []
     var thumbnailImage: UIImage = UIImage(named:"toofast-375w.jpg")!
+    dynamic var isFetching: Bool = false
 
     private var drinkList: [MenuItem]
     private var foodList: [MenuItem]
@@ -96,12 +97,15 @@ class Restaurant: NSObject, NSCoding, Printable  {
             let path = domain + restaurantPath + "/\(self._id)/menus"
             log.verbose("Restaurant: Fetching Menu from path = \(path)")
             
+            self.isFetching = true
             getRequest(path) {
                 (data, session, error, json) -> Void in
                 
                 if json != nil {
                     self.parseMenuJson(json!)
                 }
+                
+                self.isFetching = false
             }
         }
     }

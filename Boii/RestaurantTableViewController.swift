@@ -13,6 +13,8 @@ QR code
 */
 import UIKit
 
+private var myContext = 0
+
 class RestaurantTableViewController: UITableViewController {
     var defaultImg: UIImage?
     var restaurantStore: RestaurantStore?
@@ -33,6 +35,7 @@ class RestaurantTableViewController: UITableViewController {
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateRestaurant:", name: "restaurantsNeedUpdateNotification", object: nil)
         
+        
         // Set right bar button
         let barButton = CartBarButtonItem.sharedInstance
 
@@ -51,7 +54,53 @@ class RestaurantTableViewController: UITableViewController {
         if barButton != nil {
             barButton?.viewController = self
         }
+    }
+    
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        RestaurantStore.sharedInstance.addObserver(self, forKeyPath: "isFetching", options: .New, context: &myContext)
+        
+        if RestaurantStore.sharedInstance.isFetching == true {
+            log.debug("showing HUD")
+            MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        }
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        RestaurantStore.sharedInstance.removeObserver(self, forKeyPath: "isFetching")
+    }
+    
 
+    override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
+        if context == &myContext {
+            log.debug(keyPath)
+            switch keyPath{
+            case "isFetching":
+                var isFetching = RestaurantStore.sharedInstance.isFetching
+                if isFetching == true {
+                    //display hud
+                    dispatch_async(dispatch_get_main_queue()){
+                        log.debug("Displaying ProgressHUD")
+                        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+                        return
+                    }
+                } else {
+                    //turn hud off
+                    dispatch_async(dispatch_get_main_queue()){
+                        log.debug("Hiding ProgressHUD")
+                        MBProgressHUD.hideHUDForView(self.view, animated: true)
+                        return
+                    }
+                }
+            default:
+                println("CartView: Unknown keyPath observed")
+            }
+            
+        } else {
+            super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)
+        }
     }
     
     func updateRestaurant(sender: AnyObject?){
@@ -62,11 +111,6 @@ class RestaurantTableViewController: UITableViewController {
             self.restaurants = RestaurantStore.sharedInstance.restaurants
             self.tableView.reloadData()
         })
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-//        let barButton = self.navigationItem.rightBarButtonItem as CartBarButtonItem
     }
 
     override func didReceiveMemoryWarning() {

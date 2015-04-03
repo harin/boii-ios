@@ -72,7 +72,7 @@ class CartBarButtonItem: UIBarButtonItem {
     }
     
     func cartUpdate( sender: AnyObject? ){
-        cartButton.setTitle("(\(cartStore.currentOrder.menuItems.count))", forState: UIControlState.Normal)
+        cartButton.setTitle("(\(cartStore.getCurrentOrder().menuItems.count))", forState: UIControlState.Normal)
     }
     
     func setTitle( title: String){
@@ -85,7 +85,7 @@ class CartBarButtonItem: UIBarButtonItem {
         if context == &myContext {
             dispatch_async(dispatch_get_main_queue()){
                 if self.accountManager.isLoggedIn {
-                    self.setTitle("cart(\(self.cartStore.currentOrder.menuItems.count)")
+                    self.setTitle("cart(\(self.cartStore.getCurrentOrder().menuItems.count)")
                 } else {
                     self.setTitle("Login")
                 }

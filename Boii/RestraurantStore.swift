@@ -24,7 +24,7 @@ import Foundation
 
 
 
-class RestaurantStore {
+class RestaurantStore: NSObject {
     //singleton
     class var sharedInstance: RestaurantStore {
         struct Static {
@@ -47,11 +47,12 @@ class RestaurantStore {
     //properties
     
     var restaurants: [Restaurant] = []
-
+    dynamic var isFetching: Bool = false
     
     //methods
-    init(){
-        let path = self.restArchivePath()
+    override init(){
+        super.init()
+        let path = restArchivePath()
         var rest = NSKeyedUnarchiver.unarchiveObjectWithFile(path) as [Restaurant]?
         if let r = rest {
             restaurants = r
@@ -85,48 +86,38 @@ class RestaurantStore {
     
     
     // MARK: API methods
-    func fetchMenuForRestaurant(rest: Restaurant) {
-        println("RestaurantStore: fetching menus for \(rest.name)")
-        
-        let path = domain + restaurantPath + "/\(rest._id)/menus"
-        
-        getRequest(path) {
-            (data, session, error, json) -> Void in
-            
-            if json != nil {
-                
-            }
-        }
-    }
+//    func fetchMenuForRestaurant(rest: Restaurant) {
+//        println("RestaurantStore: fetching menus for \(rest.name)")
+//        
+//        let path = domain + restaurantPath + "/\(rest._id)/menus"
+//        
+//        getRequest(path) {
+//            (data, session, error, json) -> Void in
+//            
+//            if json != nil {
+//                
+//            }
+//        }
+//    }
     
     func fetchRestaurant(){
         println("RestaurantStore: fetching restaurant")
+
+        let rootVC = UIApplication.sharedApplication().keyWindow?.rootViewController?
         
+        self.isFetching = true
         getRequest(domain+restaurantPath) {
             (data, session, error, json) -> Void in
             
             if json != nil {
                 self.parseRestaurantJson(json!)
+//                dispatch_async(dispatch_get_main_queue(), {
+//                    hud.hide(true);
+//                });
             }
+            
+            self.isFetching = false
         }
-        
-//        var request = NSMutableURLRequest(URL: NSURL(string:domain + restaurantPath )!)
-//        var session = NSURLSession.sharedSession()
-//        var task = session.dataTaskWithRequest(request){
-//            (data, response, error) -> Void in
-//            if error != nil {
-//                println(error)
-//            } else {
-//                let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil)
-//                
-//                if json != nil {
-//                    self.parseRestaurantJson(json!)
-//                }
-//                
-//            }
-//        }
-//        
-//        task.resume() //send request
     }
     
     func parseRestaurantJson( jsonObject: AnyObject){

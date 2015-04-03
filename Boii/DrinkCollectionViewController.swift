@@ -9,6 +9,7 @@
 import UIKit
 
 private let reuseIdentifier = "drinkMenuCell"
+private var myContext = 0
 
 class DrinkCollectionViewController:
     UICollectionViewController,
@@ -18,6 +19,7 @@ class DrinkCollectionViewController:
     let defaultThumbnail : UIImage? = UIImage(named: "starbuck_coffee.jpg")
     var selectedMenu: MenuItem?
     var restaurant: Restaurant?
+    var isObservingRestaurant: Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +35,7 @@ class DrinkCollectionViewController:
             let notiName = stringForRestaurantMenuUpdateNotification(rest)
             NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateMenu:", name: notiName, object: nil)
         } else {
-            println("DrinkCVC: Error: no restaurant set")
+            log.error("no restaurant set")
         }
     }
     
@@ -55,6 +57,58 @@ class DrinkCollectionViewController:
         let barButton = self.tabBarController?.navigationItem.rightBarButtonItem as CartBarButtonItem
         barButton.viewController = self
         
+        
+        if let rest = restaurant {
+            rest.addObserver(self, forKeyPath: "isFetching", options: .New, context: &myContext)
+            self.isObservingRestaurant = true
+            
+            if rest.isFetching == true {
+                log.debug("showing HUD")
+                MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+            }
+            
+        }
+
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        if self.restaurant != nil && self.isObservingRestaurant == true{
+            self.restaurant!.removeObserver(self, forKeyPath: "isFetching")
+        }
+    }
+    
+    
+    override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
+        if context == &myContext {
+            log.debug(keyPath)
+            switch keyPath{
+            case "isFetching":
+                var isFetching = self.restaurant?.isFetching
+                if isFetching == nil { return }
+                
+                if isFetching == true {
+                    //display hud
+                    dispatch_async(dispatch_get_main_queue()){
+                        log.debug("Displaying ProgressHUD")
+                        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+                        return
+                    }
+                } else {
+                    //turn hud off
+                    dispatch_async(dispatch_get_main_queue()){
+                        log.debug("Hiding ProgressHUD")
+                        MBProgressHUD.hideHUDForView(self.view, animated: true)
+                        return
+                    }
+                }
+            default:
+                println("CartView: Unknown keyPath observed")
+            }
+            
+        } else {
+            super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)
+        }
     }
 
     override func didReceiveMemoryWarning() {
