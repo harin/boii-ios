@@ -20,7 +20,6 @@
 		CE17DFDF1A7A013A0066A5BA /* RestaurantTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE17DFDE1A7A013A0066A5BA /* RestaurantTableViewController.swift */; };
 		CE17DFE21A7A0A140066A5BA /* toofast.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE17DFE11A7A0A140066A5BA /* toofast.jpg */; };
 		CE27DCFC1A64108C006CFDC9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE27DCFB1A64108C006CFDC9 /* AppDelegate.swift */; };
-		CE27DCFE1A64108C006CFDC9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE27DCFD1A64108C006CFDC9 /* ViewController.swift */; };
 		CE27DD011A64108C006CFDC9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE27DCFF1A64108C006CFDC9 /* Main.storyboard */; };
 		CE27DD031A64108C006CFDC9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE27DD021A64108C006CFDC9 /* Images.xcassets */; };
 		CE27DD061A64108C006CFDC9 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE27DD041A64108C006CFDC9 /* LaunchScreen.xib */; };
@@ -51,8 +50,6 @@
 		CE75AB3B1AB93EE200599179 /* README.mdown in Sources */ = {isa = PBXBuildFile; fileRef = CE75AB381AB93EE200599179 /* README.mdown */; };
 		CE782E5E1A923CA4000B3E15 /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE782E5D1A923CA4000B3E15 /* Restaurant.swift */; };
 		CE782E601A95989A000B3E15 /* RestraurantStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE782E5F1A95989A000B3E15 /* RestraurantStore.swift */; };
-		CE784B591A680D09003A4815 /* MenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE784B581A680D09003A4815 /* MenuTableViewController.swift */; };
-		CE784B5B1A680DF7003A4815 /* MenuStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE784B5A1A680DF7003A4815 /* MenuStore.swift */; };
 		CE784B5D1A680E02003A4815 /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE784B5C1A680E02003A4815 /* MenuItem.swift */; };
 		CE907ADE1A81DE1100CAB9A5 /* toofast-375w@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE907ADD1A81DE1100CAB9A5 /* toofast-375w@2x.jpg */; };
 		CE907AE21A82569B00CAB9A5 /* DrinkCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE907AE11A82569B00CAB9A5 /* DrinkCollectionViewController.swift */; };
@@ -612,7 +609,6 @@
 				CE4441FB1ABAAB7D0045C99A /* FoodCollectionViewController.swift in Sources */,
 				CE5EB77C1A9B0A44009DB456 /* AccountManager.swift in Sources */,
 				CE6158A51A876A880038DB98 /* BoiiPrefixHeader.pch in Sources */,
-				CE784B5B1A680DF7003A4815 /* MenuStore.swift in Sources */,
 				CE6158A41A876A440038DB98 /* KLCPopup.m in Sources */,
 				CE907AE21A82569B00CAB9A5 /* DrinkCollectionViewController.swift in Sources */,
 				CE158C431A8281AB00D73743 /* MenuCollectionViewCell.swift in Sources */,
@@ -620,7 +616,6 @@
 				B3C8B7081ACD306300E6032A /* Order.swift in Sources */,
 				B364E15E1ACE98E900A09AC4 /* LoadScreenManager.swift in Sources */,
 				CE00E5621AB068D90005B4E5 /* BeaconManager.swift in Sources */,
-				CE27DCFE1A64108C006CFDC9 /* ViewController.swift in Sources */,
 				CE17DFDF1A7A013A0066A5BA /* RestaurantTableViewController.swift in Sources */,
 				B364E15C1ACE51B100A09AC4 /* OrderedDictionary.swift in Sources */,
 				CE430EF11A8B0F1600B5C7FC /* UIView+IBCornerRadius.swift in Sources */,
@@ -632,7 +627,6 @@
 				CE430EED1A8B094400B5C7FC /* RegisterViewController.swift in Sources */,
 				CE782E5E1A923CA4000B3E15 /* Restaurant.swift in Sources */,
 				CE430EF41A8BAAE800B5C7FC /* CartViewController.swift in Sources */,
-				CE784B591A680D09003A4815 /* MenuTableViewController.swift in Sources */,
 				CE430EEB1A8B08FC00B5C7FC /* LoginViewController.swift in Sources */,
 				CE00E5641AB06B930005B4E5 /* RestaurantShortcutBarButtonItem.swift in Sources */,
 				CE455CEC1A9DC2FB007B8B96 /* myLib.swift in Sources */,

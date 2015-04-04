@@ -156,6 +156,17 @@ class CartViewController: UITableViewController {
                 //Setup for Past Orders
                 cell = tableView.dequeueReusableCellWithIdentifier("OrderedItemCell", forIndexPath: indexPath) as UITableViewCell
                 order = self.cartStore.ordered[indexPath.section-2]
+                
+                if order != nil {
+                    switch (order!.status) {
+                    case "accepted":
+                        cell.backgroundColor = UIColor.greenColor()
+                    case "rejected":
+                        cell.backgroundColor = UIColor.redColor()
+                    default:
+                        cell.backgroundColor = UIColor.whiteColor()
+                    }
+                }
             }
             
             // Set order if not nil
@@ -195,6 +206,8 @@ class CartViewController: UITableViewController {
         if self.cartStore.getCurrentOrder().menuItems.count > 0 {
             self.cartStore.sendOrder()
         }
+        
+        Utilities.displayUpdateAlert("test", msg: "test")
     }
     
     func orderReadyNotification () {
@@ -233,7 +246,11 @@ class CartViewController: UITableViewController {
             return nil
         default: //should have order code
             var order = cartStore.ordered[section-2]
-            return "Order Code \(order?.orderCode)"
+            if let code = order?.orderCode {
+                return "Order Code \(code)"
+            } else {
+                return "Order Code Unknown"
+            }
         }
     }
     

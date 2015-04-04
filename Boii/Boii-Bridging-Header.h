@@ -12,5 +12,6 @@
 #import "KLCPopup.h"
 #import "MBProgressHUD.h"
 #import "M13OrderedDictionary/M13OrderedDictionary.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 #endif

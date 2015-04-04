@@ -12,6 +12,7 @@ connect to facebook
 QR code
 */
 import UIKit
+import SDWebImage
 
 private var myContext = 0
 
@@ -150,21 +151,30 @@ class RestaurantTableViewController: UITableViewController {
             titleLabel.textColor = UIColor.whiteColor()
             
             //apply filter to image
-            var newImg = restaurant.thumbnailImage
-            var inputImage = CIImage(CGImage: newImg.CGImage)
-            var context = CIContext(options: nil)
+//            var newImg = restaurant.thumbnailImage
+//            var inputImage = CIImage(CGImage: newImg.CGImage)
+//            var context = CIContext(options: nil)
+//            
+//            var filter = CIFilter(name: "CIVignette")
+//            filter.setValue(inputImage, forKey: kCIInputImageKey)
+//            
+//            filter.setValue(0.9, forKey: "inputRadius")
+//            filter.setValue(1, forKey: "inputIntensity")
+//            
+//            var outputImage = filter.outputImage
+//            var cgImg = context.createCGImage(outputImage, fromRect: outputImage.extent())
+//            defaultImg = UIImage(CGImage: cgImg)
+//            
+//            backgroundImgView.image = defaultImg
             
-            var filter = CIFilter(name: "CIVignette")
-            filter.setValue(inputImage, forKey: kCIInputImageKey)
             
-            filter.setValue(0.9, forKey: "inputRadius")
-            filter.setValue(1, forKey: "inputIntensity")
+            var url = NSURL(string: "http://marubon.info/wp-content/themes/organizer/images/unveil-lazy-load-336x223.png")!
             
-            var outputImage = filter.outputImage
-            var cgImg = context.createCGImage(outputImage, fromRect: outputImage.extent())
-            defaultImg = UIImage(CGImage: cgImg)
+            backgroundImgView.sd_setImageWithURL(url, placeholderImage: restaurant.thumbnailImage, completed: { (image, error, cacheType, url) in
+                log.debug("HELLO")
+            })
             
-            backgroundImgView.image = defaultImg
+
         }
 
         // Configure the cell...

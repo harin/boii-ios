@@ -10,6 +10,8 @@
 	<string>Boii</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
+		<key>3F923699D150097FCE7CA7868576F5D11D9C4CA9</key>
+		<string>github.com:lithium3141/SwiftDataStructures.git</string>
 		<key>620C34F7BE54591D80827B54E2A5DFA09A765D96</key>
 		<string>https://github.com/harinsa/boii-ios</string>
 	</dict>
@@ -17,6 +19,8 @@
 	<string>Boii.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
+		<key>3F923699D150097FCE7CA7868576F5D11D9C4CA9</key>
+		<string>../../SwiftDataStructures</string>
 		<key>620C34F7BE54591D80827B54E2A5DFA09A765D96</key>
 		<string>..</string>
 	</dict>
@@ -35,6 +39,14 @@
 			<string>620C34F7BE54591D80827B54E2A5DFA09A765D96</string>
 			<key>IDESourceControlWCCName</key>
 			<string>Boii</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>3F923699D150097FCE7CA7868576F5D11D9C4CA9</string>
+			<key>IDESourceControlWCCName</key>
+			<string>SwiftDataStructures</string>
 		</dict>
 	</array>
 </dict>

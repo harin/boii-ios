@@ -35,6 +35,7 @@ class CartBarButtonItem: UIBarButtonItem {
         
         cartButton.setTitle("Login", forState: UIControlState.Normal)
         cartButton.frame = CGRectMake(0, 0, 60, 20)
+        cartButton.titleLabel?.textAlignment = NSTextAlignment.Right
         cartButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
         cartButton.setTitleColor(UIColor.redColor(), forState: UIControlState.Highlighted)
         cartButton.addTarget(self, action: "cartButtonAction:", forControlEvents: UIControlEvents.TouchUpInside)

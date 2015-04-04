@@ -124,18 +124,11 @@ class ShoppingCartStore: NSObject {
         if let order = orderToUpdate {
             // Update order status accordingly
             order.status = status
-            let title = "Update"
-            let message = "Order with code \(orderToUpdate?.orderCode)"
-            
-            var alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-            var OKAction = UIAlertAction(title: "OK", style: .Default ){
-                (alertAction) in
-                log.debug("OK Pressed")
+            if let code = order.orderCode {
+                let message = "Order with code \(code) was \(status)"
+                let title = "Order Status Update"
+                Utilities.displayUpdateAlert(title, msg: message)
             }
-            
-            alert.addAction(OKAction)
-            
-            UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
             
             switch (status) {
             case "accepted":
@@ -159,6 +152,8 @@ class ShoppingCartStore: NSObject {
             default:
                 println("Unsupported order status case")
             }
+            
+            self.notifyCartUpdate()
         }
     }
     
@@ -250,10 +245,10 @@ class ShoppingCartStore: NSObject {
                                 let order_id = json["order_id"].string
                                 
                                 if order_code != nil && order_id != nil {
-                                    self.order_code = order_code
                                     
                                     //update currentOrder and put in ordered
                                     self.currentOrder.order_id = order_id!
+                                    self.currentOrder.orderCode = order_code!
                                     self.ordered[order_id!] = self.currentOrder
                                     
                                     log.debug("\(self.ordered[order_id!])")
@@ -267,7 +262,6 @@ class ShoppingCartStore: NSObject {
                                     if order_code == nil { log.error("order_code is nil") }
                                     if order_id   == nil { log.error("order_id is nil") }
                                 }
-                                
                             }
                         } else {
                             //Handle request failure
@@ -281,5 +275,7 @@ class ShoppingCartStore: NSObject {
         }
         
     }
+    
+
     
 }

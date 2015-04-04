@@ -60,3 +60,21 @@ func postJSONToPath( path: String, params: NSObject, callback:((NSData!, NSURLRe
 func stringForRestaurantMenuUpdateNotification(rest: Restaurant) -> String{
     return "menuForRestaurantNeedUpdate:\(rest._id)"
 }
+
+class Utilities {
+    class func displayUpdateAlert(title:String, msg: String) {
+        if let nav = UIApplication.sharedApplication().keyWindow?.rootViewController? {
+            if nav is UINavigationController {
+                var alert = UIAlertController(title: title, message: msg, preferredStyle: .Alert)
+                var OKAction = UIAlertAction(title: "OK", style: .Default, handler: {(action) in})
+                alert.addAction(OKAction)
+                nav.presentViewController(alert, animated: true, completion: {return})
+            } else {
+                log.debug("Expected a Navigation Controller, got \(nav)")
+            }
+        } else {
+            log.error("Enable to retrieve rootViewController, sry")
+        }
+    }
+}
+
