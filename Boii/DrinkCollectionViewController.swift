@@ -136,10 +136,28 @@ class DrinkCollectionViewController:
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as MenuCollectionViewCell
         
         let index = indexPath.row
-        if let menu = self.restaurant?.drinks {
-            cell.priceLabel.text = "฿ \(menu[index].price)"
-            cell.titleLabel.text = menu[index].name
-            cell.initImage(menu[index].thumbnailImage)
+        if let menu = self.restaurant?.drinks[index] {
+            cell.priceLabel.text = "฿ \(menu.price)"
+            cell.titleLabel.text = menu.name
+            
+            var url: NSURL?
+            log.debug("\(menu.pic_url)")
+            if let urlString = menu.pic_url {
+                url = NSURL(string: domain + urlString)
+            } else {
+                url = NSURL(string: "")
+            }
+            
+            cell.imageView.sd_setImageWithURL(url, placeholderImage: menu.thumbnailImage, completed: { (image, error, cacheType, url) in
+                log.debug("Done loading image for path \(indexPath)")
+                
+                if image != nil {
+                    menu.image = image
+                }
+            })
+
+
+//            cell.initImage(menu[index].thumbnailImage)
         }
 
         return cell
@@ -158,22 +176,8 @@ class DrinkCollectionViewController:
 
             // Setup Image
             
-            var url: NSURL?
-            log.debug("\(self.selectedMenu!.pic_url)")
-            if let urlString = self.selectedMenu!.pic_url {
-                url = NSURL(string: domain + urlString)
-            } else {
-                url = NSURL(string: "")
-            }
-            
-            imageView.sd_setImageWithURL(url, placeholderImage: self.selectedMenu!.thumbnailImage, completed: { (image, error, cacheType, url) in
-                log.debug("Done loading image for path \(indexPath)")
-                
-            })
-            
-//            imageView.image = selectedMenu!.thumbnailImage
+            imageView.image = selectedMenu!.thumbnailImage
             imageView.clipsToBounds = true
-            
             
             // Whatever
             let addToCartButton = contentView.viewWithTag(401) as UIButton
