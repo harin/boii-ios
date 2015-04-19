@@ -21,6 +21,7 @@ class RestaurantTableViewController: UITableViewController {
     var restaurantStore: RestaurantStore?
     var restaurants: [Restaurant]?
     var shoppingCart: ShoppingCartStore = ShoppingCartStore.sharedInstance
+    var animatingLoadingHUD: Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +48,17 @@ class RestaurantTableViewController: UITableViewController {
         leftBarButton.viewController = self
         self.navigationItem.leftBarButtonItem = leftBarButton
         
+        // Initialize the refresh control
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl?.backgroundColor = UIColor.blackColor()
+        self.refreshControl?.tintColor = UIColor.whiteColor()
+        self.refreshControl?.addTarget(self, action: "pulledToRefresh:", forControlEvents: UIControlEvents.ValueChanged)
+    }
+    
+    func pulledToRefresh(sender: AnyObject){
+        log.debug("Pulled to Refresh")
+        self.restaurantStore?.fetchRestaurant()
+        self.refreshControl?.endRefreshing()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -64,7 +76,11 @@ class RestaurantTableViewController: UITableViewController {
         
         if RestaurantStore.sharedInstance.isFetching == true {
             log.debug("showing HUD")
-            MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+            if self.animatingLoadingHUD == false {
+                MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+                self.animatingLoadingHUD = true
+            }
+
         }
     }
     
@@ -84,7 +100,10 @@ class RestaurantTableViewController: UITableViewController {
                     //display hud
                     dispatch_async(dispatch_get_main_queue()){
                         log.debug("Displaying ProgressHUD")
-                        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+                        if self.animatingLoadingHUD == false {
+                            MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+                            self.animatingLoadingHUD = true
+                        }
                         return
                     }
                 } else {
@@ -92,11 +111,12 @@ class RestaurantTableViewController: UITableViewController {
                     dispatch_async(dispatch_get_main_queue()){
                         log.debug("Hiding ProgressHUD")
                         MBProgressHUD.hideHUDForView(self.view, animated: true)
+                        
                         return
                     }
                 }
             default:
-                println("CartView: Unknown keyPath observed")
+                log.error("CartView: Unknown keyPath observed")
             }
             
         } else {
@@ -108,7 +128,7 @@ class RestaurantTableViewController: UITableViewController {
         dispatch_async(dispatch_get_main_queue(), {
             // DO SOMETHING ON THE MAINTHREAD
             
-            println("RestaurantTVC: updating restaurants \(NSThread.currentThread())")
+            log.debug("RestaurantTVC: updating restaurants \(NSThread.currentThread())")
             self.restaurants = RestaurantStore.sharedInstance.restaurants
             self.tableView.reloadData()
         })
@@ -167,11 +187,16 @@ class RestaurantTableViewController: UITableViewController {
 //            
 //            backgroundImgView.image = defaultImg
             
-            
-            var url = NSURL(string: "http://marubon.info/wp-content/themes/organizer/images/unveil-lazy-load-336x223.png")!
-            
+            var url: NSURL?
+            log.debug("\(restaurant.pic_url)")
+            if let urlString = restaurant.pic_url {
+                url = NSURL(string: domain + urlString)
+            } else {
+                url = NSURL(string: "")
+            }
+        
             backgroundImgView.sd_setImageWithURL(url, placeholderImage: restaurant.thumbnailImage, completed: { (image, error, cacheType, url) in
-                log.debug("HELLO")
+                log.debug("Done loading image for path \(indexPath)")
             })
             
 
@@ -181,6 +206,7 @@ class RestaurantTableViewController: UITableViewController {
 
         return cell
     }
+
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
@@ -197,7 +223,4 @@ class RestaurantTableViewController: UITableViewController {
             }
         }
     }
-    
-
-
 }

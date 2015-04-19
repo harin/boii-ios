@@ -25,34 +25,62 @@ class CartViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
-        let headerView = UIView(frame: CGRectMake(0, 0, self.view.bounds.width, 30.0 ))
-        orderCodeLabel.frame = headerView.frame
-        orderCodeLabel.text = ""
-        orderCodeLabel.backgroundColor = UIColor.blackColor()
-        orderCodeLabel.textColor = UIColor.whiteColor()
-        orderCodeLabel.tag = 500
-        orderCodeLabel.textAlignment = NSTextAlignment.Center
-
-        headerView.addSubview(orderCodeLabel)
-        self.tableView.tableHeaderView = headerView
+//        let headerView = UIView(frame: CGRectMake(0, 0, self.view.bounds.width, 30.0 ))
+//        orderCodeLabel.frame = headerView.frame
+//        orderCodeLabel.text = ""
+//        orderCodeLabel.backgroundColor = UIColor.blackColor()
+//        orderCodeLabel.textColor = UIColor.whiteColor()
+//        orderCodeLabel.tag = 500
+//        orderCodeLabel.textAlignment = NSTextAlignment.Center
+//
+//        headerView.addSubview(orderCodeLabel)
+//        self.tableView.tableHeaderView = headerView
         
         self.navigationItem.rightBarButtonItem = LogoutBarButtonItem()
 
+        // Initialize the refresh control
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl?.backgroundColor = UIColor.blackColor()
+        self.refreshControl?.tintColor = UIColor.whiteColor()
+        self.refreshControl?.addTarget(self, action: "pulledToRefresh:", forControlEvents: UIControlEvents.ValueChanged)
+
     }
+    
+    func pulledToRefresh(sender: AnyObject){
+        log.debug("Pulled to Refresh")
+        //Do something here
+        self.cartStore.fetchOrdersWithoutRejected()
+//        self.refreshControl?.endRefreshing()
+    }
+    
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear( animated)
         
-//        cartStore.addObserver(self, forKeyPath: "order_code", options: .New, context: &myContext)
-        AccountManager.sharedInstance.addObserver(self, forKeyPath: "authToken", options: .New, context: &myContext)
+        self.addObservers()
+        self.cartStore.fetchOrdersWithoutRejected()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "cartUpdate:", name: ShoppingCartStore.notifications.cartUpdateNotificationIdentifier, object: nil)
-
         
         if let code = self.cartStore.order_code {
             self.orderCodeLabel.text = "Order Code \(code)"
         }
         
+    }
+    
+    func addObservers() {
+        // KVO
+        cartStore.addObserver(self, forKeyPath: "isFetching", options: .New, context: &myContext)
+        AccountManager.sharedInstance.addObserver(self, forKeyPath: "authToken", options: .New, context: &myContext)
+        
+        // Notification
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "cartUpdate:", name: ShoppingCartStore.notifications.cartUpdateNotificationIdentifier, object: nil)
+    }
+    
+    func removeObservers() {
+        cartStore.removeObserver(self, forKeyPath: "isFetching")
+        AccountManager.sharedInstance.removeObserver(self, forKeyPath: "authToken")
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     func cartUpdate(noti: NSNotification) {
@@ -65,8 +93,7 @@ class CartViewController: UITableViewController {
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-//        cartStore.removeObserver(self, forKeyPath: "order_code")
-        AccountManager.sharedInstance.removeObserver(self, forKeyPath: "authToken")
+        self.removeObservers()
     }
 
     override func didReceiveMemoryWarning() {
@@ -97,6 +124,13 @@ class CartViewController: UITableViewController {
                 self.tableView.reloadData()
             case "authToken":
                 self.navigationController?.popViewControllerAnimated(true)
+            case "isFetching":
+                log.debug("Observed cart isFetching(\(self.cartStore.isFetching))")
+                if self.cartStore.isFetching {
+//                    self.refreshControl?
+                } else {
+                    self.refreshControl?.endRefreshing()
+                }
             default:
                 println("CartView: Unknown keyPath observed")
             }
@@ -159,9 +193,11 @@ class CartViewController: UITableViewController {
                 
                 if order != nil {
                     switch (order!.status) {
-                    case "accepted":
+                    case ShoppingCartStore.orderStatus.accepted:
+                        cell.backgroundColor = UIColor.orangeColor()
+                    case ShoppingCartStore.orderStatus.ready:
                         cell.backgroundColor = UIColor.greenColor()
-                    case "rejected":
+                    case ShoppingCartStore.orderStatus.rejected:
                         cell.backgroundColor = UIColor.redColor()
                     default:
                         cell.backgroundColor = UIColor.whiteColor()
@@ -174,7 +210,7 @@ class CartViewController: UITableViewController {
                 let nameLabel = cell.viewWithTag(300) as UILabel
                 let priceLabel = cell.viewWithTag(301) as UILabel
                 
-                log.debug("\(order!.menuItems)")
+//                log.debug("\(order!.menuItems)")
                 nameLabel.text = order!.menuItems[indexPath.row].name
                 priceLabel.text = "$ \(order!.menuItems[indexPath.row].price)"
             } else {

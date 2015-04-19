@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="1c9-qf-7sY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C2513" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="1c9-qf-7sY">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -8,7 +8,7 @@
         <!--Restaurant Table View Controller-->
         <scene sceneID="lCD-t9-Ufh">
             <objects>
-                <tableViewController id="yAL-jk-0Lc" customClass="RestaurantTableViewController" customModule="Boii" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="yAL-jk-0Lc" customClass="RestaurantTableViewController" customModule="boii" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="200" sectionHeaderHeight="22" sectionFooterHeight="22" id="LTl-qZ-z9w">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -26,7 +26,7 @@
                                         <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DNn-qw-0LF">
                                             <rect key="frame" x="28" y="85" width="544" height="30"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -80,12 +80,12 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2ui-Na-SgR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1296" y="196"/>
+            <point key="canvasLocation" x="1134" y="196"/>
         </scene>
         <!--Test-->
         <scene sceneID="efG-B6-GBo">
             <objects>
-                <collectionViewController title="Test" id="yTD-ng-izM" customClass="DrinkCollectionViewController" customModule="Boii" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController title="Test" id="yTD-ng-izM" customClass="DrinkCollectionViewController" customModule="boii" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" dataMode="prototypes" id="wuC-CP-Eh3">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -97,7 +97,7 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="drinkMenuCell" id="Qmj-ef-m6u" customClass="MenuCollectionViewCell" customModule="Boii" customModuleProvider="target">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="drinkMenuCell" id="Qmj-ef-m6u" customClass="MenuCollectionViewCell" customModule="boii" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -157,12 +157,12 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vhd-Pw-iJY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2345" y="-121"/>
+            <point key="canvasLocation" x="2638.5" y="-147"/>
         </scene>
         <!--Food-->
         <scene sceneID="m91-1P-Pwm">
             <objects>
-                <collectionViewController id="UKr-Ho-8NV" customClass="FoodCollectionViewController" customModule="Boii" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController id="UKr-Ho-8NV" customClass="FoodCollectionViewController" customModule="boii" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="oUj-jB-PSh">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -173,7 +173,7 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="foodMenuCell" id="JqX-n4-cgV" customClass="MenuCollectionViewCell" customModule="Boii" customModuleProvider="target">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="foodMenuCell" id="JqX-n4-cgV" customClass="MenuCollectionViewCell" customModule="boii" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -201,9 +201,6 @@
                                             <nil key="highlightedColor"/>
                                             <color key="shadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <size key="shadowOffset" width="0.0" height="0.0"/>
-                                            <variation key="widthClass=compact" misplaced="YES">
-                                                <rect key="frame" x="8" y="167" width="184" height="25"/>
-                                            </variation>
                                         </label>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -236,12 +233,12 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UbF-4F-XRj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2345" y="513"/>
+            <point key="canvasLocation" x="2638.5" y="537"/>
         </scene>
         <!--Menu Tab Bar Controller-->
         <scene sceneID="0te-Xj-tGv">
             <objects>
-                <tabBarController restorationIdentifier="MenuTabBarController" storyboardIdentifier="MenuTabBarController" id="Wha-3O-Dmy" customClass="MenuTabBarController" customModule="Boii" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController restorationIdentifier="MenuTabBarController" storyboardIdentifier="MenuTabBarController" id="Wha-3O-Dmy" customClass="MenuTabBarController" customModule="boii" customModuleProvider="target" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="Or4-0w-g36">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
@@ -255,7 +252,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="erf-Or-KSB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1780" y="196"/>
+            <point key="canvasLocation" x="1848" y="196"/>
         </scene>
         <!--Boii-->
         <scene sceneID="wel-Rw-XZm">
@@ -273,7 +270,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Rw-be-ZK4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="793" y="196"/>
+            <point key="canvasLocation" x="400.5" y="196"/>
         </scene>
     </scenes>
     <resources>

@@ -26,6 +26,7 @@ class Restaurant: NSObject, NSCoding, Printable  {
     var email: String?
     var phone: [tel] = []
     var thumbnailImage: UIImage = UIImage(named:"toofast-375w.jpg")!
+    var pic_url: String?
     dynamic var isFetching: Bool = false
 
     private var drinkList: [MenuItem]
@@ -84,6 +85,22 @@ class Restaurant: NSObject, NSCoding, Printable  {
         aCoder.encodeObject(foodList, forKey: "foodList")
     }
 
+    // MARK: Helper methods
+    
+    func menuWithId(menu_id: String) -> MenuItem? {
+        for menu in drinkList {
+            if menu._id == menu_id {
+                return menu
+            }
+        }
+        for menu in foodList {
+            if menu._id == menu_id {
+                return menu
+            }
+        }
+        
+        return nil
+    }
     
     
     // MARK: API accessing methods
@@ -142,6 +159,9 @@ class Restaurant: NSObject, NSCoding, Printable  {
                 
                 if let pic_url = menu["pic_url"].string {
                     m.pic_url = pic_url
+                    log.debug("url for \(self.name)=\(m.pic_url)")
+                } else {
+                    log.error("no picture for \(self.name)");
                 }
                 
                 if let promotion = menu["promotion"].bool {
@@ -165,18 +185,18 @@ class Restaurant: NSObject, NSCoding, Printable  {
                 case "food":
                     foodResult.append(m)
                 default:
-                    println("Restaurant: Error menu type: \(type)")
+                    log.error("Restaurant: Error menu type: \(type)")
                 }
                 
             } else {
                 if _id == nil {
-                    println("ParseMenuError: _id is \(_id)")
+                    log.error("ParseMenuError: _id is \(_id)")
                 }
                 if name == nil {
-                    println("ParseMenuError: name is \(name)")
+                    log.error("ParseMenuError: name is \(name)")
                 }
                 if price == nil {
-                    println("ParseMenuError: price is \(price)")
+                    log.error("ParseMenuError: price is \(price)")
                 }
             }
         }
@@ -185,14 +205,14 @@ class Restaurant: NSObject, NSCoding, Printable  {
         self.drinkList = drinkResult
         self.foodList = foodResult
         
-        println("Restaurant: Updated drink = \(self.drinkList)")
-        println("Restaurant: Updated food = \(self.foodList)")
+        log.verbose("Restaurant: Updated drink = \(self.drinkList)")
+        log.verbose("Restaurant: Updated food = \(self.foodList)")
 
         menuForRestaurantNeedUpdate()
     }
     
     func menuForRestaurantNeedUpdate(){
-        println("Restaurant: Menu need update notification Sent")
+        log.debug("Restaurant: Menu need update notification Sent")
         
         let notiName = stringForRestaurantMenuUpdateNotification(self)
         let note = NSNotification(name: notiName, object: self)

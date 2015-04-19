@@ -21,9 +21,6 @@ GET /restaurants/:id/menus?type=food
 
 import Foundation
 
-
-
-
 class RestaurantStore: NSObject {
     //singleton
     class var sharedInstance: RestaurantStore {
@@ -68,8 +65,7 @@ class RestaurantStore: NSObject {
         let path = self.restArchivePath()
         return NSKeyedArchiver.archiveRootObject(restaurants, toFile: path)
     }
-    
-    
+
     // Return restaurant with the specify major and minor, return nil is non is found
     func restaurantWithBeacon(major: Int, minor: Int) -> Restaurant?{
         // search locally
@@ -84,6 +80,16 @@ class RestaurantStore: NSObject {
         return nil
     }
     
+    // MARK: helper methods
+    
+    func getRestaurantWithId(rest_id: String) -> Restaurant?{
+        for rest in restaurants {
+            if rest._id == rest_id {
+                return rest
+            }
+        }
+        return nil
+    }
     
     // MARK: API methods
 //    func fetchMenuForRestaurant(rest: Restaurant) {
@@ -101,26 +107,31 @@ class RestaurantStore: NSObject {
 //    }
     
     func fetchRestaurant(){
-        println("RestaurantStore: fetching restaurant")
-
-        let rootVC = UIApplication.sharedApplication().keyWindow?.rootViewController?
+        log.debug("RestaurantStore: fetching restaurant")
         
         self.isFetching = true
         getRequest(domain+restaurantPath) {
             (data, session, error, json) -> Void in
             
-            if json != nil {
-                self.parseRestaurantJson(json!)
-//                dispatch_async(dispatch_get_main_queue(), {
-//                    hud.hide(true);
-//                });
+            if error == nil {
+//                log.debug("\(json)")
+                
+                if json != nil {
+                    self.parseRestaurantJson(json!)
+                } else {
+                    log.error("json=\(json)")
+                }
+            } else {
+                log.error("error=\(error)")
             }
             
+            log.debug("Done fetching")
             self.isFetching = false
         }
     }
     
     func parseRestaurantJson( jsonObject: AnyObject){
+        log.debug("Parsing restaurant json")
         /*
         _id: String
         address: String
@@ -161,6 +172,10 @@ class RestaurantStore: NSObject {
                     r.beaconMinor = beaconMinor
                 }
                 
+                if let pic_url = rest["pic_url"].string {
+                    r.pic_url = pic_url
+                }
+                
                 if let email = rest["email"].string {
                     r.email = email
                 }
@@ -177,10 +192,10 @@ class RestaurantStore: NSObject {
                 result.append(r)
             } else {
                 if _id == nil {
-                    println("Error: _id is \(_id)")
+                    log.error("Error: _id is \(_id)")
                 }
                 if name == nil {
-                    println("Error: name is \(name)")
+                    log.error("Error: name is \(name)")
                 }
             }
         }

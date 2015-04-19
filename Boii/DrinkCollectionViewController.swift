@@ -34,21 +34,23 @@ class DrinkCollectionViewController:
         if let rest = self.restaurant {
             let notiName = stringForRestaurantMenuUpdateNotification(rest)
             NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateMenu:", name: notiName, object: nil)
+            
+            if ShoppingCartStore.sharedInstance.restaurant == nil {
+                ShoppingCartStore.sharedInstance.restaurant = self.restaurant
+            }
         } else {
             log.error("no restaurant set")
         }
+        
     }
     
     
     func updateMenu(sender: AnyObject?){
-        
         dispatch_async(dispatch_get_main_queue(), {
             
             println("DrinkCVC: updating Menu \(NSThread.currentThread())")
             self.collectionView?.reloadData()
         })
-        
-
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -154,9 +156,26 @@ class DrinkCollectionViewController:
             
             self.selectedMenu = menu[indexPath.row]
 
-            imageView.image = selectedMenu!.thumbnailImage
+            // Setup Image
+            
+            var url: NSURL?
+            log.debug("\(self.selectedMenu!.pic_url)")
+            if let urlString = self.selectedMenu!.pic_url {
+                url = NSURL(string: domain + urlString)
+            } else {
+                url = NSURL(string: "")
+            }
+            
+            imageView.sd_setImageWithURL(url, placeholderImage: self.selectedMenu!.thumbnailImage, completed: { (image, error, cacheType, url) in
+                log.debug("Done loading image for path \(indexPath)")
+                
+            })
+            
+//            imageView.image = selectedMenu!.thumbnailImage
             imageView.clipsToBounds = true
             
+            
+            // Whatever
             let addToCartButton = contentView.viewWithTag(401) as UIButton
             addToCartButton.addTarget(self, action: "addButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
             let cancelButton = contentView.viewWithTag(402) as UIButton

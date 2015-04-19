@@ -21,11 +21,17 @@ class RegisterViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        var gesture = UITapGestureRecognizer(target: self, action: "tapBackground:")
+        self.view.addGestureRecognizer(gesture)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func tapBackground(sender: AnyObject) {
+        self.view.endEditing(true)
     }
     
     @IBAction func signUpAction(sender: AnyObject) {

@@ -6,54 +6,22 @@
 //  Copyright (c) พ.ศ. 2558 Harin Sanghirun. All rights reserved.
 //
 
-
-/*
-
-api needed
-
-POST /orders
-/*
-{
-customer_id: String ,
-payed: Boolean ,
-status: String,
-order_datetime: ,
-orderItems: [
-{
-menu_id: ,
-quantity:
-},
-{
-menu_id: ,
-quantity:
-},
-{
-menu_id: ,
-quantity:
-}
-]
-}
-
-Should return
-
-{
-success: Boolean,
-orderCode: String
-}
-*/
-
-*/
-
 import Foundation
 import M13OrderedDictionary
 import XCGLogger
-
-
 
 class ShoppingCartStore: NSObject {
     var restaurant: Restaurant? // current restaurant
     var accountManager: AccountManager = AccountManager.sharedInstance
     dynamic var order_code: String?
+    dynamic var isFetching: Bool = false
+    
+    struct orderStatus {
+        static var accepted = "accepted"
+        static var rejected = "rejected"
+        static var billed = "billed"
+        static var ready = "ready"
+    }
     
     private var currentOrder: Order
     
@@ -90,6 +58,22 @@ class ShoppingCartStore: NSObject {
         super.init()
     }
     
+    func orderedArchivePath() -> String {
+        let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
+        return documentDirectory.stringByAppendingPathComponent("ordered.archive")
+    }
+    
+    func currentOrderArchivePath() -> String {
+        let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
+        return documentDirectory.stringByAppendingPathComponent("currentOrder.archive")
+    }
+    
+    func saveChanges() -> Bool {
+        var success1 = NSKeyedArchiver.archiveRootObject(ordered, toFile: self.orderedArchivePath())
+        var success2 = NSKeyedArchiver.archiveRootObject(currentOrder, toFile: self.currentOrderArchivePath())
+        return success1 && success2
+    }
+    
     // MARK: Setter and Getter
     
     func addMenuToCurrentOrder(_menu: MenuItem){
@@ -108,8 +92,6 @@ class ShoppingCartStore: NSObject {
     }
     
     // MARK: Others
-
-
     
     private func initOrders() {
         self.currentOrder = Order()
@@ -131,23 +113,32 @@ class ShoppingCartStore: NSObject {
             }
             
             switch (status) {
-            case "accepted":
+            case ShoppingCartStore.orderStatus.accepted:
                 println("Order accepted")
                 // alert
                 
                 // update ui
                 
-            case "rejected":
+            case ShoppingCartStore.orderStatus.rejected:
                 println("Order rejected")
                 // alert
                 
                 // remove from list
+                removeOrderWithId(_order_id)
                 
-            case "billed":
+            case ShoppingCartStore.orderStatus.billed:
                 println("Order billed")
                 // alert
                 
                 //remove from list
+                removeOrderWithId(_order_id)
+
+            case ShoppingCartStore.orderStatus.ready:
+                println("Order Ready")
+                //alert user to go pickup
+//                log.debug("\(UIApplication.sharedApplication().keyWindow)")
+//                log.debug("\(UIApplication.sharedApplication().keyWindow?.rootViewController)")
+                
                 
             default:
                 println("Unsupported order status case")
@@ -155,6 +146,14 @@ class ShoppingCartStore: NSObject {
             
             self.notifyCartUpdate()
         }
+    }
+    
+    func removeOrderWithId(id: String){
+        //dispatch_sync(dispatch_get_main_queue()){
+            log.debug("Removing Order with id \(id)")
+            log.debug("\(self.ordered[id])")
+            self.ordered[id] = nil
+        //}
     }
     
     func switchToRestaurant(rest: Restaurant){
@@ -211,6 +210,133 @@ class ShoppingCartStore: NSObject {
         ]
         println("Cart: data to post= \(data)")
         return data
+    }
+    func fetchOrdersIncludingRejected() {
+        self.fetchOrders(true)
+    }
+    
+    func fetchOrdersWithoutRejected() {
+        self.fetchOrders(false)
+    }
+
+    private func fetchOrders(includeRejected:Bool){
+        if accountManager.isLoggedIn && self.restaurant != nil {
+            
+            log.debug("Updating orders")
+            
+            var url = domain + orderPath + "?restaurant_id=\(self.restaurant!._id)"
+            
+            if includeRejected {
+                url += "&includeRejected=true"
+            }
+            
+            var request = NSMutableURLRequest(URL: NSURL( string: url )!)
+            
+            request.setValue(accountManager.userId, forHTTPHeaderField: "x-user-id")
+            request.setValue(accountManager.authToken, forHTTPHeaderField: "x-auth-token")
+            
+            var session = NSURLSession.sharedSession()
+            var task = session.dataTaskWithRequest(request){
+                (data, response, error) -> Void in
+                
+                let rawJson: AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil)
+                
+//                log.debug("\(rawJson)")
+                
+                self.parseOrder(rawJson)
+                self.isFetching = false
+
+            }
+            
+            self.isFetching = true
+            task.resume()
+            
+        } else {
+            if !accountManager.isLoggedIn {
+                log.error("Not loggedIn")
+            }
+            
+            if self.restaurant == nil {
+                log.error("self.restaurant not initialized")
+            }
+        }
+    }
+    
+    func parseOrder( rawJson: AnyObject? ){
+        var cartUpdated = false // Use to check whether there is an update to the cart
+        
+        if rawJson != nil {
+            let json = JSON(rawJson!)
+            if json != nil {
+                //parse
+                let status = json["status"].string
+                if status == "success" {
+                    let data = json["data"]
+                    if data != nil  {
+                        var newOrdered = OrderedDictionary<String, Order>()
+                        for (key: String, orderJson: JSON) in data {
+                            // Create Empty Order
+                            var order = Order()
+                            
+                            order.order_id = orderJson["_id"].string
+                            
+                            if order.order_id != nil {
+                                order.orderCode = orderJson["confirm_code"].string
+                                
+                                if let status = orderJson["order_status"].string {
+                                    order.status = status
+                                }
+                                
+                                let menuItems = orderJson["orderItems"]
+                                if menuItems != nil {
+                                    for(index: String, menus: JSON) in menuItems {
+                                        //find menu item with id
+                                        if let menuId = menus.string {
+                                            if let menu = self.restaurant?.menuWithId(menuId) {
+                                                //If menu exist => add to order
+                                                order.menuItems.append( menu)
+                                            } else {
+                                                log.error("Menu with id(\(menuId)) not found")
+                                            }
+                                        } else {
+                                            log.error("menuId is \(menus.string)")
+                                        }
+                                    }
+                                } else {
+                                    log.error("orderJson['orderItems'] is \(menuItems)")
+                                }
+                                // Put order into cart
+                                newOrdered[order.order_id!] = order
+                                
+                            } else {
+                                log.error("order_id is \(order.order_id)")
+                            }
+                        }
+                        
+                        
+                        // Update the cartUpdate Flag
+                        if !cartUpdated {
+                            cartUpdated = true
+                        }
+                        
+                        // set ordered to newOrdered
+                        self.ordered = newOrdered
+
+                    } else {
+                        log.error("data=\(data)")
+                    }
+                } else {
+                    log.error("status=\(status)")
+                }
+            }
+        } else {
+            log.error("rawJson is \(rawJson)")
+        }
+        
+        // If updated, send notification
+        if cartUpdated {
+            self.notifyCartUpdate()
+        }
     }
     
     func sendOrder() {

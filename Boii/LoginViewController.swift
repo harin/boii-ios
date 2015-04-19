@@ -21,7 +21,10 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        AccountManager.sharedInstance.login("test@bob.com", password: "123456", callback: nil)
+//        AccountManager.sharedInstance.login("a@a.com", password: "123456", callback: nil)
+        
+        var gesture = UITapGestureRecognizer(target: self, action: "tapBackground:")
+        self.view.addGestureRecognizer(gesture)
     }
 
     override func didReceiveMemoryWarning() {
@@ -29,8 +32,12 @@ class LoginViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func tapBackground(sender: AnyObject) {
+        self.view.endEditing(true)
+    }
+    
     @IBAction func loginAction(sender: AnyObject) {
-        let email = "blob@schmoe.com" //self.emailTextField.text
+        let email = "a@a.com" //self.emailTextField.text
         let password = "password"// self.passwordTextField.text
         
         println("LoginVC: Logging user in");

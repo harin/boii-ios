@@ -21,12 +21,10 @@ func getRequest( urlString: String, callback:((NSData!, NSURLResponse!, NSError!
     var session = NSURLSession.sharedSession()
     var task = session.dataTaskWithRequest(request){
         (data, response, error) -> Void in
-        if error != nil {
-            println(error)
-        } else {
-            let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil)
-            callback!(data, response, error, json: json)
-        }
+
+        let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil)
+        callback!(data, response, error, json: json)
+        
     }
     
     task.resume() //send request

@@ -30,15 +30,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var setting = UIUserNotificationSettings(forTypes: .Sound | .Alert, categories: nil)
         UIApplication.sharedApplication().registerUserNotificationSettings(setting)
         
-        if( AccountManager.sharedInstance.isLoggedIn) {
-            UIApplication.sharedApplication().registerForRemoteNotifications()
-        }
+        // Get deviceToken for push notification
+        UIApplication.sharedApplication().registerForRemoteNotifications()
+        
         
         //Option contains push notification if app is not running when it came
         
         if let launchOpts: NSDictionary = launchOptions {
             var notificationPayload: NSDictionary = launchOpts.objectForKey(UIApplicationLaunchOptionsRemoteNotificationKey) as NSDictionary
             println(notificationPayload);
+            ShoppingCartStore.sharedInstance.fetchOrdersIncludingRejected()
         }
         
         return true
@@ -63,10 +64,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let success = RestaurantStore.sharedInstance.saveChanges()
         if success {
-            println("Saved all Restaurants")
+            log.debug("Saved all Restaurants")
         } else {
-            println("Could not save Restaurants")
+            log.error("Could not save Restaurants")
         }
+        
+        let suckekcess = ShoppingCartStore.sharedInstance.saveChanges()
+        if success {
+            log.debug("Saved shopping cart")
+        } else {
+            log.error("Could not save shopping cart")
+        }
+        
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
@@ -87,7 +96,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         tokenString = tokenString.stringByReplacingOccurrencesOfString(" ", withString: "")
         tokenString = tokenString.stringByReplacingOccurrencesOfString("<", withString: "")
         tokenString = tokenString.stringByReplacingOccurrencesOfString(">", withString: "")
-        println("token = \(tokenString)")
+        log.debug("token = \(tokenString)")
+        
         
         accountManager.deviceToken = tokenString;
     }
@@ -99,15 +109,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // MARK: Push Notification
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
-        println("Did Receive Remote Notification");
         let dictionary: Dictionary = userInfo
-        
-        println("dictionary = \(dictionary)")
+
+        dispatch_async(dispatch_get_main_queue()) {
+            log.debug("Did Receive Remote Notification");
+            log.debug("dictionary = \(dictionary)")
+        }
         
         let order_id = dictionary["order_id"] as? String
         let order_status = dictionary["order_status"] as? String
         println("order_id = \(order_id))")
-        println("order_statas = \(order_status)")
+        println("order_status = \(order_status)")
         if order_id != nil && order_status != nil {
             ShoppingCartStore.sharedInstance.receivePushForOrderWithId(order_id!, status: order_status!)
         } else {

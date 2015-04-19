@@ -63,6 +63,7 @@ class AccountManager: NSObject {
 
                     self.authToken = json["authToken"]["token"].string
                     self.userId = json["userId"].string
+                    self.updateDeviceToken()
                     
                 } else {
                     println("AccountManager: Response status = \(status)")
@@ -101,6 +102,7 @@ class AccountManager: NSObject {
                         
                     self.authToken = data["authToken"].string
                     self.userId = data["userId"].string
+                    self.updateDeviceToken()
                     
                 } else {
                     println("AccountManager: Response status = \(status)")
@@ -110,7 +112,7 @@ class AccountManager: NSObject {
             
             if callback != nil {
                 callback!( status == "success" )
-                UIApplication.sharedApplication().registerForRemoteNotifications()
+                    UIApplication.sharedApplication().registerForRemoteNotifications()
             }
         }
         
@@ -136,54 +138,55 @@ class AccountManager: NSObject {
                         var json = JSON(data: data)
                         if let status = json["status"].string {
                             if status == "success" {
-                                println("You are logged out")
+                                log.debug("You are logged out")
 
                             } else {
-                                println("Cart: ERROR - \(status)")
+                                log.error("\(status)")
                             }
                         } else {
-                            println("Cart: ERROR - \(json)")
+                            log.error("\(json)")
                         }
                     }
                 }
                 task.resume()
+                
             }
         }
         self.userId = nil
         self.authToken = nil
-
     }
     
     private func updateDeviceToken(){
-        var request = NSMutableURLRequest( URL: NSURL(string: domain + userPath)!)
-        var session = NSURLSession.sharedSession()
-        request.HTTPMethod = "PUT"
-        
-        var params = ["token": self.deviceToken]
-        
-        var jsonData = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: nil)
-        request.HTTPBody = jsonData
-        
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue(self.authToken, forHTTPHeaderField: "X-Auth-Token")
-        request.addValue(self.userId, forHTTPHeaderField: "X-User-Id")
-        
-        var task = session.dataTaskWithRequest(request) {
-            (rawData, response, error) -> Void in
-            if (error != nil) {
-                //handle error
-                println("AM: \(error)")
-                
-            } else {
-                let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(rawData, options: NSJSONReadingOptions.MutableContainers, error: nil)
-                println("AM: \(json)")
+        if self.isLoggedIn {
+            var request = NSMutableURLRequest( URL: NSURL(string: domain + userPath)!)
+            var session = NSURLSession.sharedSession()
+            request.HTTPMethod = "PUT"
+            
+            var params = ["deviceToken": self.deviceToken]
+            
+            var jsonData = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: nil)
+            request.HTTPBody = jsonData
+            
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            request.addValue(self.authToken, forHTTPHeaderField: "X-Auth-Token")
+            request.addValue(self.userId, forHTTPHeaderField: "X-User-Id")
+            
+            var task = session.dataTaskWithRequest(request) {
+                (rawData, response, error) -> Void in
+                if (error != nil) {
+                    //handle error
+                    log.error("\(error)")
+                    
+                } else {
+                    let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(rawData, options: NSJSONReadingOptions.MutableContainers, error: nil)
+                    log.verbose("\(json)")
+                }
             }
+            
+            log.debug("AM: updating deviceToken")
+            task.resume()
         }
-        
-        println("AM: updating deviceToken")
-        task.resume()
-
     }
     
     
