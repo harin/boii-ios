@@ -20,6 +20,8 @@ class DrinkCollectionViewController:
     var selectedMenu: MenuItem?
     var restaurant: Restaurant?
     var isObservingRestaurant: Bool = false
+    let refreshControl = UIRefreshControl()
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +35,7 @@ class DrinkCollectionViewController:
         
         if let rest = self.restaurant {
             let notiName = stringForRestaurantMenuUpdateNotification(rest)
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateMenu:", name: notiName, object: nil)
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateCollection:", name: notiName, object: nil)
             
             if ShoppingCartStore.sharedInstance.restaurant == nil {
                 ShoppingCartStore.sharedInstance.restaurant = self.restaurant
@@ -41,15 +43,25 @@ class DrinkCollectionViewController:
         } else {
             log.error("no restaurant set")
         }
-        
+
+        self.refreshControl.addTarget(self, action: "startRefresh:", forControlEvents: UIControlEvents.ValueChanged)
+        self.collectionView?.addSubview(refreshControl)
     }
     
+    func startRefresh( sender: AnyObject ){
+        log.debug("Refreshing")
+        if self.restaurant != nil {
+            if !self.restaurant!.fetchMenu() {
+                self.refreshControl.endRefreshing()
+            }
+        }
+    }
     
-    func updateMenu(sender: AnyObject?){
+    func updateCollection(sender: AnyObject?){
         dispatch_async(dispatch_get_main_queue(), {
-            
             println("DrinkCVC: updating Menu \(NSThread.currentThread())")
             self.collectionView?.reloadData()
+            self.refreshControl.endRefreshing()
         })
     }
     
@@ -149,7 +161,7 @@ class DrinkCollectionViewController:
             }
             
             cell.imageView.sd_setImageWithURL(url, placeholderImage: menu.thumbnailImage, completed: { (image, error, cacheType, url) in
-                log.debug("Done loading image for path \(indexPath)")
+//                log.debug("Done loading image for path \(indexPath)")
                 
                 if image != nil {
                     menu.image = image

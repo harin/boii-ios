@@ -18,6 +18,7 @@ class FoodCollectionViewController:
     let defaultThumbnail : UIImage? = UIImage(named: "starbuck_coffee.jpg")
     var selectedMenu: MenuItem?
     var restaurant: Restaurant?
+    let refreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,8 +36,19 @@ class FoodCollectionViewController:
         } else {
             println("DrinkCVC: Error: no restaurant set")
         }
+        
+        self.refreshControl.addTarget(self, action: "startRefresh:", forControlEvents: UIControlEvents.ValueChanged)
+        self.collectionView?.addSubview(refreshControl)
     }
     
+    func startRefresh( sender: AnyObject ){
+        log.debug("Refreshing")
+        if self.restaurant != nil {
+            if !self.restaurant!.fetchMenu() {
+                self.refreshControl.endRefreshing()
+            }
+        }
+    }
     
     func updateMenu(sender: AnyObject?){
         
@@ -44,7 +56,6 @@ class FoodCollectionViewController:
             println("DrinkCVC: updating Menu \(NSThread.currentThread())")
             self.collectionView?.reloadData()
         })
-        
         
     }
     

@@ -86,7 +86,7 @@
         <scene sceneID="efG-B6-GBo">
             <objects>
                 <collectionViewController title="Test" id="yTD-ng-izM" customClass="DrinkCollectionViewController" customModule="boii" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" dataMode="prototypes" id="wuC-CP-Eh3">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" id="wuC-CP-Eh3">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -120,7 +120,9 @@
                                             <color key="backgroundColor" red="0.14901960784313725" green="0.14901960784313725" blue="0.14901960784313725" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="30" id="5Em-tu-dce"/>
-                                                <constraint firstAttribute="width" constant="60" id="gBF-yk-TCD"/>
+                                                <constraint firstAttribute="width" constant="60" id="gBF-yk-TCD">
+                                                    <variation key="widthClass=compact" constant="80"/>
+                                                </constraint>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -163,9 +165,10 @@
         <scene sceneID="m91-1P-Pwm">
             <objects>
                 <collectionViewController id="UKr-Ho-8NV" customClass="FoodCollectionViewController" customModule="boii" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="oUj-jB-PSh">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" id="oUj-jB-PSh">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="tkY-sn-i2Z">
                             <size key="itemSize" width="200" height="200"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -187,7 +190,9 @@
                                             <rect key="frame" x="140" y="24" width="60" height="30"/>
                                             <color key="backgroundColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="60" id="Wj5-27-XYd"/>
+                                                <constraint firstAttribute="width" constant="60" id="Wj5-27-XYd">
+                                                    <variation key="widthClass=compact" constant="80"/>
+                                                </constraint>
                                                 <constraint firstAttribute="height" constant="30" id="sy2-fi-Um5"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>

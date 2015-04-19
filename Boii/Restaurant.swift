@@ -105,7 +105,8 @@ class Restaurant: NSObject, NSCoding, Printable  {
     
     // MARK: API accessing methods
     
-    func fetchMenu() {
+    // Return true if can fetch (more than 5 minutes since last fetch)
+    func fetchMenu() -> Bool {
         
         //Only fetch if more than 5 minutes since last fetch;
         if (self.sinceLastFetch > 300) {
@@ -124,6 +125,10 @@ class Restaurant: NSObject, NSCoding, Printable  {
                 
                 self.isFetching = false
             }
+            
+            return true
+        } else {
+            return false
         }
     }
     
