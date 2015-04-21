@@ -45,14 +45,36 @@ class LoginViewController: UIViewController {
         
         var hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         AccountManager.sharedInstance.login(email , password: password) {
-            (success) in
-            
-            println("callback called");
-            
+            (success, msg) in
             dispatch_async(dispatch_get_main_queue(), {
-                hud.hide(true);
-                self.navigationController?.popViewControllerAnimated(true);
+                if success {
+                    log.info("Login Successful")
+
+                        hud.hide(true)
+                        self.navigationController?.popViewControllerAnimated(true);
+
+                } else {
+                    log.info("Login failed")
+                    hud.hide(true)
+                    
+                    var alertMsg = ""
+                    if msg != nil {
+                        alertMsg = msg!
+                    } else {
+                        alertMsg = "Something went wrong."
+                    }
+                    
+                    
+                    var alert = UIAlertController(title: "Error", message: alertMsg, preferredStyle: .Alert)
+                    var OKAction = UIAlertAction(title: "OK", style: .Default, handler: {(action) in})
+                    alert.addAction(OKAction)
+                    
+                    self.presentViewController(alert, animated: true, completion: {return})
+                    
+                }
             });
+
+
         }
         
         //show some loading action.

@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import M13OrderedDictionary
 import XCGLogger
 
 class ShoppingCartStore: NSObject {
@@ -58,21 +57,21 @@ class ShoppingCartStore: NSObject {
         super.init()
     }
     
-    func orderedArchivePath() -> String {
-        let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
-        return documentDirectory.stringByAppendingPathComponent("ordered.archive")
-    }
-    
-    func currentOrderArchivePath() -> String {
-        let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
-        return documentDirectory.stringByAppendingPathComponent("currentOrder.archive")
-    }
-    
-    func saveChanges() -> Bool {
-        var success1 = NSKeyedArchiver.archiveRootObject(ordered, toFile: self.orderedArchivePath())
-        var success2 = NSKeyedArchiver.archiveRootObject(currentOrder, toFile: self.currentOrderArchivePath())
-        return success1 && success2
-    }
+//    func orderedArchivePath() -> String {
+//        let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
+//        return documentDirectory.stringByAppendingPathComponent("ordered.archive")
+//    }
+//    
+//    func currentOrderArchivePath() -> String {
+//        let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
+//        return documentDirectory.stringByAppendingPathComponent("currentOrder.archive")
+//    }
+//    
+//    func saveChanges() -> Bool {
+//        var success1 = NSKeyedArchiver.archiveRootObject(ordered, toFile: self.orderedArchivePath())
+//        var success2 = NSKeyedArchiver.archiveRootObject(currentOrder, toFile: self.currentOrderArchivePath())
+//        return success1 && success2
+//    }
     
     // MARK: Setter and Getter
     

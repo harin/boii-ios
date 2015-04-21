@@ -36,9 +36,14 @@ class FoodCollectionViewController:
         } else {
             println("DrinkCVC: Error: no restaurant set")
         }
-        
+        self.refreshControl.tintColor = redLabelColor
+
         self.refreshControl.addTarget(self, action: "startRefresh:", forControlEvents: UIControlEvents.ValueChanged)
         self.collectionView?.addSubview(refreshControl)
+        
+        if let zPos = self.collectionView?.backgroundView?.layer.zPosition {
+            self.refreshControl.layer.zPosition = zPos + 1
+        }
     }
     
     func startRefresh( sender: AnyObject ){
@@ -216,7 +221,7 @@ class FoodCollectionViewController:
     }
     
     // MARK: UICollectionViewDelegateFlowLayout
-    private let sectionInsets = UIEdgeInsets(top: 64.0, left: 0, bottom: 0,right: 0)
+    private let sectionInsets = UIEdgeInsets(top: 64.0, left: 0, bottom: 48,right: 0)
     private let interitemSpacing: CGFloat = 0.0
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {

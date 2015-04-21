@@ -77,7 +77,7 @@ class AccountManager: NSObject {
         task.resume()
     }
     
-    func login(email: String, password: String, callback: ((Bool) -> Void)? ){
+    func login(email: String, password: String, callback: ((Bool, String?) -> Void)? ){
 
         var url = domain + "/api/login/"
         var request = NSMutableURLRequest( URL: NSURL(string: url)!)
@@ -90,10 +90,12 @@ class AccountManager: NSObject {
         var task = session.dataTaskWithRequest(request) { (rawData, response, error) -> Void in
             println("Response: \(response)")
             var status: String?
+            var message: String? = nil
             if let data = rawData {
                 var json = JSON(data: data)
                 println("Json=: \(json)")
                 status = json["status"].string
+                message = json["message"].string
                 println("Status = \(status)")
                 
                 if status == "success" {
@@ -111,7 +113,7 @@ class AccountManager: NSObject {
             }
             
             if callback != nil {
-                callback!( status == "success" )
+                callback!( status == "success" , message)
                     UIApplication.sharedApplication().registerForRemoteNotifications()
             }
         }

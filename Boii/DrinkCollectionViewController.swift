@@ -25,7 +25,10 @@ class DrinkCollectionViewController:
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tabBarController?.title = restaurant?.name
+//        self.tabBarController?.title = restaurant?.name
+//        if let name = restaurant?.name {
+//            self.setTitle(name)
+//        }
 
         // Do any additional setup after loading the view.
         
@@ -43,7 +46,8 @@ class DrinkCollectionViewController:
         } else {
             log.error("no restaurant set")
         }
-
+        
+        self.refreshControl.tintColor = redLabelColor
         self.refreshControl.addTarget(self, action: "startRefresh:", forControlEvents: UIControlEvents.ValueChanged)
         self.collectionView?.addSubview(refreshControl)
     }
@@ -160,16 +164,14 @@ class DrinkCollectionViewController:
                 url = NSURL(string: "")
             }
             
-            cell.imageView.sd_setImageWithURL(url, placeholderImage: menu.thumbnailImage, completed: { (image, error, cacheType, url) in
-//                log.debug("Done loading image for path \(indexPath)")
-                
+            var frame = cell.frame
+  
+            cell.imageView.sd_setImageWithURL(url, placeholderImage: Utilities.defaultImageWithSize(frame.size), completed: { (image, error, cacheType, url) in
                 if image != nil {
                     menu.image = image
                 }
             })
 
-
-//            cell.initImage(menu[index].thumbnailImage)
         }
 
         return cell
@@ -278,7 +280,7 @@ class DrinkCollectionViewController:
     }
     
     // MARK: UICollectionViewDelegateFlowLayout
-    private let sectionInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0,right: 0)
+    private let sectionInsets = UIEdgeInsets(top: 0, left: 0, bottom: 48,right: 0)
     private let interitemSpacing: CGFloat = 0.0
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {

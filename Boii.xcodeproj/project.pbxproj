@@ -12,7 +12,9 @@
 		B364E1571ACDA87400A09AC4 /* XCGLogger.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B3C8B7121ACD50E600E6032A /* XCGLogger.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B364E15C1ACE51B100A09AC4 /* OrderedDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = B364E15B1ACE51B100A09AC4 /* OrderedDictionary.swift */; };
 		B364E15E1ACE98E900A09AC4 /* LoadScreenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B364E15D1ACE98E900A09AC4 /* LoadScreenManager.swift */; };
+		B3A012D31AE63F8800373F71 /* reddot.png in Resources */ = {isa = PBXBuildFile; fileRef = B3A012D21AE63F8800373F71 /* reddot.png */; };
 		B3C8B7081ACD306300E6032A /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C8B7071ACD306300E6032A /* Order.swift */; };
+		B3CD2F1A1AE5583500D1B001 /* UIViewController+SetTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CD2F191AE5583400D1B001 /* UIViewController+SetTitle.swift */; };
 		CE00E5621AB068D90005B4E5 /* BeaconManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE00E5611AB068D90005B4E5 /* BeaconManager.swift */; };
 		CE00E5641AB06B930005B4E5 /* RestaurantShortcutBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE00E5631AB06B930005B4E5 /* RestaurantShortcutBarButtonItem.swift */; };
 		CE10C67F1A885CCC007CCA40 /* CartBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE10C67E1A885CCC007CCA40 /* CartBarButtonItem.swift */; };
@@ -122,8 +124,10 @@
 		58086E8DCE6C4E9C8B573F92 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		B364E15B1ACE51B100A09AC4 /* OrderedDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderedDictionary.swift; path = ../../SwiftDataStructures/SwiftDataStructures/OrderedDictionary.swift; sourceTree = "<group>"; };
 		B364E15D1ACE98E900A09AC4 /* LoadScreenManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadScreenManager.swift; sourceTree = "<group>"; };
+		B3A012D21AE63F8800373F71 /* reddot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reddot.png; sourceTree = "<group>"; };
 		B3C8B7071ACD306300E6032A /* Order.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		B3C8B70B1ACD50E600E6032A /* XCGLogger.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = XCGLogger.xcodeproj; path = "../XCGLogger-master/XCGLogger/Library/XCGLogger.xcodeproj"; sourceTree = "<group>"; };
+		B3CD2F191AE5583400D1B001 /* UIViewController+SetTitle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+SetTitle.swift"; sourceTree = "<group>"; };
 		CE00E5611AB068D90005B4E5 /* BeaconManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeaconManager.swift; sourceTree = "<group>"; };
 		CE00E5631AB06B930005B4E5 /* RestaurantShortcutBarButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantShortcutBarButtonItem.swift; sourceTree = "<group>"; };
 		CE10C67E1A885CCC007CCA40 /* CartBarButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartBarButtonItem.swift; sourceTree = "<group>"; };
@@ -275,6 +279,7 @@
 		CE17DFE01A7A0A050066A5BA /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				B3A012D21AE63F8800373F71 /* reddot.png */,
 				CE430EF81A8C591100B5C7FC /* x-button.png */,
 				CE4A7BC11A92094900400F83 /* boii-drinks-icon@2x.png */,
 				CE907AE31A826CD400CAB9A5 /* starbuck_coffee@2x.jpg */,
@@ -368,6 +373,7 @@
 			children = (
 				B364E15B1ACE51B100A09AC4 /* OrderedDictionary.swift */,
 				CE430EF01A8B0F1600B5C7FC /* UIView+IBCornerRadius.swift */,
+				B3CD2F191AE5583400D1B001 /* UIViewController+SetTitle.swift */,
 				CE4A7BB91A91F57B00400F83 /* UIImage+Crop.swift */,
 				CE455CEB1A9DC2FB007B8B96 /* myLib.swift */,
 			);
@@ -531,6 +537,7 @@
 				CE430EFB1A8CA10900B5C7FC /* OrderReadyNotificationView.xib in Resources */,
 				CE27DD061A64108C006CFDC9 /* LaunchScreen.xib in Resources */,
 				CE430EEF1A8B0BFE00B5C7FC /* LoginStoryboard.storyboard in Resources */,
+				B3A012D31AE63F8800373F71 /* reddot.png in Resources */,
 				CE75AB391AB93EE200599179 /* LICENSE in Resources */,
 				CE907ADE1A81DE1100CAB9A5 /* toofast-375w@2x.jpg in Resources */,
 				CE17DFE21A7A0A140066A5BA /* toofast.jpg in Resources */,
@@ -604,6 +611,7 @@
 			files = (
 				CE75AB3B1AB93EE200599179 /* README.mdown in Sources */,
 				CE4A7BBA1A91F57B00400F83 /* UIImage+Crop.swift in Sources */,
+				B3CD2F1A1AE5583500D1B001 /* UIViewController+SetTitle.swift in Sources */,
 				CE782E601A95989A000B3E15 /* RestraurantStore.swift in Sources */,
 				CE10C67F1A885CCC007CCA40 /* CartBarButtonItem.swift in Sources */,
 				CE4441FB1ABAAB7D0045C99A /* FoodCollectionViewController.swift in Sources */,
@@ -765,7 +773,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 58086E8DCE6C4E9C8B573F92 /* Pods.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -776,7 +784,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = boii;
-				PROVISIONING_PROFILE = "de81ac48-5af3-49f9-aa34-36e8ce774b85";
+				PROVISIONING_PROFILE = "4d9934f1-997d-4cc6-9c57-7386b7392a6e";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/Boii/Boii-Bridging-Header.h";
 			};
 			name = Debug;
@@ -785,7 +793,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DF8F96D338B0EEE0FE8F609B /* Pods.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -796,7 +804,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = boii;
-				PROVISIONING_PROFILE = "de81ac48-5af3-49f9-aa34-36e8ce774b85";
+				PROVISIONING_PROFILE = "4d9934f1-997d-4cc6-9c57-7386b7392a6e";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/Boii/Boii-Bridging-Header.h";
 			};
 			name = Release;

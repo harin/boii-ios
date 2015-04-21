@@ -10,6 +10,7 @@ import UIKit
 
 class RestaurantShortcutBarButtonItem: UIBarButtonItem {
     var shortcutButton: UIButton = UIButton.buttonWithType(UIButtonType.Custom) as UIButton
+    var titleLabel = UILabel(frame: CGRectMake(0,0,100,25))
     var beaconManager = BeaconManager.sharedInstance
     var viewController: UIViewController?
     var currentRestaurant: Restaurant? {
@@ -17,7 +18,7 @@ class RestaurantShortcutBarButtonItem: UIBarButtonItem {
             println("RestaurantShortcut: setting barbutton title")
             if currentRestaurant != nil {
                 println("\t restaurant not nil yeah!")
-                shortcutButton.setTitle("MK", forState: UIControlState.Normal)
+                shortcutButton.setTitle("\(currentRestaurant?.name)", forState: UIControlState.Normal)
             } else {
                 shortcutButton.setTitle("", forState: UIControlState.Normal)
             }
@@ -27,10 +28,20 @@ class RestaurantShortcutBarButtonItem: UIBarButtonItem {
     override init() {
         super.init()
         
-        shortcutButton.setTitle("", forState: UIControlState.Normal)
-        shortcutButton.frame = CGRectMake(0, 0, 70, 20)
-        shortcutButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
-        shortcutButton.setTitleColor(UIColor.redColor(), forState: UIControlState.Highlighted)
+        titleLabel.backgroundColor = UIColor.clearColor()
+        titleLabel.font = UIFont.systemFontOfSize(17.0)
+        titleLabel.textColor = redLabelColor
+        titleLabel.text = ""
+        titleLabel.textAlignment = NSTextAlignment.Left
+        
+//        shortcutButton.setTitle("", forState: UIControlState.Normal)
+        
+        
+        shortcutButton.addSubview(titleLabel)
+        
+        shortcutButton.frame = CGRectMake(0, 0, 100, 25)
+//        shortcutButton.setTitleColor(redLabelColor, forState: UIControlState.Normal)
+//        shortcutButton.setTitleColor(UIColor.redColor(), forState: UIControlState.Highlighted)
         shortcutButton.addTarget(self, action: "shortcutButtonAction:", forControlEvents: UIControlEvents.TouchUpInside)
         
         self.customView = shortcutButton

@@ -21,6 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
+//        UIView.appearance().tintColor = redLabelColor
+        
         log.setup(logLevel: .Debug, showLogLevel: true, showFileNames: true, showLineNumbers: true, writeToFile: nil)
         // Override point for customization after application launch.
         
@@ -69,12 +71,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             log.error("Could not save Restaurants")
         }
         
-        let suckekcess = ShoppingCartStore.sharedInstance.saveChanges()
-        if success {
-            log.debug("Saved shopping cart")
-        } else {
-            log.error("Could not save shopping cart")
-        }
+//        let suckekcess = ShoppingCartStore.sharedInstance.saveChanges()
+//        if success {
+//            log.debug("Saved shopping cart")
+//        } else {
+//            log.error("Could not save shopping cart")
+//        }
         
     }
 

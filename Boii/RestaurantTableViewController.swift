@@ -26,7 +26,11 @@ class RestaurantTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController?.navigationBar.topItem?.title = "Boii"
+//        self.navigationController?.navigationBar.topItem?.title = "Boii"
+        
+        self.setTitle("Boii")
+        self.navigationController?.navigationBar.tintColor = UIColor(red: 235.0/255.0, green: 41.0/255.0, blue: 41.0/255.0, alpha: 1)
+
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -37,7 +41,6 @@ class RestaurantTableViewController: UITableViewController {
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateRestaurant:", name: "restaurantsNeedUpdateNotification", object: nil)
         
-        
         // Set right bar button
         let barButton = CartBarButtonItem.sharedInstance
 
@@ -47,6 +50,9 @@ class RestaurantTableViewController: UITableViewController {
         let leftBarButton = RestaurantShortcutBarButtonItem()
         leftBarButton.viewController = self
         self.navigationItem.leftBarButtonItem = leftBarButton
+        
+        
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
         
         // Initialize the refresh control
         self.refreshControl = UIRefreshControl()

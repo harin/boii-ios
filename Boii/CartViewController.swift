@@ -129,7 +129,15 @@ class CartViewController: UITableViewController {
                 if self.cartStore.isFetching {
 //                    self.refreshControl?
                 } else {
-                    self.refreshControl?.endRefreshing()
+                    if let rc = self.refreshControl {
+                        if rc.refreshing {
+                            
+                            dispatch_async(dispatch_get_main_queue()){
+                                rc.endRefreshing()
+                            }
+                        }
+                    }
+
                 }
             default:
                 println("CartView: Unknown keyPath observed")

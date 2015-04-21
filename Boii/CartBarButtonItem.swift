@@ -15,7 +15,7 @@ class CartBarButtonItem: UIBarButtonItem {
     let cartButton = UIButton.buttonWithType(UIButtonType.Custom) as UIButton
     let cartStore: ShoppingCartStore = ShoppingCartStore.sharedInstance
     let accountManager: AccountManager = AccountManager.sharedInstance
-
+    var titleLabel = UILabel(frame: CGRectMake(0, 0, 80, 25))
 
     class var sharedInstance: CartBarButtonItem {
         struct Static {
@@ -33,13 +33,31 @@ class CartBarButtonItem: UIBarButtonItem {
     override init() {
         super.init()
         
-        cartButton.setTitle("Login", forState: UIControlState.Normal)
-        cartButton.frame = CGRectMake(0, 0, 60, 20)
-        cartButton.titleLabel?.textAlignment = NSTextAlignment.Right
-        cartButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
-        cartButton.setTitleColor(UIColor.redColor(), forState: UIControlState.Highlighted)
-        cartButton.addTarget(self, action: "cartButtonAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        
+        titleLabel.backgroundColor = UIColor.clearColor()
+        titleLabel.font = UIFont.systemFontOfSize(17.0)
+        titleLabel.textColor = redLabelColor
+        titleLabel.text = "Login"
+        titleLabel.textAlignment = NSTextAlignment.Right
+        titleLabel.font = UIFont(name: "Courier", size: 17.0)
+        
+        //        shortcutButton.setTitle("", forState: UIControlState.Normal)
+        
+        
+        cartButton.addSubview(titleLabel)
+        
+        cartButton.frame = CGRectMake(0, 0, 80, 25)
+        //        shortcutButton.setTitleColor(redLabelColor, forState: UIControlState.Normal)
+        //        shortcutButton.setTitleColor(UIColor.redColor(), forState: UIControlState.Highlighted)
 
+
+        
+//        cartButton.setTitle("Login", forState: UIControlState.Normal)
+//        cartButton.frame = CGRectMake(0, 0, 60, 20)
+//        cartButton.titleLabel?.textAlignment = NSTextAlignment.Right
+//        cartButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+//        cartButton.setTitleColor(UIColor.redColor(), forState: UIControlState.Highlighted)
+        cartButton.addTarget(self, action: "cartButtonAction:", forControlEvents: UIControlEvents.TouchUpInside)
         self.customView = cartButton
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "cartUpdate:", name: ShoppingCartStore.notifications.cartUpdateNotificationIdentifier, object: nil)
@@ -77,7 +95,7 @@ class CartBarButtonItem: UIBarButtonItem {
     }
     
     func setTitle( title: String){
-        cartButton.setTitle( title, forState: .Normal)
+        self.titleLabel.text = title
     }
     
     // MARK: KVO
@@ -86,7 +104,7 @@ class CartBarButtonItem: UIBarButtonItem {
         if context == &myContext {
             dispatch_async(dispatch_get_main_queue()){
                 if self.accountManager.isLoggedIn {
-                    self.setTitle("cart(\(self.cartStore.getCurrentOrder().menuItems.count)")
+                    self.setTitle("cart(\(self.cartStore.getCurrentOrder().menuItems.count))")
                 } else {
                     self.setTitle("Login")
                 }
