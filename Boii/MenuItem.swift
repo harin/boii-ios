@@ -52,6 +52,7 @@ class MenuItem: NSObject, Printable, NSCoding {
         aCoder.encodeDouble(price, forKey: "price")
         aCoder.encodeObject(name, forKey: "name")
         aCoder.encodeObject(type, forKey: "type")
+        aCoder.encodeObject(image, forKey: "image")
     }
     required init(coder aDecoder: NSCoder) {
 
@@ -59,6 +60,7 @@ class MenuItem: NSObject, Printable, NSCoding {
         self.price = aDecoder.decodeDoubleForKey("price") as Double!
         self.name = aDecoder.decodeObjectForKey("name") as String!
         self.type = aDecoder.decodeObjectForKey("type") as String!
+        self.image = aDecoder.decodeObjectForKey("image") as UIImage?
         
         super.init()
     }

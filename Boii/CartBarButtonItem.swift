@@ -32,31 +32,15 @@ class CartBarButtonItem: UIBarButtonItem {
     
     override init() {
         super.init()
-        
-        
         titleLabel.backgroundColor = UIColor.clearColor()
         titleLabel.font = UIFont.systemFontOfSize(17.0)
         titleLabel.textColor = redLabelColor
         titleLabel.text = "Login"
         titleLabel.textAlignment = NSTextAlignment.Right
         titleLabel.font = UIFont(name: "Courier", size: 17.0)
-        
-        //        shortcutButton.setTitle("", forState: UIControlState.Normal)
-        
-        
         cartButton.addSubview(titleLabel)
         
         cartButton.frame = CGRectMake(0, 0, 80, 25)
-        //        shortcutButton.setTitleColor(redLabelColor, forState: UIControlState.Normal)
-        //        shortcutButton.setTitleColor(UIColor.redColor(), forState: UIControlState.Highlighted)
-
-
-        
-//        cartButton.setTitle("Login", forState: UIControlState.Normal)
-//        cartButton.frame = CGRectMake(0, 0, 60, 20)
-//        cartButton.titleLabel?.textAlignment = NSTextAlignment.Right
-//        cartButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
-//        cartButton.setTitleColor(UIColor.redColor(), forState: UIControlState.Highlighted)
         cartButton.addTarget(self, action: "cartButtonAction:", forControlEvents: UIControlEvents.TouchUpInside)
         self.customView = cartButton
         
@@ -74,7 +58,7 @@ class CartBarButtonItem: UIBarButtonItem {
         super.init(coder: aDecoder)
     }
     
-    func cartButtonAction(sender: AnyObject){
+    func cartButtonAction(sender: AnyObject) {
         if AccountManager.sharedInstance.isLoggedIn {
             // show cart
             let storyboard = UIStoryboard(name: "CartStoryboard", bundle: nil) as UIStoryboard
@@ -90,11 +74,11 @@ class CartBarButtonItem: UIBarButtonItem {
         }
     }
     
-    func cartUpdate( sender: AnyObject? ){
-        cartButton.setTitle("(\(cartStore.getCurrentOrder().menuItems.count))", forState: UIControlState.Normal)
+    func cartUpdate( sender: AnyObject? ) {
+        self.setTitle("cart(\(cartStore.getCurrentOrder().menuItems.count))")
     }
     
-    func setTitle( title: String){
+    func setTitle( title: String) {
         self.titleLabel.text = title
     }
     

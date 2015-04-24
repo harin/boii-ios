@@ -118,7 +118,6 @@ class BeaconManager: NSObject, CLLocationManagerDelegate {
     func locationManager(manager: CLLocationManager!, didDetermineState state: CLRegionState, forRegion region: CLRegion!) {
         println("Entered: didDetermineState")
         
-        
         if state == CLRegionState.Inside {
             println("I'm Inside \(region)")
         } else {

@@ -57,10 +57,35 @@ class RegisterViewController: UIViewController {
         var hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
 
         AccountManager.sharedInstance.signup(emailTextField.text, password: passwordTextField.text) {
-            (status) -> Void in
+            (success, msg) -> Void in
             dispatch_async(dispatch_get_main_queue(), {
-                println("register status = \(status)");
+                
+                if success {
+                    log.info("Login Successful")
+                    
+                    hud.hide(true)
+                    self.navigationController?.popViewControllerAnimated(true);
+                    
+                } else {
+                    log.info("Login failed")
+                    hud.hide(true)
+                    
+                    var alertMsg = ""
+                    if msg != nil {
+                        alertMsg = msg!
+                    } else {
+                        alertMsg = "Something went wrong."
+                    }
+                    
+                    var alert = UIAlertController(title: "Error", message: alertMsg, preferredStyle: .Alert)
+                    var OKAction = UIAlertAction(title: "OK", style: .Default, handler: {(action) in})
+                    alert.addAction(OKAction)
+                    
+                    self.presentViewController(alert, animated: true, completion: {return})
+                    
+                }
 
+                            
                 hud.hide(true);
                 self.navigationController?.popToRootViewControllerAnimated(true);
             });

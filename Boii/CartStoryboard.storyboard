@@ -9,7 +9,7 @@
         <scene sceneID="hvs-ND-HYE">
             <objects>
                 <tableViewController restorationIdentifier="CartViewController" storyboardIdentifier="CartViewController" id="N5H-Cd-gH9" customClass="CartViewController" customModule="boii" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="22" sectionFooterHeight="22" id="G4M-Uf-Z9L">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="100" sectionHeaderHeight="22" sectionFooterHeight="22" id="G4M-Uf-Z9L">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -31,7 +31,7 @@
                                         <constraint firstAttribute="centerX" secondItem="0H3-Cp-FvU" secondAttribute="centerX" id="x8M-AN-xxm"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" red="0.4823529412" green="0.74509803919999995" blue="0.19215686269999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.16470588235294117" green="0.69411764705882351" blue="0.086274509803921567" alpha="1" colorSpace="calibratedRGB"/>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="OrderedItemCell" rowHeight="100" id="hl5-BJ-VEF">
                                 <autoresizingMask key="autoresizingMask"/>
@@ -51,12 +51,18 @@
                                                     <exclude reference="viQ-IQ-nPy"/>
                                                 </mask>
                                             </variation>
+                                            <variation key="widthClass=compact" misplaced="YES">
+                                                <rect key="frame" x="90" y="41" width="94" height="21"/>
+                                            </variation>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" tag="301" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="$500" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TkI-rb-38U">
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="301" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$500" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TkI-rb-38U">
                                             <rect key="frame" x="531" y="40" width="39" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
+                                            <variation key="widthClass=compact" misplaced="YES">
+                                                <rect key="frame" x="332" y="41" width="39" height="21"/>
+                                            </variation>
                                         </label>
                                     </subviews>
                                     <constraints>
@@ -93,12 +99,18 @@
                                                     <exclude reference="w9w-26-MBO"/>
                                                 </mask>
                                             </variation>
+                                            <variation key="widthClass=compact" misplaced="YES">
+                                                <rect key="frame" x="90" y="41" width="94" height="21"/>
+                                            </variation>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" tag="301" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="$500" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0W1-0Z-uoc">
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="301" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$500" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0W1-0Z-uoc">
                                             <rect key="frame" x="531" y="40" width="39" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
+                                            <variation key="widthClass=compact" misplaced="YES">
+                                                <rect key="frame" x="332" y="41" width="39" height="21"/>
+                                            </variation>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iE9-Hn-75D">
                                             <rect key="frame" x="30" y="36" width="30" height="30"/>

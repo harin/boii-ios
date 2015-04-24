@@ -38,7 +38,7 @@ class AccountManager: NSObject {
         return Static.instance!
     }
     
-    func signup(email: String, password: String, callback: ((Bool) -> Void)? ){
+    func signup(email: String, password: String, callback: ((success: Bool, msg: String?) -> Void)? ){
         
         var url = domain + "/api/users/"
         var request = NSMutableURLRequest( URL: NSURL(string: url)!)
@@ -51,10 +51,13 @@ class AccountManager: NSObject {
         var task = session.dataTaskWithRequest(request) { (rawData, response, error) -> Void in
             println("Response: \(response)")
             var status: String?
+            var message: String?
             if let data = rawData {
                 var json = JSON(data: data)
                 println("Json=: \(json)")
                 status = json["status"].string
+                message = json["message"].string
+
                 println("Status = \(status)")
                 
                 
@@ -71,7 +74,7 @@ class AccountManager: NSObject {
                 }
             }
             if callback != nil {
-                callback!( status == "success" )
+                callback!(success: status == "success" ,msg: message)
             }
         }
         task.resume()
@@ -105,6 +108,8 @@ class AccountManager: NSObject {
                     self.authToken = data["authToken"].string
                     self.userId = data["userId"].string
                     self.updateDeviceToken()
+                    
+                    ShoppingCartStore.sharedInstance.fetchOrdersWithoutRejected()
                     
                 } else {
                     println("AccountManager: Response status = \(status)")

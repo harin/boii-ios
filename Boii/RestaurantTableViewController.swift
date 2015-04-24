@@ -51,7 +51,6 @@ class RestaurantTableViewController: UITableViewController {
         leftBarButton.viewController = self
         self.navigationItem.leftBarButtonItem = leftBarButton
         
-        
         self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
         
         // Initialize the refresh control
@@ -93,6 +92,7 @@ class RestaurantTableViewController: UITableViewController {
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         RestaurantStore.sharedInstance.removeObserver(self, forKeyPath: "isFetching")
+        MBProgressHUD.hideAllHUDsForView(self.view, animated: false)
     }
     
 

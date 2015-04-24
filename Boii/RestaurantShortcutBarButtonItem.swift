@@ -29,7 +29,7 @@ class RestaurantShortcutBarButtonItem: UIBarButtonItem {
         super.init()
         
         titleLabel.backgroundColor = UIColor.clearColor()
-        titleLabel.font = UIFont.systemFontOfSize(17.0)
+        titleLabel.font = UIFont(name: "Courier", size: 17)
         titleLabel.textColor = redLabelColor
         titleLabel.text = ""
         titleLabel.textAlignment = NSTextAlignment.Left
@@ -52,7 +52,8 @@ class RestaurantShortcutBarButtonItem: UIBarButtonItem {
         
         
         currentRestaurant = RestaurantStore.sharedInstance.restaurantWithBeacon(1, minor: 1)
-        println("RestaurantShortcut: currentRest = \(currentRestaurant)")
+        
+        self.titleLabel.text = "W&W"
     }
     
     required init(coder aDecoder: NSCoder){

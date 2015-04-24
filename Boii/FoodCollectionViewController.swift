@@ -72,6 +72,11 @@ class FoodCollectionViewController:
         
     }
     
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        MBProgressHUD.hideAllHUDsForView(self.view, animated: false)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -107,16 +112,16 @@ class FoodCollectionViewController:
                 url = NSURL(string: "")
             }
             
-            cell.imageView.sd_setImageWithURL(url, placeholderImage: menu.thumbnailImage, completed: { (image, error, cacheType, url) in
-                log.debug("Done loading image for path \(indexPath)")
-                
-                if image != nil {
-                    menu.image = image
-                }
-            })
-            
-            
-            //            cell.initImage(menu[index].thumbnailImage)
+            if let image = menu.image {
+                cell.imageView.image = image
+            } else {
+                var frame = cell.frame
+                cell.imageView.sd_setImageWithURL(url, placeholderImage: Utilities.defaultImageWithSize(frame.size), completed: { (image, error, cacheType, url) in
+                    if image != nil {
+                        menu.image = image
+                    }
+                })
+            }
         }
         
         return cell

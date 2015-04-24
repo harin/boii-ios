@@ -84,9 +84,7 @@ class DrinkCollectionViewController:
                 log.debug("showing HUD")
                 MBProgressHUD.showHUDAddedTo(self.view, animated: true)
             }
-            
         }
-
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -94,6 +92,8 @@ class DrinkCollectionViewController:
         if self.restaurant != nil && self.isObservingRestaurant == true{
             self.restaurant!.removeObserver(self, forKeyPath: "isFetching")
         }
+        
+        MBProgressHUD.hideAllHUDsForView(self.view, animated: false)
     }
     
     
@@ -164,13 +164,19 @@ class DrinkCollectionViewController:
                 url = NSURL(string: "")
             }
             
-            var frame = cell.frame
-  
-            cell.imageView.sd_setImageWithURL(url, placeholderImage: Utilities.defaultImageWithSize(frame.size), completed: { (image, error, cacheType, url) in
-                if image != nil {
-                    menu.image = image
-                }
-            })
+            
+            if let image = menu.image {
+                cell.imageView.image = image
+            } else {
+                var frame = cell.frame
+                cell.imageView.sd_setImageWithURL(url, placeholderImage: Utilities.defaultImageWithSize(frame.size), completed: { (image, error, cacheType, url) in
+                    if image != nil {
+                        menu.image = image
+                    }
+                })
+            }
+            
+
 
         }
 

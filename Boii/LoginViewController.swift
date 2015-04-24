@@ -37,8 +37,8 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func loginAction(sender: AnyObject) {
-        let email = "a@a.com" //self.emailTextField.text
-        let password = "password"// self.passwordTextField.text
+        let email = self.emailTextField.text
+        let password = self.passwordTextField.text
         
         println("LoginVC: Logging user in");
         //perform some format check here

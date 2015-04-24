@@ -190,6 +190,8 @@ class CartViewController: UITableViewController {
 
             var order: Order?
             
+            
+            
             if indexPath.section == 1 {
                 //Setup Current Order
                 cell = tableView.dequeueReusableCellWithIdentifier("UnorderedItemCell", forIndexPath: indexPath) as UITableViewCell
@@ -199,18 +201,18 @@ class CartViewController: UITableViewController {
                 cell = tableView.dequeueReusableCellWithIdentifier("OrderedItemCell", forIndexPath: indexPath) as UITableViewCell
                 order = self.cartStore.ordered[indexPath.section-2]
                 
-                if order != nil {
-                    switch (order!.status) {
-                    case ShoppingCartStore.orderStatus.accepted:
-                        cell.backgroundColor = UIColor.orangeColor()
-                    case ShoppingCartStore.orderStatus.ready:
-                        cell.backgroundColor = UIColor.greenColor()
-                    case ShoppingCartStore.orderStatus.rejected:
-                        cell.backgroundColor = UIColor.redColor()
-                    default:
-                        cell.backgroundColor = UIColor.whiteColor()
-                    }
-                }
+//                if order != nil {
+//                    switch (order!.status) {
+//                    case ShoppingCartStore.orderStatus.accepted:
+//                        cell.backgroundColor = UIColor.orangeColor()
+//                    case ShoppingCartStore.orderStatus.ready:
+//                        cell.backgroundColor = UIColor.greenColor()
+//                    case ShoppingCartStore.orderStatus.rejected:
+//                        cell.backgroundColor = UIColor.redColor()
+//                    default:
+//                        cell.backgroundColor = UIColor.whiteColor()
+//                    }
+//                }
             }
             
             // Set order if not nil
@@ -218,13 +220,19 @@ class CartViewController: UITableViewController {
                 let nameLabel = cell.viewWithTag(300) as UILabel
                 let priceLabel = cell.viewWithTag(301) as UILabel
                 
-//                log.debug("\(order!.menuItems)")
                 nameLabel.text = order!.menuItems[indexPath.row].name
                 priceLabel.text = "$ \(order!.menuItems[indexPath.row].price)"
             } else {
                 log.error("order is nil for \(indexPath)")
             }
+            
+            let color = 255 - indexPath.row * 5
+            let comp = CGFloat( Float(color) / 255.0 )
+            
+            cell.backgroundColor = UIColor(red: comp, green: comp, blue: comp, alpha: 1.0)
         }
+        
+
         
         return cell
     }
@@ -273,14 +281,13 @@ class CartViewController: UITableViewController {
     }
     
     // Mark: TableView Delegate
-//    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        //header for each order
-//        
-//    }
-//    
-//    override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-//        
-//    }
+    
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section < 2 {
+            return 0
+        }
+        return 50.0
+    }
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
@@ -297,6 +304,84 @@ class CartViewController: UITableViewController {
             }
         }
     }
-    
-    
+
+    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        if section < 2 { return nil }
+
+        // Get order for this section
+        var order = cartStore.ordered[section-2]
+        if order == nil { return nil }
+        
+        log.debug("Preparing view for headerInSection\(section)")
+        
+        let frame = self.view.frame
+        
+        // view
+        var view = UIView(frame: CGRectMake(0, 0, frame.size.width, 100))
+        
+        if let status = order?.status {
+            switch (status) {
+            case ShoppingCartStore.orderStatus.accepted:
+                view.backgroundColor = UIColor(red: 48.0/255.0, green: 186.0/255.0, blue: 27.0/255.0, alpha: 1.0)
+            case ShoppingCartStore.orderStatus.ready:
+                view.backgroundColor = UIColor(red: 245.0/255.0, green: 166.0/255.0, blue: 35.0/255.0, alpha: 1.0)
+            case ShoppingCartStore.orderStatus.rejected:
+                view.backgroundColor = UIColor(red: 208.0/255.0, green: 2.0/255.0, blue: 27.0/255.0, alpha: 1.0)
+            default:
+                view.backgroundColor = UIColor(red: 255.0/255.0, green: 72.0/255.0, blue: 72.0/255.0, alpha: 1.0)
+            }
+        }
+        
+        // Order code description
+        var orderCodeDescriptionLabel = UILabel(frame: CGRectZero)
+        orderCodeDescriptionLabel.textColor = UIColor(white: 1.0, alpha: 0.4)
+        orderCodeDescriptionLabel.font = UIFont.systemFontOfSize(18.0)
+        orderCodeDescriptionLabel.text = "order code"
+
+        
+        // Order Code
+        var orderCodeLabel = UILabel(frame: CGRectZero)
+        orderCodeLabel.textColor = UIColor.whiteColor()
+        orderCodeLabel.font = UIFont.systemFontOfSize(24)
+        if let code = order?.orderCode {
+            orderCodeLabel.text = code
+        } else {
+            orderCodeLabel.text = "Unknown"
+        }
+
+        // Status
+        var statusLabel = UILabel(frame: CGRectZero)
+        statusLabel.textColor = UIColor(white: 1.0, alpha: 0.4)
+        statusLabel.font = UIFont.systemFontOfSize(18.0)
+        statusLabel.text = order?.status
+        
+        // Add Subviews
+        view.addSubview(orderCodeDescriptionLabel)
+        view.addSubview(orderCodeLabel)
+        view.addSubview(statusLabel)
+        
+        orderCodeDescriptionLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        orderCodeLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        statusLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        
+        let views = [
+            "superview": view,
+            "ocd": orderCodeDescriptionLabel,
+            "code": orderCodeLabel,
+            "status": statusLabel
+        ]
+        
+        var constH = NSLayoutConstraint.constraintsWithVisualFormat("H:|-20-[code]-10-[ocd]-(>=0)-[status]-20-|", options: .AlignAllCenterY, metrics: nil, views: views)
+        view.addConstraints(constH)
+        
+        var constV = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[code]-|", options: .AlignAllCenterX, metrics: nil, views: views)
+        view.addConstraints(constV)
+        var constV2 = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[ocd]-|", options: .AlignAllCenterX, metrics: nil, views: views)
+        view.addConstraints(constV2)
+        var constV3 = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[status]-|", options: .AlignAllCenterX, metrics: nil, views: views)
+        view.addConstraints(constV3)
+        return view
+    }
+
 }
