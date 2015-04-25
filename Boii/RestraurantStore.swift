@@ -50,14 +50,14 @@ class RestaurantStore: NSObject {
     override init(){
         super.init()
         let path = restArchivePath()
-        var rest = NSKeyedUnarchiver.unarchiveObjectWithFile(path) as [Restaurant]?
+        var rest = NSKeyedUnarchiver.unarchiveObjectWithFile(path) as! [Restaurant]?
         if let r = rest {
             restaurants = r
         }
     }
     
     func restArchivePath() -> String {
-        let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
+        let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
         return documentDirectory.stringByAppendingPathComponent("items.archive")
     }
     

@@ -9,7 +9,7 @@
 import UIKit
 
 class RestaurantShortcutBarButtonItem: UIBarButtonItem {
-    var shortcutButton: UIButton = UIButton.buttonWithType(UIButtonType.Custom) as UIButton
+    var shortcutButton: UIButton = UIButton.buttonWithType(UIButtonType.Custom) as! UIButton
     var titleLabel = UILabel(frame: CGRectMake(0,0,100,25))
     var beaconManager = BeaconManager.sharedInstance
     var viewController: UIViewController?
@@ -124,7 +124,7 @@ class RestaurantShortcutBarButtonItem: UIBarButtonItem {
             if let rest = currentRestaurant {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 
-                let dest = storyboard.instantiateViewControllerWithIdentifier("MenuTabBarController") as MenuTabBarController!
+                let dest = storyboard.instantiateViewControllerWithIdentifier("MenuTabBarController") as! MenuTabBarController!
                 dest.rest = rest
                 vc.navigationController?.pushViewController(dest, animated: true)
             }

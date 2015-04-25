@@ -28,7 +28,7 @@ class RestaurantTableViewController: UITableViewController {
         
 //        self.navigationController?.navigationBar.topItem?.title = "Boii"
         
-        self.setTitle("Boii")
+        self.setCustomTitle("Boii")
         self.navigationController?.navigationBar.tintColor = UIColor(red: 235.0/255.0, green: 41.0/255.0, blue: 41.0/255.0, alpha: 1)
 
         
@@ -68,7 +68,7 @@ class RestaurantTableViewController: UITableViewController {
     
     override func viewDidAppear(animated: Bool) {
         // Need to re-set viewcontroller of barbutton when view appear.
-        let barButton = self.navigationItem.rightBarButtonItem as CartBarButtonItem?
+        let barButton = self.navigationItem.rightBarButtonItem as! CartBarButtonItem?
         if barButton != nil {
             barButton?.viewController = self
         }
@@ -166,10 +166,10 @@ class RestaurantTableViewController: UITableViewController {
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("restaurantCell", forIndexPath: indexPath) as UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("restaurantCell", forIndexPath: indexPath) as! UITableViewCell
         
-        var backgroundImgView = tableView.viewWithTag(200) as UIImageView
-        var titleLabel = tableView.viewWithTag(100) as UILabel
+        var backgroundImgView = tableView.viewWithTag(200) as! UIImageView
+        var titleLabel = tableView.viewWithTag(100) as! UILabel
         
         if let restaurant = restaurants?[indexPath.row] {
             
@@ -218,9 +218,9 @@ class RestaurantTableViewController: UITableViewController {
         
         if segue.identifier == "selectRestaurantSegue" {
             
-            if let cell = sender as UITableViewCell? {
+            if let cell = sender as! UITableViewCell? {
                 if let index = self.tableView.indexPathForCell(cell) as NSIndexPath? {
-                    let dest = segue.destinationViewController as MenuTabBarController
+                    let dest = segue.destinationViewController as! MenuTabBarController
                     
                     if let targetRest = self.restaurants?[index.row] {
                         dest.rest = targetRest

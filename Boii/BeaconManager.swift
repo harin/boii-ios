@@ -99,7 +99,7 @@ class BeaconManager: NSObject, CLLocationManagerDelegate {
         let knownBeacons = beacons.filter{ $0.proximity != CLProximity.Unknown }
         
         if knownBeacons.count > 0 {
-            let closestBeacon = knownBeacons[0] as CLBeacon
+            let closestBeacon = knownBeacons[0] as! CLBeacon
             
             if closestBeacon.minor != self.closestBeacon?.minor &&
                 closestBeacon.major != self.closestBeacon?.major {

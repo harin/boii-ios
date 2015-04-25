@@ -76,7 +76,7 @@ func stringForRestaurantMenuUpdateNotification(rest: Restaurant) -> String{
 
 class Utilities {
     class func displayUpdateAlert(title:String, msg: String) {
-        if let nav = UIApplication.sharedApplication().keyWindow?.rootViewController? {
+        if let nav = UIApplication.sharedApplication().keyWindow?.rootViewController {
             if nav is UINavigationController {
                 var alert = UIAlertController(title: title, message: msg, preferredStyle: .Alert)
                 var OKAction = UIAlertAction(title: "OK", style: .Default, handler: {(action) in})

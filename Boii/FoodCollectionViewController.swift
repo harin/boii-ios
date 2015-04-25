@@ -67,7 +67,7 @@ class FoodCollectionViewController:
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        let barButton = self.tabBarController?.navigationItem.rightBarButtonItem as CartBarButtonItem
+        let barButton = self.tabBarController?.navigationItem.rightBarButtonItem as! CartBarButtonItem
         barButton.viewController = self
         
     }
@@ -97,7 +97,7 @@ class FoodCollectionViewController:
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as MenuCollectionViewCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! MenuCollectionViewCell
         
         let index = indexPath.row
         if let menu = self.restaurant?.foods[index] {
@@ -131,19 +131,19 @@ class FoodCollectionViewController:
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         
-        let contentView = NSBundle.mainBundle().loadNibNamed("MenuDetailView", owner: self, options: nil).first as UIView
+        let contentView = NSBundle.mainBundle().loadNibNamed("MenuDetailView", owner: self, options: nil).first as! UIView
         
         if let menu = self.restaurant?.foods {
-            let imageView = contentView.viewWithTag(301) as UIImageView
+            let imageView = contentView.viewWithTag(301) as! UIImageView
             
             self.selectedMenu = menu[indexPath.row]
             
             imageView.image = selectedMenu!.thumbnailImage
             imageView.clipsToBounds = true
             
-            let addToCartButton = contentView.viewWithTag(401) as UIButton
+            let addToCartButton = contentView.viewWithTag(401) as! UIButton
             addToCartButton.addTarget(self, action: "addButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
-            let cancelButton = contentView.viewWithTag(402) as UIButton
+            let cancelButton = contentView.viewWithTag(402) as! UIButton
             cancelButton.addTarget(self, action: "cancelButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
             
             
@@ -165,7 +165,7 @@ class FoodCollectionViewController:
         
         // Check and Initialize Shopping Cart
         if ShoppingCartStore.sharedInstance.restaurant == nil {
-            println("\(_stdlib_getTypeName(self)): Initializing CartStore's restaurant")
+            log.info("Initializing CartStore's restaurant")
             ShoppingCartStore.sharedInstance.restaurant = self.restaurant
         }
         
@@ -175,7 +175,7 @@ class FoodCollectionViewController:
                 
                 //Check if in region, if not disallow ordering
                 if BeaconManager.sharedInstance.closestBeacon != nil || self.restaurant!.requireIBeacon == false {
-                    if let order = selectedMenu? {
+                    if let order = selectedMenu {
                         ShoppingCartStore.sharedInstance.addMenuToCurrentOrder(order)
                     } else {
                         println("failed to add to cart")

@@ -12,7 +12,7 @@ private var myContext = 0
 
 class CartBarButtonItem: UIBarButtonItem {
     var viewController: UIViewController?
-    let cartButton = UIButton.buttonWithType(UIButtonType.Custom) as UIButton
+    let cartButton = UIButton.buttonWithType(UIButtonType.Custom) as! UIButton
     let cartStore: ShoppingCartStore = ShoppingCartStore.sharedInstance
     let accountManager: AccountManager = AccountManager.sharedInstance
     var titleLabel = UILabel(frame: CGRectMake(0, 0, 80, 25))
@@ -62,23 +62,23 @@ class CartBarButtonItem: UIBarButtonItem {
         if AccountManager.sharedInstance.isLoggedIn {
             // show cart
             let storyboard = UIStoryboard(name: "CartStoryboard", bundle: nil) as UIStoryboard
-            let loginController = storyboard.instantiateViewControllerWithIdentifier("CartViewController") as CartViewController
+            let loginController = storyboard.instantiateViewControllerWithIdentifier("CartViewController") as! CartViewController
             
             self.viewController?.navigationController?.pushViewController(loginController, animated: true)
         } else {
             // show login page
             
             let storyboard = UIStoryboard(name: "LoginStoryboard", bundle: nil) as UIStoryboard
-            let loginController = storyboard.instantiateViewControllerWithIdentifier("LoginViewController") as LoginViewController
+            let loginController = storyboard.instantiateViewControllerWithIdentifier("LoginViewController") as! LoginViewController
             self.viewController?.navigationController?.pushViewController(loginController, animated: true)
         }
     }
     
     func cartUpdate( sender: AnyObject? ) {
-        self.setTitle("cart(\(cartStore.getCurrentOrder().menuItems.count))")
+        self.setCustomTitle("cart(\(cartStore.getCurrentOrder().menuItems.count))")
     }
     
-    func setTitle( title: String) {
+    func setCustomTitle( title: String) {
         self.titleLabel.text = title
     }
     
@@ -88,9 +88,9 @@ class CartBarButtonItem: UIBarButtonItem {
         if context == &myContext {
             dispatch_async(dispatch_get_main_queue()){
                 if self.accountManager.isLoggedIn {
-                    self.setTitle("cart(\(self.cartStore.getCurrentOrder().menuItems.count))")
+                    self.setCustomTitle("cart(\(self.cartStore.getCurrentOrder().menuItems.count))")
                 } else {
-                    self.setTitle("Login")
+                    self.setCustomTitle("Login")
                 }
             }
         } else {

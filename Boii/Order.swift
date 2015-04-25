@@ -24,10 +24,10 @@ class Order: NSObject, Printable, NSCoding {
     
     // MARK: NSCoding
     required init(coder aDecoder: NSCoder) {
-        self.menuItems = aDecoder.decodeObjectForKey("menuItems") as [MenuItem]
-        self.order_id = aDecoder.decodeObjectForKey("order_id") as String?
-        self.status = aDecoder.decodeObjectForKey("status") as String
-        self.orderCode = aDecoder.decodeObjectForKey("orderCode") as String?
+        self.menuItems = aDecoder.decodeObjectForKey("menuItems") as! [MenuItem]
+        self.order_id = aDecoder.decodeObjectForKey("order_id") as! String?
+        self.status = aDecoder.decodeObjectForKey("status") as! String
+        self.orderCode = aDecoder.decodeObjectForKey("orderCode") as! String?
     }
     
     func encodeWithCoder(aCoder: NSCoder) {

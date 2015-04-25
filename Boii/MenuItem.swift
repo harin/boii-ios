@@ -56,11 +56,11 @@ class MenuItem: NSObject, Printable, NSCoding {
     }
     required init(coder aDecoder: NSCoder) {
 
-        self._id = aDecoder.decodeObjectForKey("_id") as String!
+        self._id = aDecoder.decodeObjectForKey("_id") as! String!
         self.price = aDecoder.decodeDoubleForKey("price") as Double!
-        self.name = aDecoder.decodeObjectForKey("name") as String!
-        self.type = aDecoder.decodeObjectForKey("type") as String!
-        self.image = aDecoder.decodeObjectForKey("image") as UIImage?
+        self.name = aDecoder.decodeObjectForKey("name") as! String!
+        self.type = aDecoder.decodeObjectForKey("type") as! String!
+        self.image = aDecoder.decodeObjectForKey("image") as! UIImage?
         
         super.init()
     }

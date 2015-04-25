@@ -9,7 +9,7 @@
 import Foundation
 
 extension UIViewController {
-    func setTitle( title:String) {
+    func setCustomTitle( title:String) {
         
         if let titleView = self.navigationItem.titleView as? UILabel {
             titleView.text = title

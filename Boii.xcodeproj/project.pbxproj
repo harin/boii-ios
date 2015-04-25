@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		1C4C6BDF406328825C74D79F /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0331B6EE5A568BDE35A2BB5D /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		B364E1561ACDA87400A09AC4 /* XCGLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3C8B7121ACD50E600E6032A /* XCGLogger.framework */; };
-		B364E1571ACDA87400A09AC4 /* XCGLogger.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B3C8B7121ACD50E600E6032A /* XCGLogger.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B364E15C1ACE51B100A09AC4 /* OrderedDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = B364E15B1ACE51B100A09AC4 /* OrderedDictionary.swift */; };
 		B364E15E1ACE98E900A09AC4 /* LoadScreenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B364E15D1ACE98E900A09AC4 /* LoadScreenManager.swift */; };
 		B3A012D31AE63F8800373F71 /* reddot.png in Resources */ = {isa = PBXBuildFile; fileRef = B3A012D21AE63F8800373F71 /* reddot.png */; };
@@ -61,41 +59,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		B364E1581ACDA87400A09AC4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B3C8B70B1ACD50E600E6032A /* XCGLogger.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 55E3EE4419D76F280068C3A7;
-			remoteInfo = "XCGLogger (iOS)";
-		};
-		B3C8B7111ACD50E600E6032A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B3C8B70B1ACD50E600E6032A /* XCGLogger.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 55E3EE4519D76F280068C3A7;
-			remoteInfo = "XCGLogger (iOS)";
-		};
-		B3C8B7131ACD50E600E6032A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B3C8B70B1ACD50E600E6032A /* XCGLogger.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 554DF41719D76FE7005708BE;
-			remoteInfo = "XCGLogger (OS X)";
-		};
-		B3C8B7151ACD50E600E6032A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B3C8B70B1ACD50E600E6032A /* XCGLogger.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 55E3EE5019D76F280068C3A7;
-			remoteInfo = XCGLoggerTests;
-		};
-		B3C8B7171ACD519D00E6032A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B3C8B70B1ACD50E600E6032A /* XCGLogger.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 55E3EE4419D76F280068C3A7;
-			remoteInfo = "XCGLogger (iOS)";
-		};
 		CE27DD0C1A64108C006CFDC9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = CE27DCEE1A64108C006CFDC9 /* Project object */;
@@ -112,7 +75,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				B364E1571ACDA87400A09AC4 /* XCGLogger.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -126,7 +88,6 @@
 		B364E15D1ACE98E900A09AC4 /* LoadScreenManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadScreenManager.swift; sourceTree = "<group>"; };
 		B3A012D21AE63F8800373F71 /* reddot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reddot.png; sourceTree = "<group>"; };
 		B3C8B7071ACD306300E6032A /* Order.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
-		B3C8B70B1ACD50E600E6032A /* XCGLogger.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = XCGLogger.xcodeproj; path = "../XCGLogger-master/XCGLogger/Library/XCGLogger.xcodeproj"; sourceTree = "<group>"; };
 		B3CD2F191AE5583400D1B001 /* UIViewController+SetTitle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+SetTitle.swift"; sourceTree = "<group>"; };
 		CE00E5611AB068D90005B4E5 /* BeaconManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeaconManager.swift; sourceTree = "<group>"; };
 		CE00E5631AB06B930005B4E5 /* RestaurantShortcutBarButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantShortcutBarButtonItem.swift; sourceTree = "<group>"; };
@@ -190,7 +151,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1C4C6BDF406328825C74D79F /* Pods.framework in Frameworks */,
-				B364E1561ACDA87400A09AC4 /* XCGLogger.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,16 +179,6 @@
 				0331B6EE5A568BDE35A2BB5D /* Pods.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		B3C8B70C1ACD50E600E6032A /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				B3C8B7121ACD50E600E6032A /* XCGLogger.framework */,
-				B3C8B7141ACD50E600E6032A /* XCGLogger.framework */,
-				B3C8B7161ACD50E600E6032A /* XCGLoggerTests.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		CE10C67B1A885C57007CCA40 /* Model */ = {
@@ -300,7 +250,6 @@
 				CE27DCF71A64108C006CFDC9 /* Products */,
 				134B9EC9DE5F65D849388AF3 /* Pods */,
 				27A326D12AF78D676371D03F /* Frameworks */,
-				B3C8B70B1ACD50E600E6032A /* XCGLogger.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -428,8 +377,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				B3C8B7181ACD519D00E6032A /* PBXTargetDependency */,
-				B364E1591ACDA87400A09AC4 /* PBXTargetDependency */,
 			);
 			name = Boii;
 			productName = boii;
@@ -484,12 +431,6 @@
 			mainGroup = CE27DCED1A64108C006CFDC9;
 			productRefGroup = CE27DCF71A64108C006CFDC9 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = B3C8B70C1ACD50E600E6032A /* Products */;
-					ProjectRef = B3C8B70B1ACD50E600E6032A /* XCGLogger.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				CE27DCF51A64108C006CFDC9 /* Boii */,
@@ -497,30 +438,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		B3C8B7121ACD50E600E6032A /* XCGLogger.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = XCGLogger.framework;
-			remoteRef = B3C8B7111ACD50E600E6032A /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		B3C8B7141ACD50E600E6032A /* XCGLogger.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = XCGLogger.framework;
-			remoteRef = B3C8B7131ACD50E600E6032A /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		B3C8B7161ACD50E600E6032A /* XCGLoggerTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = XCGLoggerTests.xctest;
-			remoteRef = B3C8B7151ACD50E600E6032A /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		CE27DCF41A64108C006CFDC9 /* Resources */ = {
@@ -653,16 +570,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		B364E1591ACDA87400A09AC4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "XCGLogger (iOS)";
-			targetProxy = B364E1581ACDA87400A09AC4 /* PBXContainerItemProxy */;
-		};
-		B3C8B7181ACD519D00E6032A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "XCGLogger (iOS)";
-			targetProxy = B3C8B7171ACD519D00E6032A /* PBXContainerItemProxy */;
-		};
 		CE27DD0D1A64108C006CFDC9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = CE27DCF51A64108C006CFDC9 /* Boii */;

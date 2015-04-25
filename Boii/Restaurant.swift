@@ -70,10 +70,10 @@ class Restaurant: NSObject, NSCoding, Printable  {
     required init(coder aDecoder: NSCoder) {
         //        self.myCourses  = aDecoder.decodeObjectForKey("myCourses") as? Dictionary
         
-        self._id = aDecoder.decodeObjectForKey("_id") as String!
-        self.name = aDecoder.decodeObjectForKey("name") as String!
-        self.drinkList = aDecoder.decodeObjectForKey("drinkList") as [MenuItem]
-        self.foodList = aDecoder.decodeObjectForKey("foodList") as [MenuItem]
+        self._id = aDecoder.decodeObjectForKey("_id") as! String!
+        self.name = aDecoder.decodeObjectForKey("name") as! String!
+        self.drinkList = aDecoder.decodeObjectForKey("drinkList") as! [MenuItem]
+        self.foodList = aDecoder.decodeObjectForKey("foodList") as! [MenuItem]
         
         super.init()
         

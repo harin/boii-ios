@@ -9,7 +9,7 @@
 import UIKit
 
 class LogoutBarButtonItem: UIBarButtonItem {
-    var button: UIButton = UIButton.buttonWithType(UIButtonType.Custom) as UIButton
+    var button: UIButton = UIButton.buttonWithType(UIButtonType.Custom) as! UIButton
     var accountManager: AccountManager = AccountManager.sharedInstance
     var titleLabel = UILabel(frame: CGRectMake(0, 0, 80, 25))
     override init() {

@@ -15,12 +15,12 @@ class MenuTabBarController: UITabBarController, UITabBarControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tabBar.selectedImageTintColor = redLabelColor
+        self.tabBar.tintColor = redLabelColor
         self.delegate = self
         println("menutab did load")
         
         if let rest = self.rest {
-            self.setTitle(rest.name)
+            self.setCustomTitle(rest.name)
             
             let drinkVC = self.viewControllers?[0] as? DrinkCollectionViewController
             let foodVC = self.viewControllers?[1] as? FoodCollectionViewController
@@ -28,7 +28,7 @@ class MenuTabBarController: UITabBarController, UITabBarControllerDelegate {
             drinkVC?.restaurant = rest
             foodVC?.restaurant = rest
             
-            self.tabBarController?.selectedViewController = drinkVC?
+            self.tabBarController?.selectedViewController = drinkVC
         }
         
     }

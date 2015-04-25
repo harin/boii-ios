@@ -185,7 +185,7 @@ class CartViewController: UITableViewController {
         var cell: UITableViewCell
         
         if indexPath.section == 0 {
-            cell = tableView.dequeueReusableCellWithIdentifier(placeOrderCell, forIndexPath: indexPath) as UITableViewCell
+            cell = tableView.dequeueReusableCellWithIdentifier(placeOrderCell, forIndexPath: indexPath) as! UITableViewCell
         } else {
 
             var order: Order?
@@ -194,11 +194,11 @@ class CartViewController: UITableViewController {
             
             if indexPath.section == 1 {
                 //Setup Current Order
-                cell = tableView.dequeueReusableCellWithIdentifier("UnorderedItemCell", forIndexPath: indexPath) as UITableViewCell
+                cell = tableView.dequeueReusableCellWithIdentifier("UnorderedItemCell", forIndexPath: indexPath) as! UITableViewCell
                 order = self.cartStore.getCurrentOrder()
             } else {
                 //Setup for Past Orders
-                cell = tableView.dequeueReusableCellWithIdentifier("OrderedItemCell", forIndexPath: indexPath) as UITableViewCell
+                cell = tableView.dequeueReusableCellWithIdentifier("OrderedItemCell", forIndexPath: indexPath) as! UITableViewCell
                 order = self.cartStore.ordered[indexPath.section-2]
                 
 //                if order != nil {
@@ -217,8 +217,8 @@ class CartViewController: UITableViewController {
             
             // Set order if not nil
             if order != nil {
-                let nameLabel = cell.viewWithTag(300) as UILabel
-                let priceLabel = cell.viewWithTag(301) as UILabel
+                let nameLabel = cell.viewWithTag(300) as! UILabel
+                let priceLabel = cell.viewWithTag(301) as! UILabel
                 
                 nameLabel.text = order!.menuItems[indexPath.row].name
                 priceLabel.text = "$ \(order!.menuItems[indexPath.row].price)"
@@ -263,9 +263,9 @@ class CartViewController: UITableViewController {
     }
     
     func orderReadyNotification () {
-        let contentView = NSBundle.mainBundle().loadNibNamed("OrderReadyNotificationView", owner: self, options: nil).first as UIView
+        let contentView = NSBundle.mainBundle().loadNibNamed("OrderReadyNotificationView", owner: self, options: nil).first as! UIView
         
-        let orderIDLabel = contentView.viewWithTag(300) as UILabel
+        let orderIDLabel = contentView.viewWithTag(300) as! UILabel
         orderIDLabel.text = "999"
         
         let popup = KLCPopup(contentView: contentView)

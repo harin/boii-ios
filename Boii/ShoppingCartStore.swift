@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import XCGLogger
 
 class ShoppingCartStore: NSObject {
     var restaurant: Restaurant? // current restaurant

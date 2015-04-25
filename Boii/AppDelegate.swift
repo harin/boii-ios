@@ -1,7 +1,7 @@
 //
 //  AppDelegate.swift
 //  Boii
-//
+//	
 //  Created by Harin Sanghirun on 12/1/58.
 //  Copyright (c) พ.ศ. 2558 Harin Sanghirun. All rights reserved.
 //
@@ -39,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //Option contains push notification if app is not running when it came
         
         if let launchOpts: NSDictionary = launchOptions {
-            var notificationPayload: NSDictionary = launchOpts.objectForKey(UIApplicationLaunchOptionsRemoteNotificationKey) as NSDictionary
+            var notificationPayload: NSDictionary = launchOpts.objectForKey(UIApplicationLaunchOptionsRemoteNotificationKey) as! NSDictionary
             println(notificationPayload);
             ShoppingCartStore.sharedInstance.fetchOrdersIncludingRejected()
         }
