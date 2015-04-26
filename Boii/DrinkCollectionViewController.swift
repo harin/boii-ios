@@ -225,7 +225,10 @@ class DrinkCollectionViewController:
         // Check and Initialize Shopping Cart
         if ShoppingCartStore.sharedInstance.restaurant == nil {
             log.info("Initializing cartStore restaurant")
-            ShoppingCartStore.sharedInstance.restaurant = self.restaurant
+            
+            if let rest = self.restaurant {
+                ShoppingCartStore.sharedInstance.switchToRestaurant(rest)
+            }
         }
         
         if let ID = self.restaurant?._id {
@@ -264,23 +267,12 @@ class DrinkCollectionViewController:
             } else {
                 //ask to change restaurant
                 
-                let msg = "Would you like to change your current restaurant to \(self.restaurant!.name)"
-                let alert = UIAlertController(title: "This is a different restaurant", message: msg, preferredStyle: UIAlertControllerStyle.Alert);
-                let YESAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default) {
-                    (action) in
-                    
-                    ShoppingCartStore.sharedInstance.switchToRestaurant(self.restaurant!)
+                if let rest = self.restaurant {
+                    ShoppingCartStore.sharedInstance.switchToRestaurant(rest)
                 }
-                
-                let NOAction = UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel) { (action) in
-                    
-                }
-                alert.addAction(YESAction)
-                alert.addAction(NOAction)
                 
                 KLCPopup.dismissAllPopups()
                 
-                self.presentViewController(alert, animated: true){}
             }
         }
     }

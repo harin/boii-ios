@@ -11,6 +11,7 @@
 		B364E15C1ACE51B100A09AC4 /* OrderedDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = B364E15B1ACE51B100A09AC4 /* OrderedDictionary.swift */; };
 		B364E15E1ACE98E900A09AC4 /* LoadScreenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B364E15D1ACE98E900A09AC4 /* LoadScreenManager.swift */; };
 		B3A012D31AE63F8800373F71 /* reddot.png in Resources */ = {isa = PBXBuildFile; fileRef = B3A012D21AE63F8800373F71 /* reddot.png */; };
+		B3A70EBD1AEBE45D003B1D31 /* default_restaurant_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B3A70EBC1AEBE45D003B1D31 /* default_restaurant_image@2x.png */; };
 		B3C8B7081ACD306300E6032A /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C8B7071ACD306300E6032A /* Order.swift */; };
 		B3CD2F1A1AE5583500D1B001 /* UIViewController+SetTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CD2F191AE5583400D1B001 /* UIViewController+SetTitle.swift */; };
 		CE00E5621AB068D90005B4E5 /* BeaconManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE00E5611AB068D90005B4E5 /* BeaconManager.swift */; };
@@ -18,7 +19,6 @@
 		CE10C67F1A885CCC007CCA40 /* CartBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE10C67E1A885CCC007CCA40 /* CartBarButtonItem.swift */; };
 		CE158C431A8281AB00D73743 /* MenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE158C421A8281AB00D73743 /* MenuCollectionViewCell.swift */; };
 		CE17DFDF1A7A013A0066A5BA /* RestaurantTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE17DFDE1A7A013A0066A5BA /* RestaurantTableViewController.swift */; };
-		CE17DFE21A7A0A140066A5BA /* toofast.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE17DFE11A7A0A140066A5BA /* toofast.jpg */; };
 		CE27DCFC1A64108C006CFDC9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE27DCFB1A64108C006CFDC9 /* AppDelegate.swift */; };
 		CE27DD011A64108C006CFDC9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE27DCFF1A64108C006CFDC9 /* Main.storyboard */; };
 		CE27DD031A64108C006CFDC9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE27DD021A64108C006CFDC9 /* Images.xcassets */; };
@@ -51,7 +51,6 @@
 		CE782E5E1A923CA4000B3E15 /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE782E5D1A923CA4000B3E15 /* Restaurant.swift */; };
 		CE782E601A95989A000B3E15 /* RestraurantStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE782E5F1A95989A000B3E15 /* RestraurantStore.swift */; };
 		CE784B5D1A680E02003A4815 /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE784B5C1A680E02003A4815 /* MenuItem.swift */; };
-		CE907ADE1A81DE1100CAB9A5 /* toofast-375w@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE907ADD1A81DE1100CAB9A5 /* toofast-375w@2x.jpg */; };
 		CE907AE21A82569B00CAB9A5 /* DrinkCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE907AE11A82569B00CAB9A5 /* DrinkCollectionViewController.swift */; };
 		CE907AE51A826CD400CAB9A5 /* starbuck_coffee@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE907AE31A826CD400CAB9A5 /* starbuck_coffee@2x.jpg */; };
 		CE907AE61A826CD400CAB9A5 /* starbuck_coffee@3x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE907AE41A826CD400CAB9A5 /* starbuck_coffee@3x.jpg */; };
@@ -87,6 +86,7 @@
 		B364E15B1ACE51B100A09AC4 /* OrderedDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderedDictionary.swift; path = ../../SwiftDataStructures/SwiftDataStructures/OrderedDictionary.swift; sourceTree = "<group>"; };
 		B364E15D1ACE98E900A09AC4 /* LoadScreenManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadScreenManager.swift; sourceTree = "<group>"; };
 		B3A012D21AE63F8800373F71 /* reddot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reddot.png; sourceTree = "<group>"; };
+		B3A70EBC1AEBE45D003B1D31 /* default_restaurant_image@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "default_restaurant_image@2x.png"; sourceTree = "<group>"; };
 		B3C8B7071ACD306300E6032A /* Order.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		B3CD2F191AE5583400D1B001 /* UIViewController+SetTitle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+SetTitle.swift"; sourceTree = "<group>"; };
 		CE00E5611AB068D90005B4E5 /* BeaconManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeaconManager.swift; sourceTree = "<group>"; };
@@ -94,7 +94,6 @@
 		CE10C67E1A885CCC007CCA40 /* CartBarButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartBarButtonItem.swift; sourceTree = "<group>"; };
 		CE158C421A8281AB00D73743 /* MenuCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuCollectionViewCell.swift; sourceTree = "<group>"; };
 		CE17DFDE1A7A013A0066A5BA /* RestaurantTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantTableViewController.swift; sourceTree = "<group>"; };
-		CE17DFE11A7A0A140066A5BA /* toofast.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = toofast.jpg; sourceTree = "<group>"; };
 		CE27DCF61A64108C006CFDC9 /* boii.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = boii.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE27DCFA1A64108C006CFDC9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE27DCFB1A64108C006CFDC9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -137,7 +136,6 @@
 		CE784B581A680D09003A4815 /* MenuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuTableViewController.swift; sourceTree = "<group>"; };
 		CE784B5A1A680DF7003A4815 /* MenuStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuStore.swift; sourceTree = "<group>"; };
 		CE784B5C1A680E02003A4815 /* MenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuItem.swift; sourceTree = "<group>"; };
-		CE907ADD1A81DE1100CAB9A5 /* toofast-375w@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "toofast-375w@2x.jpg"; sourceTree = "<group>"; };
 		CE907AE11A82569B00CAB9A5 /* DrinkCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrinkCollectionViewController.swift; sourceTree = "<group>"; };
 		CE907AE31A826CD400CAB9A5 /* starbuck_coffee@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "starbuck_coffee@2x.jpg"; sourceTree = "<group>"; };
 		CE907AE41A826CD400CAB9A5 /* starbuck_coffee@3x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "starbuck_coffee@3x.jpg"; sourceTree = "<group>"; };
@@ -230,14 +228,13 @@
 			isa = PBXGroup;
 			children = (
 				B3A012D21AE63F8800373F71 /* reddot.png */,
+				B3A70EBC1AEBE45D003B1D31 /* default_restaurant_image@2x.png */,
 				CE430EF81A8C591100B5C7FC /* x-button.png */,
 				CE4A7BC11A92094900400F83 /* boii-drinks-icon@2x.png */,
 				CE907AE31A826CD400CAB9A5 /* starbuck_coffee@2x.jpg */,
 				CE75AB321AB8959200599179 /* You-Still-Drink-Soda@3x.jpg */,
 				CE907AE41A826CD400CAB9A5 /* starbuck_coffee@3x.jpg */,
 				CE4A7BBF1A9208DF00400F83 /* boii-food-icon@2x.png */,
-				CE907ADD1A81DE1100CAB9A5 /* toofast-375w@2x.jpg */,
-				CE17DFE11A7A0A140066A5BA /* toofast.jpg */,
 			);
 			name = Assets;
 			sourceTree = "<group>";
@@ -446,6 +443,7 @@
 			files = (
 				CE430EF91A8C591100B5C7FC /* x-button.png in Resources */,
 				CE27DD011A64108C006CFDC9 /* Main.storyboard in Resources */,
+				B3A70EBD1AEBE45D003B1D31 /* default_restaurant_image@2x.png in Resources */,
 				CE4A7BB81A91EB0400400F83 /* MenuDetailView.xib in Resources */,
 				CE4A7BC21A92094900400F83 /* boii-drinks-icon@2x.png in Resources */,
 				CE430EF71A8BAB5600B5C7FC /* CartStoryboard.storyboard in Resources */,
@@ -456,8 +454,6 @@
 				CE430EEF1A8B0BFE00B5C7FC /* LoginStoryboard.storyboard in Resources */,
 				B3A012D31AE63F8800373F71 /* reddot.png in Resources */,
 				CE75AB391AB93EE200599179 /* LICENSE in Resources */,
-				CE907ADE1A81DE1100CAB9A5 /* toofast-375w@2x.jpg in Resources */,
-				CE17DFE21A7A0A140066A5BA /* toofast.jpg in Resources */,
 				CE27DD031A64108C006CFDC9 /* Images.xcassets in Resources */,
 				CE75AB331AB8959200599179 /* You-Still-Drink-Soda@3x.jpg in Resources */,
 				CE907AE61A826CD400CAB9A5 /* starbuck_coffee@3x.jpg in Resources */,

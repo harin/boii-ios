@@ -56,22 +56,6 @@ class ShoppingCartStore: NSObject {
         super.init()
     }
     
-//    func orderedArchivePath() -> String {
-//        let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
-//        return documentDirectory.stringByAppendingPathComponent("ordered.archive")
-//    }
-//    
-//    func currentOrderArchivePath() -> String {
-//        let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
-//        return documentDirectory.stringByAppendingPathComponent("currentOrder.archive")
-//    }
-//    
-//    func saveChanges() -> Bool {
-//        var success1 = NSKeyedArchiver.archiveRootObject(ordered, toFile: self.orderedArchivePath())
-//        var success2 = NSKeyedArchiver.archiveRootObject(currentOrder, toFile: self.currentOrderArchivePath())
-//        return success1 && success2
-//    }
-    
     // MARK: Setter and Getter
     
     func addMenuToCurrentOrder(_menu: MenuItem){
@@ -94,6 +78,8 @@ class ShoppingCartStore: NSObject {
     private func initOrders() {
         self.currentOrder = Order()
         self.ordered = OrderedDictionary()
+        
+        self.fetchOrdersWithoutRejected()
     }
     
     
@@ -155,38 +141,45 @@ class ShoppingCartStore: NSObject {
     }
     
     func switchToRestaurant(rest: Restaurant){
-        
-        if restaurant != nil {
-            //ask whether want to switch restaurant
+        if self.restaurant == rest {
+            return
+        } else if self.restaurant == nil {
             self.restaurant = rest
             initOrders()
-            
-            notifyCartUpdate()
-            
+            return
         } else {
-            //initialize
-            self.restaurant = rest
+            askToSwitch(rest)
         }
     }
     
-    func askToSwitch(rest: Restaurant, viewController:UIViewController){
-        let alertController = UIAlertController(title: "", message: "Would you like to switch to \(rest.name)", preferredStyle: UIAlertControllerStyle.Alert)
+    func askToSwitch(rest: Restaurant){
         
-        let yesAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default) { (action) in
-            
-            self.restaurant = rest
-            self.initOrders()
-            self.notifyCartUpdate()
+        if let nav = UIApplication.sharedApplication().keyWindow?.rootViewController {
+            if nav is UINavigationController {
+                let alertController = UIAlertController(title: "", message: "Your cart is setup for another restaurant, would you like to switch to \(rest.name)", preferredStyle: UIAlertControllerStyle.Alert)
+                
+                let yesAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default) { (action) in
+                    
+                    self.restaurant = rest
+                    self.initOrders()
+                }
+                
+                let noAction = UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel) {
+                    (action) in
+                    
+                }
+                alertController.addAction(yesAction)
+                alertController.addAction(noAction)
+                
+                nav.presentViewController(alertController, animated: true) {}
+            } else {
+                log.debug("Expected a Navigation Controller, got \(nav)")
+            }
+        } else {
+            log.error("Unable to retrieve rootViewController, sry")
         }
         
-        let noAction = UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel) {
-            (action) in
-            
-        }
-        alertController.addAction(yesAction)
-        alertController.addAction(noAction)
         
-        viewController.presentViewController(alertController, animated: true) {}
     }
     
     
@@ -239,7 +232,7 @@ class ShoppingCartStore: NSObject {
                 
                 let rawJson: AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil)
                 
-//                log.debug("\(rawJson)")
+                log.debug("order in cart :\n\(rawJson)")
                 
                 self.parseOrder(rawJson)
                 self.isFetching = false
@@ -337,33 +330,39 @@ class ShoppingCartStore: NSObject {
         }
     }
     
-    func sendOrder() {
-        if let token = accountManager.authToken {
-            if let user_id = accountManager.userId {
-                if let rest_id = restaurant?._id {
-                    var request = NSMutableURLRequest( URL: NSURL(string: domain + orderPath)!)
-                    var session = NSURLSession.sharedSession()
-                    request.HTTPMethod = "POST"
-                    let authToken = AccountManager.sharedInstance.authToken
-                    
-                    var params: AnyObject = dataForOrder(user_id)
-                    var jsonData = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: nil)
-                    request.HTTPBody = jsonData
-                    
-                    request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-                    request.addValue("application/json", forHTTPHeaderField: "Accept")
-                    request.addValue(token, forHTTPHeaderField: "X-Auth-Token")
-                    request.addValue(user_id, forHTTPHeaderField: "X-User-Id")
-                    
-                    var task = session.dataTaskWithRequest(request) { (rawData, response, error) -> Void in
+    func sendOrder(completion: ((success: Bool, msg: String?) -> Void)?) {
+        if let token = accountManager.authToken,
+            let user_id = accountManager.userId,
+            let rest_id = restaurant?._id  {
+
+            var request = NSMutableURLRequest( URL: NSURL(string: domain + orderPath)!)
+            var session = NSURLSession.sharedSession()
+            request.HTTPMethod = "POST"
+            let authToken = AccountManager.sharedInstance.authToken
+            
+            var params: AnyObject = dataForOrder(user_id)
+            var jsonData = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: nil)
+            request.HTTPBody = jsonData
+            
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            request.addValue(token, forHTTPHeaderField: "X-Auth-Token")
+            request.addValue(user_id, forHTTPHeaderField: "X-User-Id")
+            
+            var task = session.dataTaskWithRequest(request) { (rawData, response, error) -> Void in
+                var success: Bool = false
+                var message: String? = nil
+                if(error == nil) {
+                    //Handle successful request
+                    log.debug("Response: \(response)")
+                    log.debug("Data: \(NSString(data: rawData, encoding: NSUTF8StringEncoding))")
+                    //Set Order Code
+                    if let data = rawData {
+                        var json = JSON(data: data)
                         
-                        if(error == nil) {
-                            //Handle successful request
-                            log.verbose("Response: \(response)")
-                            log.verbose("Data: \(NSString(data: rawData, encoding: NSUTF8StringEncoding))")
-                            //Set Order Code
-                            if let data = rawData {
-                                var json = JSON(data: data)
+                        if let status = json["status"].string {
+                            if status == "success" {
+                                success = true
                                 
                                 let order_code = json["order_code"].string
                                 let order_id = json["order_id"].string
@@ -386,16 +385,20 @@ class ShoppingCartStore: NSObject {
                                     if order_code == nil { log.error("order_code is nil") }
                                     if order_id   == nil { log.error("order_id is nil") }
                                 }
+                            } else {
+                                message = json["message"].string
                             }
-                        } else {
-                            //Handle request failure
-                            log.error("send order request failed: \(error)")
-                            
                         }
                     }
-                    task.resume()
+                } else {
+                    //Handle request failure
+                    log.error("send order request failed: \(error)")
                 }
+                
+                completion?(success: success,msg: message)
+                
             }
+            task.resume()
         }
         
     }

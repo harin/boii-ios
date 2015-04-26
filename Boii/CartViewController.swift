@@ -18,23 +18,6 @@ class CartViewController: UITableViewController {
         
     override func viewDidLoad() {
         super.viewDidLoad();
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        
-//        let headerView = UIView(frame: CGRectMake(0, 0, self.view.bounds.width, 30.0 ))
-//        orderCodeLabel.frame = headerView.frame
-//        orderCodeLabel.text = ""
-//        orderCodeLabel.backgroundColor = UIColor.blackColor()
-//        orderCodeLabel.textColor = UIColor.whiteColor()
-//        orderCodeLabel.tag = 500
-//        orderCodeLabel.textAlignment = NSTextAlignment.Center
-//
-//        headerView.addSubview(orderCodeLabel)
-//        self.tableView.tableHeaderView = headerView
         
         self.navigationItem.rightBarButtonItem = LogoutBarButtonItem()
 
@@ -93,6 +76,7 @@ class CartViewController: UITableViewController {
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
+        MBProgressHUD.hideAllHUDsForView(self.view, animated: false)
         self.removeObservers()
     }
 
@@ -110,13 +94,6 @@ class CartViewController: UITableViewController {
             case "order_code":
                 if let code = self.cartStore.order_code {
                     self.tableView.reloadData()
-                    dispatch_async(dispatch_get_main_queue()){
-//                        if code != "" {
-//                            self.orderCodeLabel.text = "Order Code \(code)"
-//                        } else {
-//                            self.orderCodeLabel.text = ""
-//                        }
-                    }
                 }
             case "currentOrder":
                 self.tableView.reloadData()
@@ -131,13 +108,14 @@ class CartViewController: UITableViewController {
                 } else {
                     if let rc = self.refreshControl {
                         if rc.refreshing {
-                            
                             dispatch_async(dispatch_get_main_queue()){
                                 rc.endRefreshing()
                             }
                         }
                     }
-
+                    dispatch_async(dispatch_get_main_queue()){
+                        MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
+                    }
                 }
             default:
                 println("CartView: Unknown keyPath observed")
@@ -166,7 +144,7 @@ class CartViewController: UITableViewController {
             nRow = self.cartStore.getCurrentOrder().menuItems.count
         } else if section > 1 {
             
-            let order = self.cartStore.ordered[section-2]
+            let order = self.cartStore.ordered[orderIdxFromSection(section)]
             if let thisIsAnOrderForSure = order {
                 nRow = thisIsAnOrderForSure.menuItems.count
             }
@@ -178,7 +156,10 @@ class CartViewController: UITableViewController {
         
         return nRow
     }
-
+    
+    func orderIdxFromSection( section: Int) -> Int {
+        return self.cartStore.ordered.count - ( section-2 ) - 1
+    }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
@@ -189,9 +170,6 @@ class CartViewController: UITableViewController {
         } else {
 
             var order: Order?
-            
-            
-            
             if indexPath.section == 1 {
                 //Setup Current Order
                 cell = tableView.dequeueReusableCellWithIdentifier("UnorderedItemCell", forIndexPath: indexPath) as! UITableViewCell
@@ -199,20 +177,10 @@ class CartViewController: UITableViewController {
             } else {
                 //Setup for Past Orders
                 cell = tableView.dequeueReusableCellWithIdentifier("OrderedItemCell", forIndexPath: indexPath) as! UITableViewCell
-                order = self.cartStore.ordered[indexPath.section-2]
                 
-//                if order != nil {
-//                    switch (order!.status) {
-//                    case ShoppingCartStore.orderStatus.accepted:
-//                        cell.backgroundColor = UIColor.orangeColor()
-//                    case ShoppingCartStore.orderStatus.ready:
-//                        cell.backgroundColor = UIColor.greenColor()
-//                    case ShoppingCartStore.orderStatus.rejected:
-//                        cell.backgroundColor = UIColor.redColor()
-//                    default:
-//                        cell.backgroundColor = UIColor.whiteColor()
-//                    }
-//                }
+                var idx = orderIdxFromSection(indexPath.section)
+                order = self.cartStore.ordered[idx]
+                
             }
             
             // Set order if not nil
@@ -221,7 +189,7 @@ class CartViewController: UITableViewController {
                 let priceLabel = cell.viewWithTag(301) as! UILabel
                 
                 nameLabel.text = order!.menuItems[indexPath.row].name
-                priceLabel.text = "$ \(order!.menuItems[indexPath.row].price)"
+                priceLabel.text = "฿ \(order!.menuItems[indexPath.row].price)"
             } else {
                 log.error("order is nil for \(indexPath)")
             }
@@ -231,9 +199,6 @@ class CartViewController: UITableViewController {
             
             cell.backgroundColor = UIColor(red: comp, green: comp, blue: comp, alpha: 1.0)
         }
-        
-
-        
         return cell
     }
 
@@ -256,10 +221,23 @@ class CartViewController: UITableViewController {
     
     func sendOrder() {
         if self.cartStore.getCurrentOrder().menuItems.count > 0 {
-            self.cartStore.sendOrder()
+            MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+            self.cartStore.sendOrder() {
+                (success: Bool, msg: String?) in
+                dispatch_async(dispatch_get_main_queue()){
+                    log.debug("Send order should've completed with success(\(success)) and msg(\(msg))")
+                    MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
+                    if !success {
+                        var message = "Something went wrong."
+                        if let unwrappedMsg = msg {
+                            message = unwrappedMsg
+                        }
+                        Utilities.displayOKAlert("Error", msg: message, viewController: self)
+                        
+                    }
+                }
+            }
         }
-        
-        Utilities.displayUpdateAlert("test", msg: "test")
     }
     
     func orderReadyNotification () {
@@ -313,7 +291,7 @@ class CartViewController: UITableViewController {
         var order = cartStore.ordered[section-2]
         if order == nil { return nil }
         
-        log.debug("Preparing view for headerInSection\(section)")
+//        log.debug("Preparing view for headerInSection\(section)")
         
         let frame = self.view.frame
         

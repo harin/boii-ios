@@ -17,7 +17,7 @@ import SDWebImage
 private var myContext = 0
 
 class RestaurantTableViewController: UITableViewController {
-    var defaultImg: UIImage?
+    var defaultRestaurantImage = UIImage(named: "default_restaurant_image")
     var restaurantStore: RestaurantStore?
     var restaurants: [Restaurant]?
     var shoppingCart: ShoppingCartStore = ShoppingCartStore.sharedInstance
@@ -176,23 +176,7 @@ class RestaurantTableViewController: UITableViewController {
             titleLabel.text = restaurant.name
             titleLabel.textColor = UIColor.whiteColor()
             
-            //apply filter to image
-//            var newImg = restaurant.thumbnailImage
-//            var inputImage = CIImage(CGImage: newImg.CGImage)
-//            var context = CIContext(options: nil)
-//            
-//            var filter = CIFilter(name: "CIVignette")
-//            filter.setValue(inputImage, forKey: kCIInputImageKey)
-//            
-//            filter.setValue(0.9, forKey: "inputRadius")
-//            filter.setValue(1, forKey: "inputIntensity")
-//            
-//            var outputImage = filter.outputImage
-//            var cgImg = context.createCGImage(outputImage, fromRect: outputImage.extent())
-//            defaultImg = UIImage(CGImage: cgImg)
-//            
-//            backgroundImgView.image = defaultImg
-            
+
             var url: NSURL?
             log.debug("\(restaurant.pic_url)")
             if let urlString = restaurant.pic_url {
@@ -201,7 +185,7 @@ class RestaurantTableViewController: UITableViewController {
                 url = NSURL(string: "")
             }
         
-            backgroundImgView.sd_setImageWithURL(url, placeholderImage: restaurant.thumbnailImage, completed: { (image, error, cacheType, url) in
+            backgroundImgView.sd_setImageWithURL(url, placeholderImage: defaultRestaurantImage, completed: { (image, error, cacheType, url) in
                 log.debug("Done loading image for path \(indexPath)")
             })
             
@@ -230,3 +214,21 @@ class RestaurantTableViewController: UITableViewController {
         }
     }
 }
+
+//apply filter to image
+//            var newImg = restaurant.thumbnailImage
+//            var inputImage = CIImage(CGImage: newImg.CGImage)
+//            var context = CIContext(options: nil)
+//
+//            var filter = CIFilter(name: "CIVignette")
+//            filter.setValue(inputImage, forKey: kCIInputImageKey)
+//
+//            filter.setValue(0.9, forKey: "inputRadius")
+//            filter.setValue(1, forKey: "inputIntensity")
+//
+//            var outputImage = filter.outputImage
+//            var cgImg = context.createCGImage(outputImage, fromRect: outputImage.extent())
+//            defaultImg = UIImage(CGImage: cgImg)
+//
+//            backgroundImgView.image = defaultImg
+

@@ -17,7 +17,6 @@ class MenuTabBarController: UITabBarController, UITabBarControllerDelegate {
         
         self.tabBar.tintColor = redLabelColor
         self.delegate = self
-        println("menutab did load")
         
         if let rest = self.rest {
             self.setCustomTitle(rest.name)

@@ -98,8 +98,7 @@ class Utilities {
     }
 
     class func defaultImageWithSize(size: CGSize) -> UIImage {
-        
-        
+
         UIGraphicsBeginImageContext(size)
         var context = UIGraphicsGetCurrentContext()
         
