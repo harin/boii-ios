@@ -35,7 +35,12 @@ class CartBarButtonItem: UIBarButtonItem {
         titleLabel.backgroundColor = UIColor.clearColor()
         titleLabel.font = UIFont.systemFontOfSize(17.0)
         titleLabel.textColor = redLabelColor
-        titleLabel.text = "Login"
+        
+        if accountManager.isLoggedIn {
+            titleLabel.text = "cart(\(self.cartStore.getCurrentOrder().menuItems.count))"
+        } else {
+            titleLabel.text = "Login"
+        }
         titleLabel.textAlignment = NSTextAlignment.Right
         titleLabel.font = UIFont(name: "Courier", size: 17.0)
         cartButton.addSubview(titleLabel)

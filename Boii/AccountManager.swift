@@ -50,8 +50,10 @@ class AccountManager: NSObject {
     
     override init(){
         super.init()
-        KeychainWrapper.accessGroup = "group.myAccessGroup"
-        
+//        KeychainWrapper.accessGroup = "group.myAccessGroup"
+        if let _authToken = self.authToken, let _userId = self.userId {
+            self.isLoggedIn = true
+        }
     }
     
     // MARK: helpers
@@ -59,9 +61,13 @@ class AccountManager: NSObject {
     func setCredentials(authtoken: String, userId: String) {
         if KeychainWrapper.setString(authtoken, forKey: "authtoken") &&
             KeychainWrapper.setString(userId, forKey: "userId") {
+            
                 isLoggedIn = true
+                log.debug("credential=\(self.authToken):\(self.userId)")
+                
         } else {
             log.error("Setting credential failed")
+            log.debug("credential=\(self.authToken):\(self.userId)")
         }
     }
     
@@ -106,6 +112,9 @@ class AccountManager: NSObject {
                     var userId = json["userId"].string
                     if let _authToken = authToken, let _userId = userId {
                         self.setCredentials(_authToken, userId: _userId)
+                    } else {
+                        if authToken == nil { log.error("authToken is \(authToken)") }
+                        if userId == nil { log.error("userId is \(userId)") }
                     }
                     self.updateDeviceToken()
                     
@@ -146,14 +155,21 @@ class AccountManager: NSObject {
                     println("AM: Setting authToken")
                     var data = json["data"]
                         
-                    var authToken = json["authToken"]["token"].string
-                    var userId = json["userId"].string
+                    var authToken = data["authToken"].string
+                    var userId = data["userId"].string
+                    
+                    log.debug("auth:id=\(authToken):\(userId)")
+
                     if let _authToken = authToken, let _userId = userId {
                         self.setCredentials(_authToken, userId: _userId)
+                    } else {
+                        if authToken == nil { log.error("authToken is \(authToken)") }
+                        if userId == nil { log.error("userId is \(userId)") }
                     }
                     self.updateDeviceToken()
                     
                     ShoppingCartStore.sharedInstance.fetchOrdersWithoutRejected()
+                    
                     
                 } else {
                     println("AccountManager: Response status = \(status)")
