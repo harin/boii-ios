@@ -7,17 +7,27 @@
 //
 
 import Foundation
+import SwiftKeychainWrapper
 
 class AccountManager: NSObject {
-    dynamic var authToken: String? {
-        didSet {
-            println("AM: authToken setted to:\(authToken)")
+    var authToken: String? {
+//        set(token) {
+//            if let _token = token {
+//                if (!KeychainWrapper.setString(_token, forKey:"authtoken")){
+//                    log.error("Failed to save authtoken to keychain")
+//                }
+//            }
+//        }
+        get {
+            return KeychainWrapper.stringForKey("authtoken")
         }
     }
-    var userId: String?
-    var isLoggedIn: Bool {
-        return authToken != nil;
+    var userId: String? {
+        get {
+            return KeychainWrapper.stringForKey("userId")
+        }
     }
+    dynamic var isLoggedIn: Bool = false
     var deviceToken: String = "" {
         didSet {
             updateDeviceToken()
@@ -37,6 +47,34 @@ class AccountManager: NSObject {
         
         return Static.instance!
     }
+    
+    override init(){
+        super.init()
+        KeychainWrapper.accessGroup = "group.myAccessGroup"
+        
+    }
+    
+    // MARK: helpers
+    
+    func setCredentials(authtoken: String, userId: String) {
+        if KeychainWrapper.setString(authtoken, forKey: "authtoken") &&
+            KeychainWrapper.setString(userId, forKey: "userId") {
+                isLoggedIn = true
+        } else {
+            log.error("Setting credential failed")
+        }
+    }
+    
+    func removeCredentials(){
+        if KeychainWrapper.removeObjectForKey("authtoken") &&
+            KeychainWrapper.removeObjectForKey("userId") {
+                isLoggedIn = false
+        } else {
+            log.error("Remove credential failed")
+        }
+    }
+    
+    // MARK: API
     
     func signup(email: String, password: String, callback: ((success: Bool, msg: String?) -> Void)? ){
         
@@ -64,8 +102,11 @@ class AccountManager: NSObject {
                 if status == "success" {
                     println("AM: Setting authToken")
 
-                    self.authToken = json["authToken"]["token"].string
-                    self.userId = json["userId"].string
+                    var authToken = json["authToken"]["token"].string
+                    var userId = json["userId"].string
+                    if let _authToken = authToken, let _userId = userId {
+                        self.setCredentials(_authToken, userId: _userId)
+                    }
                     self.updateDeviceToken()
                     
                 } else {
@@ -105,8 +146,11 @@ class AccountManager: NSObject {
                     println("AM: Setting authToken")
                     var data = json["data"]
                         
-                    self.authToken = data["authToken"].string
-                    self.userId = data["userId"].string
+                    var authToken = json["authToken"]["token"].string
+                    var userId = json["userId"].string
+                    if let _authToken = authToken, let _userId = userId {
+                        self.setCredentials(_authToken, userId: _userId)
+                    }
                     self.updateDeviceToken()
                     
                     ShoppingCartStore.sharedInstance.fetchOrdersWithoutRejected()
@@ -159,8 +203,7 @@ class AccountManager: NSObject {
                 
             }
         }
-        self.userId = nil
-        self.authToken = nil
+        self.removeCredentials()
     }
     
     private func updateDeviceToken(){

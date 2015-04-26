@@ -2,26 +2,35 @@ PODS:
   - SDWebImage (3.7.2):
     - SDWebImage/Core (= 3.7.2)
   - SDWebImage/Core (3.7.2)
+  - SwiftKeychainWrapper (1.0.9)
   - SwiftyJSON (2.1.3)
   - XCGLogger (2.0)
 
 DEPENDENCIES:
   - SDWebImage
+  - SwiftKeychainWrapper (from `https://github.com/jrendel/SwiftKeychainWrapper.git`, tag `1.0.9`)
   - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`, branch `xcode6.3`)
   - XCGLogger (~> 2.0)
 
 EXTERNAL SOURCES:
+  SwiftKeychainWrapper:
+    :git: https://github.com/jrendel/SwiftKeychainWrapper.git
+    :tag: 1.0.9
   SwiftyJSON:
     :branch: xcode6.3
     :git: https://github.com/SwiftyJSON/SwiftyJSON.git
 
 CHECKOUT OPTIONS:
+  SwiftKeychainWrapper:
+    :git: https://github.com/jrendel/SwiftKeychainWrapper.git
+    :tag: 1.0.9
   SwiftyJSON:
     :commit: 008a09d7ea8b13c03fb59b35c01aad339584a5e1
     :git: https://github.com/SwiftyJSON/SwiftyJSON.git
 
 SPEC CHECKSUMS:
   SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29
+  SwiftKeychainWrapper: e89472893a02cdd92a9775cd5ff3940e5cef5855
   SwiftyJSON: a561c2a840121085bec8a2dfeac97a360fc66901
   XCGLogger: 90570901ddf86d5479672d61a1b0a639235b851a
 

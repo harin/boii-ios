@@ -63,8 +63,6 @@ class LoginViewController: UIViewController {
                     } else {
                         alertMsg = "Something went wrong."
                     }
-                    
-                    
                     var alert = UIAlertController(title: "Error", message: alertMsg, preferredStyle: .Alert)
                     var OKAction = UIAlertAction(title: "OK", style: .Default, handler: {(action) in})
                     alert.addAction(OKAction)

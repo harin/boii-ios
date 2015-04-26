@@ -47,11 +47,11 @@ class CartBarButtonItem: UIBarButtonItem {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "cartUpdate:", name: ShoppingCartStore.notifications.cartUpdateNotificationIdentifier, object: nil)
         
         //Observe authToken of accountManager
-        accountManager.addObserver(self, forKeyPath: "authToken", options: .New, context: &myContext)
+        accountManager.addObserver(self, forKeyPath: "isLoggedIn", options: .New, context: &myContext)
     }
     
     deinit{
-        accountManager.removeObserver(self, forKeyPath: "authToken", context: &myContext)
+        accountManager.removeObserver(self, forKeyPath: "isLoggedIn", context: &myContext)
     }
     
     required init(coder aDecoder: NSCoder){
