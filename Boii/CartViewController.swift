@@ -53,7 +53,7 @@ class CartViewController: UITableViewController {
     func addObservers() {
         // KVO
         cartStore.addObserver(self, forKeyPath: "isFetching", options: .New, context: &myContext)
-        AccountManager.sharedInstance.addObserver(self, forKeyPath: "authToken", options: .New, context: &myContext)
+        AccountManager.sharedInstance.addObserver(self, forKeyPath: "isLoggedIn", options: .New, context: &myContext)
         
         // Notification
         
@@ -62,7 +62,7 @@ class CartViewController: UITableViewController {
     
     func removeObservers() {
         cartStore.removeObserver(self, forKeyPath: "isFetching")
-        AccountManager.sharedInstance.removeObserver(self, forKeyPath: "authToken")
+        AccountManager.sharedInstance.removeObserver(self, forKeyPath: "isLoggedIn")
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
@@ -99,7 +99,7 @@ class CartViewController: UITableViewController {
                 self.tableView.reloadData()
             case "ordered":
                 self.tableView.reloadData()
-            case "authToken":
+            case "isLoggedIn":
                 self.navigationController?.popViewControllerAnimated(true)
             case "isFetching":
                 log.debug("Observed cart isFetching(\(self.cartStore.isFetching))")

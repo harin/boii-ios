@@ -23,9 +23,6 @@ class LogoutBarButtonItem: UIBarButtonItem {
         button.frame = CGRectMake(0, 0, 80, 25)
         button.addSubview(titleLabel)
         
-//        button.setTitle("Logout", forState: UIControlState.Normal)
-//        button.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
-//        button.setTitleColor(UIColor.redColor(), forState: UIControlState.Highlighted)
         button.addTarget(self, action: "logoutButtonAction:", forControlEvents: UIControlEvents.TouchUpInside)
         
         self.customView = button

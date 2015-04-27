@@ -216,7 +216,6 @@ class AccountManager: NSObject {
                     }
                 }
                 task.resume()
-                
             }
         }
         self.removeCredentials()
@@ -250,7 +249,7 @@ class AccountManager: NSObject {
                 }
             }
             
-            log.debug("AM: updating deviceToken")
+            log.debug("AM: updating deviceToken(\(params))" )
             task.resume()
         }
     }
