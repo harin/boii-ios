@@ -687,7 +687,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = boii;
-				PROVISIONING_PROFILE = "de81ac48-5af3-49f9-aa34-36e8ce774b85";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/Boii/Boii-Bridging-Header.h";
 			};
 			name = Debug;
@@ -707,7 +707,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = boii;
-				PROVISIONING_PROFILE = "de81ac48-5af3-49f9-aa34-36e8ce774b85";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/Boii/Boii-Bridging-Header.h";
 			};
 			name = Release;
