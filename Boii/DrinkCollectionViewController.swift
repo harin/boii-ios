@@ -9,6 +9,7 @@
 import UIKit
 
 private let reuseIdentifier = "drinkMenuCell"
+private let reusePromoIdentifier = "drinkPromotionMenuCell"
 private var myContext = 0
 
 class DrinkCollectionViewController:
@@ -149,10 +150,16 @@ class DrinkCollectionViewController:
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! MenuCollectionViewCell
-        
+        var cell: MenuCollectionViewCell
         let index = indexPath.row
         if let menu = self.restaurant?.drinks[index] {
+            
+            if menu.promotion {
+                cell = collectionView.dequeueReusableCellWithReuseIdentifier(reusePromoIdentifier, forIndexPath: indexPath) as! MenuCollectionViewCell
+            } else {
+                cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! MenuCollectionViewCell
+            }
+
             cell.priceLabel.text = "฿ \(menu.price)"
             cell.titleLabel.text = menu.name
             
@@ -163,21 +170,18 @@ class DrinkCollectionViewController:
             } else {
                 url = NSURL(string: "")
             }
-            
-            
-            if let image = menu.image {
-                cell.imageView.image = image
-            } else {
+//            if let image = menu.image {
+//                cell.imageView.image = image
+//            } else {
                 var frame = cell.frame
                 cell.imageView.sd_setImageWithURL(url, placeholderImage: Utilities.defaultImageWithSize(frame.size), completed: { (image, error, cacheType, url) in
                     if image != nil {
                         menu.image = image
                     }
                 })
-            }
-            
-
-
+//            }
+        } else {
+            cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! MenuCollectionViewCell
         }
 
         return cell
@@ -261,7 +265,6 @@ class DrinkCollectionViewController:
                     alert.addAction(cancel)
                     
                     self.presentViewController(alert, animated: true, completion: nil)
-                    
                 }
 
             } else {
@@ -297,8 +300,4 @@ class DrinkCollectionViewController:
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
         return interitemSpacing
     }
-    
-    
-    
-
 }

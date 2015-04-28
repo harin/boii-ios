@@ -171,6 +171,7 @@ class Restaurant: NSObject, NSCoding, Printable  {
                 
                 if let promotion = menu["promotion"].bool {
                     m.promotion = promotion
+                    if promotion == true { log.debug("\(name) is on promotion") }
                 }
                 
                 if let restaurant_name = menu["restaurant_name"].string {

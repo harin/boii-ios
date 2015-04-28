@@ -189,14 +189,6 @@
                                         <imageView userInteractionEnabled="NO" tag="100" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="V10-PI-8bv">
                                             <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" tag="200" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="CoCo Crunchies" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MsE-2F-jHe">
-                                            <rect key="frame" x="8" y="152" width="184" height="40"/>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="21"/>
-                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                            <color key="shadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <size key="shadowOffset" width="0.0" height="0.0"/>
-                                        </label>
                                         <label opaque="NO" userInteractionEnabled="NO" tag="201" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="฿500" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yp1-pg-AHT">
                                             <rect key="frame" x="140" y="24" width="60" height="30"/>
                                             <color key="backgroundColor" red="0.14901960784313725" green="0.14901960784313725" blue="0.14901960784313725" alpha="1" colorSpace="calibratedRGB"/>
@@ -209,6 +201,14 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="200" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="CoCo Crunchies" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MsE-2F-jHe">
+                                            <rect key="frame" x="8" y="152" width="184" height="40"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="21"/>
+                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                            <color key="shadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <size key="shadowOffset" width="0.0" height="0.0"/>
                                         </label>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -229,6 +229,74 @@
                                     <outlet property="imageView" destination="V10-PI-8bv" id="iqt-Yv-t5o"/>
                                     <outlet property="priceLabel" destination="yp1-pg-AHT" id="aku-nR-4Z1"/>
                                     <outlet property="titleLabel" destination="MsE-2F-jHe" id="9I2-tj-Tay"/>
+                                </connections>
+                            </collectionViewCell>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="drinkPromotionMenuCell" id="yQC-XD-gK8" customClass="MenuCollectionViewCell" customModule="boii" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" tag="100" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5ku-2C-W04">
+                                            <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="200" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="CoCo Crunchies" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SkH-4n-Z2u">
+                                            <rect key="frame" x="8" y="152" width="184" height="40"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="21"/>
+                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                            <color key="shadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <size key="shadowOffset" width="0.0" height="0.0"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="201" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="฿500" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rfp-cI-2ZV">
+                                            <rect key="frame" x="140" y="24" width="60" height="30"/>
+                                            <color key="backgroundColor" red="0.76470588235294112" green="0.0039215686274509803" blue="0.082352941176470587" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="30" id="DrM-UY-EDT"/>
+                                                <constraint firstAttribute="width" constant="60" id="GLb-hq-kt5">
+                                                    <variation key="widthClass=compact" constant="80"/>
+                                                </constraint>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="promo_banner.png" translatesAutoresizingMaskIntoConstraints="NO" id="rVL-Fu-Npx">
+                                            <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                            <variation key="widthClass=compact" fixedFrame="YES">
+                                                <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                            </variation>
+                                        </imageView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="5ku-2C-W04" secondAttribute="bottom" id="4kU-en-97Z"/>
+                                    <constraint firstItem="SkH-4n-Z2u" firstAttribute="bottom" secondItem="yQC-XD-gK8" secondAttribute="bottomMargin" id="CH2-Ep-MKS"/>
+                                    <constraint firstItem="5ku-2C-W04" firstAttribute="leading" secondItem="yQC-XD-gK8" secondAttribute="leading" id="DNB-ij-ea2"/>
+                                    <constraint firstItem="Rfp-cI-2ZV" firstAttribute="top" secondItem="yQC-XD-gK8" secondAttribute="topMargin" constant="16" id="GjB-bx-a6I"/>
+                                    <constraint firstAttribute="trailing" secondItem="5ku-2C-W04" secondAttribute="trailing" id="TRO-7T-R4e"/>
+                                    <constraint firstItem="SkH-4n-Z2u" firstAttribute="trailing" secondItem="yQC-XD-gK8" secondAttribute="trailingMargin" id="Wij-DE-D6g"/>
+                                    <constraint firstItem="5ku-2C-W04" firstAttribute="top" secondItem="yQC-XD-gK8" secondAttribute="top" id="Zfh-JR-gY1"/>
+                                    <constraint firstItem="SkH-4n-Z2u" firstAttribute="leading" secondItem="yQC-XD-gK8" secondAttribute="leadingMargin" id="cVm-up-Bna"/>
+                                    <constraint firstItem="Rfp-cI-2ZV" firstAttribute="trailingMargin" secondItem="yQC-XD-gK8" secondAttribute="trailingMargin" id="x8M-Sp-PRV"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="subviews">
+                                        <exclude reference="rVL-Fu-Npx"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=compact">
+                                    <mask key="subviews">
+                                        <include reference="rVL-Fu-Npx"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <outlet property="imageView" destination="5ku-2C-W04" id="hR2-hx-ajC"/>
+                                    <outlet property="priceLabel" destination="Rfp-cI-2ZV" id="6lB-XB-Lqs"/>
+                                    <outlet property="titleLabel" destination="SkH-4n-Z2u" id="eau-NS-BA2"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -310,6 +378,77 @@
                                     <outlet property="titleLabel" destination="gjA-5b-yQt" id="4xJ-jF-O1U"/>
                                 </connections>
                             </collectionViewCell>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="foodPromotionMenuCell" id="VjM-cX-hTe" customClass="MenuCollectionViewCell" customModule="boii" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" tag="100" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YeP-JC-ySP">
+                                            <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="201" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="฿500" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pAH-vQ-QBR">
+                                            <rect key="frame" x="140" y="24" width="60" height="30"/>
+                                            <color key="backgroundColor" red="0.76470588235294112" green="0.0039215686274509803" blue="0.082352941176470587" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="60" id="M0c-ei-Xsu">
+                                                    <variation key="widthClass=compact" constant="80"/>
+                                                </constraint>
+                                                <constraint firstAttribute="height" constant="30" id="oaE-ox-v3l"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="200" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="CoCo Crunchies" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8KU-UU-TcK">
+                                            <rect key="frame" x="8" y="152" width="184" height="40"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="21"/>
+                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                            <color key="shadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <size key="shadowOffset" width="0.0" height="0.0"/>
+                                            <variation key="widthClass=compact" misplaced="YES">
+                                                <rect key="frame" x="8" y="167" width="184" height="25"/>
+                                            </variation>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="promo_banner.png" translatesAutoresizingMaskIntoConstraints="NO" id="IRL-kE-PuT">
+                                            <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                            <variation key="widthClass=compact" fixedFrame="YES">
+                                                <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                            </variation>
+                                        </imageView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="pAH-vQ-QBR" firstAttribute="top" secondItem="VjM-cX-hTe" secondAttribute="topMargin" constant="16" id="0nQ-5E-h4s"/>
+                                    <constraint firstItem="8KU-UU-TcK" firstAttribute="bottom" secondItem="VjM-cX-hTe" secondAttribute="bottomMargin" id="CkA-Qc-XgE"/>
+                                    <constraint firstItem="8KU-UU-TcK" firstAttribute="trailing" secondItem="VjM-cX-hTe" secondAttribute="trailingMargin" id="G2n-7b-67K"/>
+                                    <constraint firstItem="YeP-JC-ySP" firstAttribute="leading" secondItem="VjM-cX-hTe" secondAttribute="leading" id="GL3-e3-STp"/>
+                                    <constraint firstAttribute="trailing" secondItem="YeP-JC-ySP" secondAttribute="trailing" id="YDC-zO-ReC"/>
+                                    <constraint firstItem="8KU-UU-TcK" firstAttribute="leading" secondItem="VjM-cX-hTe" secondAttribute="leadingMargin" id="cMA-28-gbn"/>
+                                    <constraint firstItem="YeP-JC-ySP" firstAttribute="top" secondItem="VjM-cX-hTe" secondAttribute="top" id="ghi-xs-skd"/>
+                                    <constraint firstItem="pAH-vQ-QBR" firstAttribute="trailingMargin" secondItem="VjM-cX-hTe" secondAttribute="trailingMargin" id="jhf-wI-Drq"/>
+                                    <constraint firstAttribute="bottom" secondItem="YeP-JC-ySP" secondAttribute="bottom" id="pqj-fj-mTT"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="subviews">
+                                        <exclude reference="IRL-kE-PuT"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=compact">
+                                    <mask key="subviews">
+                                        <include reference="IRL-kE-PuT"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <outlet property="imageView" destination="YeP-JC-ySP" id="mb2-m2-9b9"/>
+                                    <outlet property="priceLabel" destination="pAH-vQ-QBR" id="6No-VG-t6r"/>
+                                    <outlet property="titleLabel" destination="8KU-UU-TcK" id="vbR-Zd-xLc"/>
+                                </connections>
+                            </collectionViewCell>
                         </cells>
                         <connections>
                             <outlet property="dataSource" destination="UKr-Ho-8NV" id="Q7D-Jp-gCw"/>
@@ -363,6 +502,7 @@
     <resources>
         <image name="boii-drinks-icon.png" width="45" height="45"/>
         <image name="boii-food-icon.png" width="45" height="45"/>
+        <image name="promo_banner.png" width="109" height="109"/>
         <image name="reddot.png" width="1" height="1"/>
     </resources>
 </document>

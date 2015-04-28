@@ -14,6 +14,7 @@
 		B3A70EBD1AEBE45D003B1D31 /* default_restaurant_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B3A70EBC1AEBE45D003B1D31 /* default_restaurant_image@2x.png */; };
 		B3C8B7081ACD306300E6032A /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C8B7071ACD306300E6032A /* Order.swift */; };
 		B3CD2F1A1AE5583500D1B001 /* UIViewController+SetTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CD2F191AE5583400D1B001 /* UIViewController+SetTitle.swift */; };
+		B3E23D251AEFE53000B25577 /* promo_banner@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B3E23D241AEFE53000B25577 /* promo_banner@2x.png */; };
 		CE00E5621AB068D90005B4E5 /* BeaconManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE00E5611AB068D90005B4E5 /* BeaconManager.swift */; };
 		CE00E5641AB06B930005B4E5 /* RestaurantShortcutBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE00E5631AB06B930005B4E5 /* RestaurantShortcutBarButtonItem.swift */; };
 		CE10C67F1A885CCC007CCA40 /* CartBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE10C67E1A885CCC007CCA40 /* CartBarButtonItem.swift */; };
@@ -89,6 +90,7 @@
 		B3A70EBC1AEBE45D003B1D31 /* default_restaurant_image@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "default_restaurant_image@2x.png"; sourceTree = "<group>"; };
 		B3C8B7071ACD306300E6032A /* Order.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		B3CD2F191AE5583400D1B001 /* UIViewController+SetTitle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+SetTitle.swift"; sourceTree = "<group>"; };
+		B3E23D241AEFE53000B25577 /* promo_banner@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "promo_banner@2x.png"; sourceTree = "<group>"; };
 		CE00E5611AB068D90005B4E5 /* BeaconManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeaconManager.swift; sourceTree = "<group>"; };
 		CE00E5631AB06B930005B4E5 /* RestaurantShortcutBarButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantShortcutBarButtonItem.swift; sourceTree = "<group>"; };
 		CE10C67E1A885CCC007CCA40 /* CartBarButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartBarButtonItem.swift; sourceTree = "<group>"; };
@@ -227,6 +229,7 @@
 		CE17DFE01A7A0A050066A5BA /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				B3E23D241AEFE53000B25577 /* promo_banner@2x.png */,
 				B3A012D21AE63F8800373F71 /* reddot.png */,
 				B3A70EBC1AEBE45D003B1D31 /* default_restaurant_image@2x.png */,
 				CE430EF81A8C591100B5C7FC /* x-button.png */,
@@ -451,6 +454,7 @@
 				CE4A7BC01A9208DF00400F83 /* boii-food-icon@2x.png in Resources */,
 				CE430EFB1A8CA10900B5C7FC /* OrderReadyNotificationView.xib in Resources */,
 				CE27DD061A64108C006CFDC9 /* LaunchScreen.xib in Resources */,
+				B3E23D251AEFE53000B25577 /* promo_banner@2x.png in Resources */,
 				CE430EEF1A8B0BFE00B5C7FC /* LoginStoryboard.storyboard in Resources */,
 				B3A012D31AE63F8800373F71 /* reddot.png in Resources */,
 				CE75AB391AB93EE200599179 /* LICENSE in Resources */,
