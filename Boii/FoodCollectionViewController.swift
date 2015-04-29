@@ -174,17 +174,13 @@ class FoodCollectionViewController:
         println("addButtonPressed")
         
         // Check and Initialize Shopping Cart
-        if ShoppingCartStore.sharedInstance.restaurant == nil {
-            log.info("Initializing CartStore's restaurant")
-            ShoppingCartStore.sharedInstance.restaurant = self.restaurant
-        }
         
-        if let ID = self.restaurant?._id {
+        if let rest = self.restaurant {
             // Check if current cart is for current restaurant
-            if ShoppingCartStore.sharedInstance.restaurant?._id == ID {
+            if ShoppingCartStore.sharedInstance.restaurant?._id == rest._id {
                 
                 //Check if in region, if not disallow ordering
-                if BeaconManager.sharedInstance.closestBeacon != nil || self.restaurant!.requireIBeacon == false {
+                if BeaconManager.sharedInstance.closestBeacon != nil {
                     if let order = selectedMenu {
                         ShoppingCartStore.sharedInstance.addMenuToCurrentOrder(order)
                     } else {
@@ -212,26 +208,10 @@ class FoodCollectionViewController:
                 }
                 
             } else {
-                //ask to change restaurant
-                
-                let msg = "Would you like to change your current restaurant to \(self.restaurant!.name)"
-                let alert = UIAlertController(title: "This is a different restaurant", message: msg, preferredStyle: UIAlertControllerStyle.Alert);
-                let YESAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default) {
-                    (action) in
-                    
-                    ShoppingCartStore.sharedInstance.switchToRestaurant(self.restaurant!)
-                }
-                
-                let NOAction = UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel) { (action) in
-                    
-                }
-                alert.addAction(YESAction)
-                alert.addAction(NOAction)
-                
-                KLCPopup.dismissAllPopups()
-                
-                self.presentViewController(alert, animated: true){}
+                log.error("Wrong ID(\(ShoppingCartStore.sharedInstance.restaurant?._id)), expecting \(rest._id)")
             }
+        } else {
+            log.error("Restaurant = \(self.restaurant)")
         }
     }
     

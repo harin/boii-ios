@@ -28,13 +28,23 @@ class MenuTabBarController: UITabBarController, UITabBarControllerDelegate {
             foodVC?.restaurant = rest
             
             self.tabBarController?.selectedViewController = drinkVC
+
         }
-        
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        if let rest = self.rest {
+            ShoppingCartStore.sharedInstance.switchToRestaurant(rest)
+            ShoppingCartStore.sharedInstance.fetchOrdersWithoutRejected()
+        } else {
+            log.error("self.rest = \(self.rest)")
+        }
     }
 
     
-    func tabBarController(tabBarController: UITabBarController,
-        didSelectViewController viewController: UIViewController){
-        println(viewController)
-    }
+//    func tabBarController(tabBarController: UITabBarController,
+//        didSelectViewController viewController: UIViewController){
+//        println(viewController)
+//    }
 }

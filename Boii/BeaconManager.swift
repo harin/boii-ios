@@ -10,10 +10,17 @@ import Foundation
 import CoreLocation
 import UIKit
 
+private let estimoteUUID = "E2C56DB5-DFFB-48D2-B060-D0F5A71096E0"
+private let beaconUUID =   "B9407F30-F5F8-466E-AFF9-25556B57FE6D"
+
 class BeaconManager: NSObject, CLLocationManagerDelegate {
     let locationManager = CLLocationManager()
-    let boiiRegion = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: "E2C56DB5-DFFB-48D2-B060-D0F5A71096E0"), identifier: "BoiiRegion")
-    var currentRestaurant: Restaurant?
+    let boiiRegion = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: estimoteUUID), identifier: "BoiiRegion")
+    dynamic var currentRestaurant: Restaurant? {
+        didSet {
+            log.debug("Current Restaurant changed to \(self.currentRestaurant)")
+        }
+    }
     var closestBeacon: CLBeacon? {
         didSet {
             postBeaconUpdateNotification()
@@ -69,10 +76,18 @@ class BeaconManager: NSObject, CLLocationManagerDelegate {
         boiiRegion.notifyOnExit = true
         start()
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateCurrentRestaurant:", name: RestaurantStore.notificationNames.requestedBeaconFound, object: nil)
+        
+    }
+    
+    func updateCurrentRestaurant( sender: AnyObject ) {
+        if let beacon = self.closestBeacon {
+            self.currentRestaurant = RestaurantStore.sharedInstance.restaurantWithBeacon(beacon.major.stringValue, minor: beacon.minor.stringValue)
+            postWelcomeLocalNotification()
+        }
     }
     
     func start(){
-//        println("BeaconManager: Starting")
         startRanging()
         startMonitoring()
     }
@@ -87,8 +102,7 @@ class BeaconManager: NSObject, CLLocationManagerDelegate {
     }
     
     func locationManager(manager: CLLocationManager!, didRangeBeacons beacons: [AnyObject]!, inRegion region: CLBeaconRegion!) {
-//        println("Entered: didRangeBeacons: \(beacons)")
-
+        
         if beacons.count > 0 {
         } else {
             if self.closestBeacon != nil {
@@ -100,11 +114,14 @@ class BeaconManager: NSObject, CLLocationManagerDelegate {
         
         if knownBeacons.count > 0 {
             let closestBeacon = knownBeacons[0] as! CLBeacon
+            log.debug("closestBeacon = \(closestBeacon)")
             
-            if closestBeacon.minor != self.closestBeacon?.minor &&
+            if closestBeacon.minor != self.closestBeacon?.minor ||
                 closestBeacon.major != self.closestBeacon?.major {
                     
                 self.closestBeacon = closestBeacon
+                identifyRestaurant()
+                log.debug("Update Beacon to \(self.closestBeacon)")
             }
         }
     }
@@ -116,28 +133,53 @@ class BeaconManager: NSObject, CLLocationManagerDelegate {
     }
     
     func locationManager(manager: CLLocationManager!, didDetermineState state: CLRegionState, forRegion region: CLRegion!) {
-        println("Entered: didDetermineState")
+        log.debug("")
         
         if state == CLRegionState.Inside {
-            println("I'm Inside \(region)")
+            log.debug("I'm Inside \(region)")
         } else {
-            println("I'm not Inside")
+            log.debug("I'm not Inside")
         }
     }
     
     func locationManager(manager: CLLocationManager!, didEnterRegion region: CLRegion!) {
-        println("didEnterRegion")
+        log.debug("")
+        locationManager.startRangingBeaconsInRegion(boiiRegion)
+        
 //        postBeaconUpdateNotification()
         postEnterBeaconRegionNotification()
         
-        let noti = UILocalNotification()
-        noti.alertBody = "You just entered this restaurant"
-        noti.soundName = UILocalNotificationDefaultSoundName
-        UIApplication.sharedApplication().presentLocalNotificationNow(noti)
+        // Find restaurant with major and minor
+        identifyRestaurant()
+    }
+    
+    func identifyRestaurant() {
+        if let beacon = self.closestBeacon {
+            if let rest = RestaurantStore.sharedInstance.restaurantWithBeacon(beacon.major.stringValue, minor: beacon.minor.stringValue) {
+                self.currentRestaurant = rest
+                self.postWelcomeLocalNotification()
+            }
+        }
+
+    }
+    
+    func postWelcomeLocalNotification() {
+        if let rest = currentRestaurant {
+            let noti = UILocalNotification()
+            noti.alertBody = "Welcome to \(rest.name)"
+            noti.soundName = UILocalNotificationDefaultSoundName
+            UIApplication.sharedApplication().presentLocalNotificationNow(noti)
+        }
+    }
+    
+    func postPromotionAdvertisementLocalNotification() {
+        
     }
     
     func locationManager(manager: CLLocationManager!, didExitRegion region: CLRegion!) {
-        println("didExitRegion")
+        log.debug("")
+        self.currentRestaurant = nil
+        self.closestBeacon = nil
 //        postBeaconUpdateNotification()
         postExitBeaconRegionNotification()
     }

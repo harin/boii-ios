@@ -46,6 +46,10 @@ class RestaurantStore: NSObject {
     var restaurants: [Restaurant] = []
     dynamic var isFetching: Bool = false
     
+    struct notificationNames {
+        static var requestedBeaconFound = "restaurantWithRequestedBeaconFound"
+    }
+    
     //methods
     override init(){
         super.init()
@@ -67,7 +71,7 @@ class RestaurantStore: NSObject {
     }
 
     // Return restaurant with the specify major and minor, return nil is non is found
-    func restaurantWithBeacon(major: Int, minor: Int) -> Restaurant?{
+    func restaurantWithBeacon(major: String, minor: String) -> Restaurant?{
         // search locally
         for rest: Restaurant in restaurants {
             if rest.beaconMajor == major && rest.beaconMinor == minor {
@@ -75,7 +79,24 @@ class RestaurantStore: NSObject {
             }
         }
         
-        //request from server
+        // None found, request from server
+        
+        var urlString = domain + restaurantPath + "?minor=\(minor)&major=\(major)"
+        
+        Utilities.getRequest(urlString) { (rawData, response, error, jsonObject) in
+            if let _jsonObject: AnyObject = jsonObject {
+                var restaurants = self.parseRestaurantJson(_jsonObject)
+                if restaurants.count > 0 {
+                    self.restaurants += restaurants
+                    self.restaurantsNeedUpdate()
+                    self.restaurantWithRequestedBeaconFound()
+                } else {
+                    log.error("No restaurant with beacon(\(major):\(minor)) found")
+                }
+            } else {
+                log.error("jsonObject is \(jsonObject)")
+            }
+        }
         
         return nil
     }
@@ -92,32 +113,24 @@ class RestaurantStore: NSObject {
     }
     
     // MARK: API methods
-//    func fetchMenuForRestaurant(rest: Restaurant) {
-//        println("RestaurantStore: fetching menus for \(rest.name)")
-//        
-//        let path = domain + restaurantPath + "/\(rest._id)/menus"
-//        
-//        getRequest(path) {
-//            (data, session, error, json) -> Void in
-//            
-//            if json != nil {
-//                
-//            }
-//        }
-//    }
     
     func fetchRestaurant(){
         log.debug("RestaurantStore: fetching restaurant")
         
         self.isFetching = true
-        getRequest(domain+restaurantPath) {
+        Utilities.getRequest(domain+restaurantPath) {
             (data, session, error, json) -> Void in
             
             if error == nil {
 //                log.debug("\(json)")
                 
                 if json != nil {
-                    self.parseRestaurantJson(json!)
+                    let restaurants = self.parseRestaurantJson(json!)
+                    if restaurants.count > 0 {
+                        self.restaurants = restaurants
+                        self.restaurantsNeedUpdate()
+                    }
+                    
                 } else {
                     log.error("json=\(json)")
                 }
@@ -130,7 +143,7 @@ class RestaurantStore: NSObject {
         }
     }
     
-    func parseRestaurantJson( jsonObject: AnyObject){
+    func parseRestaurantJson( jsonObject: AnyObject) -> [Restaurant]{
         log.debug("Parsing restaurant json")
         /*
         _id: String
@@ -164,11 +177,11 @@ class RestaurantStore: NSObject {
                     r.address = address
                 }
                 
-                if let beaconMajor = rest["beacon_major"].int {
+                if let beaconMajor = rest["beacon_major"].string {
                     r.beaconMajor = beaconMajor
                 }
                 
-                if let beaconMinor = rest["beacon_minor"].int {
+                if let beaconMinor = rest["beacon_minor"].string {
                     r.beaconMinor = beaconMinor
                 }
                 
@@ -201,21 +214,30 @@ class RestaurantStore: NSObject {
         }
         
         log.verbose("Done Parsing \(result.count)items\n Result =\n \(result)")
-        restaurants = result
         
-        restaurantsNeedUpdate()
+
+        return result
+
     }
     
     func restaurantsNeedUpdate() {
         
-        println("restaurantStore: restaurant need update notification")
+        log.debug("")
         let note = NSNotification(name: "restaurantsNeedUpdateNotification", object: self)
         
         NSNotificationCenter.defaultCenter().postNotification(note)
     }
     
+    func restaurantWithRequestedBeaconFound() {
+        
+        log.debug("")
+        let note = NSNotification(name: "restaurantWithRequestedBeaconFound", object: self)
+        
+        NSNotificationCenter.defaultCenter().postNotification(note)
+    }
+    
     func menuForRestaurantNeedUpdate(rest: Restaurant){
-        println("restaurant: restaurant need update notification")
+        log.debug("")
         
         let notiName = stringForRestaurantMenuUpdateNotification(rest)
         let note = NSNotification(name: notiName, object: self)

@@ -21,8 +21,8 @@ class Restaurant: NSObject, NSCoding, Printable  {
     
     var address: String?
     var beaconID: String?
-    var beaconMajor: Int?
-    var beaconMinor: Int?
+    var beaconMajor: String?
+    var beaconMinor: String?
     var email: String?
     var phone: [tel] = []
     var thumbnailImage: UIImage = UIImage(named:"toofast-375w.jpg")!
@@ -116,7 +116,7 @@ class Restaurant: NSObject, NSCoding, Printable  {
             log.verbose("Restaurant: Fetching Menu from path = \(path)")
             
             self.isFetching = true
-            getRequest(path) {
+            Utilities.getRequest(path) {
                 (data, session, error, json) -> Void in
                 
                 if json != nil {

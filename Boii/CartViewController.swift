@@ -41,7 +41,7 @@ class CartViewController: UITableViewController {
         super.viewWillAppear( animated)
         
         self.addObservers()
-        self.cartStore.fetchOrdersWithoutRejected()
+//        self.cartStore.fetchOrdersWithoutRejected()
         
         
         if let code = self.cartStore.order_code {

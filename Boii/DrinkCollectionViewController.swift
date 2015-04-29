@@ -42,7 +42,7 @@ class DrinkCollectionViewController:
             NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateCollection:", name: notiName, object: nil)
             
             if ShoppingCartStore.sharedInstance.restaurant == nil {
-                ShoppingCartStore.sharedInstance.restaurant = self.restaurant
+                ShoppingCartStore.sharedInstance.switchToRestaurant(rest)
             }
         } else {
             log.error("no restaurant set")
@@ -64,7 +64,6 @@ class DrinkCollectionViewController:
     
     func updateCollection(sender: AnyObject?){
         dispatch_async(dispatch_get_main_queue(), {
-            println("DrinkCVC: updating Menu \(NSThread.currentThread())")
             self.collectionView?.reloadData()
             self.refreshControl.endRefreshing()
         })

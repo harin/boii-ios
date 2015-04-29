@@ -9,10 +9,19 @@
 import Foundation
 
 class ShoppingCartStore: NSObject {
-    var restaurant: Restaurant? // current restaurant
+    var restaurant: Restaurant? {
+        get {
+            return _restaurant
+        }
+    }
+    
+    private var _restaurant: Restaurant?
+    
     var accountManager: AccountManager = AccountManager.sharedInstance
     dynamic var order_code: String?
     dynamic var isFetching: Bool = false
+    
+    var orderForRestWithID: [String: Order] = [String: Order]()
     
     struct orderStatus {
         static var accepted = "accepted"
@@ -98,34 +107,34 @@ class ShoppingCartStore: NSObject {
             
             switch (status) {
             case ShoppingCartStore.orderStatus.accepted:
-                println("Order accepted")
+                log.info("Order accepted")
                 // alert
                 
                 // update ui
                 
             case ShoppingCartStore.orderStatus.rejected:
-                println("Order rejected")
+                log.info("Order rejected")
                 // alert
                 
                 // remove from list
                 removeOrderWithId(_order_id)
                 
             case ShoppingCartStore.orderStatus.billed:
-                println("Order billed")
+                log.info("Order billed")
                 // alert
                 
                 //remove from list
                 removeOrderWithId(_order_id)
 
             case ShoppingCartStore.orderStatus.ready:
-                println("Order Ready")
+                log.info("Order Ready")
                 //alert user to go pickup
 //                log.debug("\(UIApplication.sharedApplication().keyWindow)")
 //                log.debug("\(UIApplication.sharedApplication().keyWindow?.rootViewController)")
                 
                 
             default:
-                println("Unsupported order status case")
+                log.error("Unsupported order status case")
             }
             
             self.notifyCartUpdate()
@@ -144,11 +153,28 @@ class ShoppingCartStore: NSObject {
         if self.restaurant == rest {
             return
         } else if self.restaurant == nil {
-            self.restaurant = rest
+            self._restaurant = rest
             initOrders()
+            self.notifyCartUpdate()
             return
         } else {
-            askToSwitch(rest)
+//            askToSwitch(rest)
+            if let currentRest = self.restaurant {
+                // Store order of old restaurant
+                orderForRestWithID[currentRest._id] = currentOrder
+            }
+            
+            if let order = orderForRestWithID[rest._id] {
+                // if exist
+                log.info("Restoring order for rest = \(rest)")
+                currentOrder = order
+            } else {
+                // else create new one
+                log.info("Creating new order for rest = \(rest)")
+                currentOrder = Order()
+            }
+            self._restaurant = rest
+            self.notifyCartUpdate()
         }
     }
     
@@ -160,7 +186,7 @@ class ShoppingCartStore: NSObject {
                 
                 let yesAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default) { (action) in
                     
-                    self.restaurant = rest
+                    self._restaurant = rest
                     self.initOrders()
                 }
                 
@@ -178,8 +204,6 @@ class ShoppingCartStore: NSObject {
         } else {
             log.error("Unable to retrieve rootViewController, sry")
         }
-        
-        
     }
     
     
@@ -199,7 +223,7 @@ class ShoppingCartStore: NSObject {
             "restaurant_id": "\(self.restaurant!._id)",
             "orderItems": orderItems
         ]
-        println("Cart: data to post= \(data)")
+        log.verbose("Cart: data to post= \(data)")
         return data
     }
     func fetchOrdersIncludingRejected() {

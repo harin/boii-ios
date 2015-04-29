@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+//let domain = "http://192.168.1.38:3000"
 let domain = "http://boiitest.meteor.com"
 let menuPath = "/api/menus"
 let restaurantPath = "/api/restaurants"
@@ -31,19 +31,7 @@ var randomRedColorComps = [
 ]
 
 
-func getRequest( urlString: String, callback:((NSData!, NSURLResponse!, NSError!, json: AnyObject?) -> Void)?){
-    var request = NSMutableURLRequest(URL: NSURL( string: urlString )!)
-    var session = NSURLSession.sharedSession()
-    var task = session.dataTaskWithRequest(request){
-        (data, response, error) -> Void in
 
-        let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil)
-        callback!(data, response, error, json: json)
-        
-    }
-    
-    task.resume() //send request
-}
 
 func postJSONToPath( path: String, params: NSObject, callback:((NSData!, NSURLResponse!, NSError!) -> Void)?){
     
@@ -121,6 +109,20 @@ class Utilities {
         UIGraphicsEndImageContext()
         
         return image
+    }
+    
+    class func getRequest( urlString: String, callback:((NSData!, NSURLResponse!, NSError!, json: AnyObject?) -> Void)?){
+        var request = NSMutableURLRequest(URL: NSURL( string: urlString )!)
+        var session = NSURLSession.sharedSession()
+        var task = session.dataTaskWithRequest(request){
+            (data, response, error) -> Void in
+            
+            let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil)
+            callback!(data, response, error, json: json)
+            
+        }
+        
+        task.resume() //send request
     }
 }
 
