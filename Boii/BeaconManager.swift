@@ -104,9 +104,12 @@ class BeaconManager: NSObject, CLLocationManagerDelegate {
     func locationManager(manager: CLLocationManager!, didRangeBeacons beacons: [AnyObject]!, inRegion region: CLBeaconRegion!) {
         
         if beacons.count > 0 {
+            log.debug("beaconcount = \(beacons)")
         } else {
+            log.debug("beaconcount(0) = \(beacons)")
             if self.closestBeacon != nil {
                 self.closestBeacon = nil
+                log.debug("set closest beacon to \(self.closestBeacon)")
             }
         }
         
@@ -114,13 +117,14 @@ class BeaconManager: NSObject, CLLocationManagerDelegate {
         
         if knownBeacons.count > 0 {
             let closestBeacon = knownBeacons[0] as! CLBeacon
-            log.debug("closestBeacon = \(closestBeacon)")
+//            log.debug("closestBeacon = \(closestBeacon)")
             
             if closestBeacon.minor != self.closestBeacon?.minor ||
                 closestBeacon.major != self.closestBeacon?.major {
-                    
+                
+                //New Region
                 self.closestBeacon = closestBeacon
-                identifyRestaurant()
+                getCurrentRestaurant()
                 log.debug("Update Beacon to \(self.closestBeacon)")
             }
         }
@@ -150,18 +154,32 @@ class BeaconManager: NSObject, CLLocationManagerDelegate {
         postEnterBeaconRegionNotification()
         
         // Find restaurant with major and minor
-        identifyRestaurant()
+//        getCurrentRestaurant()
     }
     
-    func identifyRestaurant() {
+
+    
+    func locationManager(manager: CLLocationManager!, didExitRegion region: CLRegion!) {
+        log.debug("")
+        self.currentRestaurant = nil
+        self.closestBeacon = nil
+//        postBeaconUpdateNotification()
+        postExitBeaconRegionNotification()
+    }
+    
+    private func getCurrentRestaurant() {
+        log.debug("Getting current Restaurant")
         if let beacon = self.closestBeacon {
             if let rest = RestaurantStore.sharedInstance.restaurantWithBeacon(beacon.major.stringValue, minor: beacon.minor.stringValue) {
                 self.currentRestaurant = rest
                 self.postWelcomeLocalNotification()
+            } else {
+                log.error("Receive nil for restaurant with beacon(\(beacon.major):\(beacon.minor))")
             }
         }
-
     }
+    
+    // MARK: Notifcation Helpers
     
     func postWelcomeLocalNotification() {
         if let rest = currentRestaurant {
@@ -176,15 +194,6 @@ class BeaconManager: NSObject, CLLocationManagerDelegate {
         
     }
     
-    func locationManager(manager: CLLocationManager!, didExitRegion region: CLRegion!) {
-        log.debug("")
-        self.currentRestaurant = nil
-        self.closestBeacon = nil
-//        postBeaconUpdateNotification()
-        postExitBeaconRegionNotification()
-    }
-    
-    // MARK: Notifcation Helpers
     func postEnterBeaconRegionNotification(){
         let noti = NSNotification(name: BeaconManager.enterBeaconRegionNotificationString, object: self.closestBeacon)
         NSNotificationCenter.defaultCenter().postNotification(noti)

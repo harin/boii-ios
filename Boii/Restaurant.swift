@@ -32,7 +32,7 @@ class Restaurant: NSObject, NSCoding, Printable  {
     private var drinkList: [MenuItem]
     private var foodList: [MenuItem]
     
-    var requireIBeacon: Bool = false;
+    var require_beacon: Bool = false;
     var lastFetch: NSDate = NSDate(timeIntervalSince1970: 0);
     var sinceLastFetch: Double {
         return  NSDate().timeIntervalSinceDate(self.lastFetch);

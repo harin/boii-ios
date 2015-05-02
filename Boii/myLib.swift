@@ -7,7 +7,7 @@
 //
 
 import Foundation
-//let domain = "http://192.168.1.38:3000"
+//let domain = "http://192.168.10.41:3000"
 let domain = "http://boiitest.meteor.com"
 let menuPath = "/api/menus"
 let restaurantPath = "/api/restaurants"

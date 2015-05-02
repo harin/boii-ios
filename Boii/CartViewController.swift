@@ -26,7 +26,6 @@ class CartViewController: UITableViewController {
         self.refreshControl?.backgroundColor = UIColor.blackColor()
         self.refreshControl?.tintColor = UIColor.whiteColor()
         self.refreshControl?.addTarget(self, action: "pulledToRefresh:", forControlEvents: UIControlEvents.ValueChanged)
-
     }
     
     func pulledToRefresh(sender: AnyObject){
@@ -42,8 +41,6 @@ class CartViewController: UITableViewController {
         
         self.addObservers()
 //        self.cartStore.fetchOrdersWithoutRejected()
-        
-        
         if let code = self.cartStore.order_code {
             self.orderCodeLabel.text = "Order Code \(code)"
         }
@@ -180,7 +177,6 @@ class CartViewController: UITableViewController {
                 
                 var idx = orderIdxFromSection(indexPath.section)
                 order = self.cartStore.ordered[idx]
-                
             }
             
             // Set order if not nil
@@ -215,7 +211,18 @@ class CartViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.section == 0 {
             self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
-            sendOrder()
+            
+            if let cartRest = cartStore.restaurant {
+                if cartRest.require_beacon {
+                    if cartRest == BeaconManager.sharedInstance.currentRestaurant {
+                        sendOrder()
+                    } else {
+                        Utilities.displayOKAlert( "Error" , msg: "You must be in \(cartRest.name) to order", viewController: self)
+                    }
+                } else {
+                    sendOrder()
+                }
+            }
         }
     }
     

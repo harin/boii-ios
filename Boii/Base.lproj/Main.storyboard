@@ -264,8 +264,21 @@
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="promo_banner.png" translatesAutoresizingMaskIntoConstraints="NO" id="rVL-Fu-Npx">
                                             <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                                            <variation key="widthClass=compact" fixedFrame="YES">
-                                                <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="100" id="7wW-90-jJ1"/>
+                                                <constraint firstAttribute="width" constant="100" id="qr8-63-e0T"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="7wW-90-jJ1"/>
+                                                    <exclude reference="qr8-63-e0T"/>
+                                                </mask>
+                                            </variation>
+                                            <variation key="widthClass=compact">
+                                                <mask key="constraints">
+                                                    <include reference="7wW-90-jJ1"/>
+                                                    <include reference="qr8-63-e0T"/>
+                                                </mask>
                                             </variation>
                                         </imageView>
                                     </subviews>
@@ -276,7 +289,9 @@
                                     <constraint firstAttribute="bottom" secondItem="5ku-2C-W04" secondAttribute="bottom" id="4kU-en-97Z"/>
                                     <constraint firstItem="SkH-4n-Z2u" firstAttribute="bottom" secondItem="yQC-XD-gK8" secondAttribute="bottomMargin" id="CH2-Ep-MKS"/>
                                     <constraint firstItem="5ku-2C-W04" firstAttribute="leading" secondItem="yQC-XD-gK8" secondAttribute="leading" id="DNB-ij-ea2"/>
+                                    <constraint firstItem="rVL-Fu-Npx" firstAttribute="leading" secondItem="yQC-XD-gK8" secondAttribute="leadingMargin" constant="-8" id="F4h-Pf-zCW"/>
                                     <constraint firstItem="Rfp-cI-2ZV" firstAttribute="top" secondItem="yQC-XD-gK8" secondAttribute="topMargin" constant="16" id="GjB-bx-a6I"/>
+                                    <constraint firstItem="rVL-Fu-Npx" firstAttribute="top" secondItem="yQC-XD-gK8" secondAttribute="topMargin" constant="-8" id="P6u-0r-cgR"/>
                                     <constraint firstAttribute="trailing" secondItem="5ku-2C-W04" secondAttribute="trailing" id="TRO-7T-R4e"/>
                                     <constraint firstItem="SkH-4n-Z2u" firstAttribute="trailing" secondItem="yQC-XD-gK8" secondAttribute="trailingMargin" id="Wij-DE-D6g"/>
                                     <constraint firstItem="5ku-2C-W04" firstAttribute="top" secondItem="yQC-XD-gK8" secondAttribute="top" id="Zfh-JR-gY1"/>
@@ -287,10 +302,18 @@
                                     <mask key="subviews">
                                         <exclude reference="rVL-Fu-Npx"/>
                                     </mask>
+                                    <mask key="constraints">
+                                        <exclude reference="F4h-Pf-zCW"/>
+                                        <exclude reference="P6u-0r-cgR"/>
+                                    </mask>
                                 </variation>
                                 <variation key="widthClass=compact">
                                     <mask key="subviews">
                                         <include reference="rVL-Fu-Npx"/>
+                                    </mask>
+                                    <mask key="constraints">
+                                        <include reference="F4h-Pf-zCW"/>
+                                        <include reference="P6u-0r-cgR"/>
                                     </mask>
                                 </variation>
                                 <connections>
@@ -408,14 +431,24 @@
                                             <nil key="highlightedColor"/>
                                             <color key="shadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <size key="shadowOffset" width="0.0" height="0.0"/>
-                                            <variation key="widthClass=compact" misplaced="YES">
-                                                <rect key="frame" x="8" y="167" width="184" height="25"/>
-                                            </variation>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="promo_banner.png" translatesAutoresizingMaskIntoConstraints="NO" id="IRL-kE-PuT">
                                             <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                                            <variation key="widthClass=compact" fixedFrame="YES">
-                                                <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="100" id="2wJ-fG-zep"/>
+                                                <constraint firstAttribute="width" constant="100" id="Zqy-J5-yO2"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="2wJ-fG-zep"/>
+                                                    <exclude reference="Zqy-J5-yO2"/>
+                                                </mask>
+                                            </variation>
+                                            <variation key="widthClass=compact">
+                                                <mask key="constraints">
+                                                    <include reference="2wJ-fG-zep"/>
+                                                    <include reference="Zqy-J5-yO2"/>
+                                                </mask>
                                             </variation>
                                         </imageView>
                                     </subviews>
@@ -424,6 +457,7 @@
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="pAH-vQ-QBR" firstAttribute="top" secondItem="VjM-cX-hTe" secondAttribute="topMargin" constant="16" id="0nQ-5E-h4s"/>
+                                    <constraint firstItem="IRL-kE-PuT" firstAttribute="leading" secondItem="VjM-cX-hTe" secondAttribute="leadingMargin" constant="-8" id="49w-yZ-9Yy"/>
                                     <constraint firstItem="8KU-UU-TcK" firstAttribute="bottom" secondItem="VjM-cX-hTe" secondAttribute="bottomMargin" id="CkA-Qc-XgE"/>
                                     <constraint firstItem="8KU-UU-TcK" firstAttribute="trailing" secondItem="VjM-cX-hTe" secondAttribute="trailingMargin" id="G2n-7b-67K"/>
                                     <constraint firstItem="YeP-JC-ySP" firstAttribute="leading" secondItem="VjM-cX-hTe" secondAttribute="leading" id="GL3-e3-STp"/>
@@ -432,15 +466,24 @@
                                     <constraint firstItem="YeP-JC-ySP" firstAttribute="top" secondItem="VjM-cX-hTe" secondAttribute="top" id="ghi-xs-skd"/>
                                     <constraint firstItem="pAH-vQ-QBR" firstAttribute="trailingMargin" secondItem="VjM-cX-hTe" secondAttribute="trailingMargin" id="jhf-wI-Drq"/>
                                     <constraint firstAttribute="bottom" secondItem="YeP-JC-ySP" secondAttribute="bottom" id="pqj-fj-mTT"/>
+                                    <constraint firstItem="IRL-kE-PuT" firstAttribute="top" secondItem="VjM-cX-hTe" secondAttribute="topMargin" constant="-8" id="sDT-KM-UKf"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="subviews">
                                         <exclude reference="IRL-kE-PuT"/>
                                     </mask>
+                                    <mask key="constraints">
+                                        <exclude reference="49w-yZ-9Yy"/>
+                                        <exclude reference="sDT-KM-UKf"/>
+                                    </mask>
                                 </variation>
                                 <variation key="widthClass=compact">
                                     <mask key="subviews">
                                         <include reference="IRL-kE-PuT"/>
+                                    </mask>
+                                    <mask key="constraints">
+                                        <include reference="49w-yZ-9Yy"/>
+                                        <include reference="sDT-KM-UKf"/>
                                     </mask>
                                 </variation>
                                 <connections>

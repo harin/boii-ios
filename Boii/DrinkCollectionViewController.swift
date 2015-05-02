@@ -239,7 +239,7 @@ class DrinkCollectionViewController:
             if ShoppingCartStore.sharedInstance.restaurant?._id == ID {
                 
                 //Check if in region, if not disallow ordering
-                if BeaconManager.sharedInstance.closestBeacon != nil || self.restaurant!.requireIBeacon == false {
+                if BeaconManager.sharedInstance.closestBeacon != nil || self.restaurant!.require_beacon == false {
                     if let order = selectedMenu {
                         ShoppingCartStore.sharedInstance.addMenuToCurrentOrder(order)
                     } else {
@@ -274,7 +274,6 @@ class DrinkCollectionViewController:
                 }
                 
                 KLCPopup.dismissAllPopups()
-                
             }
         }
     }

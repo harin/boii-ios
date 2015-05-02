@@ -6,19 +6,6 @@
 //  Copyright (c) พ.ศ. 2558 Harin Sanghirun. All rights reserved.
 //
 
-/*
-
-api needed
-
-GET /restaurants
-
-GET /restaurants/:id/menus?type=drink
-GET /restaurants/:id/menus?type=food
-
-*/
-
-
-
 import Foundation
 
 class RestaurantStore: NSObject {
@@ -72,16 +59,22 @@ class RestaurantStore: NSObject {
 
     // Return restaurant with the specify major and minor, return nil is non is found
     func restaurantWithBeacon(major: String, minor: String) -> Restaurant?{
+        
         // search locally
         for rest: Restaurant in restaurants {
-            if rest.beaconMajor == major && rest.beaconMinor == minor {
-                return rest
+            log.debug("\(rest.beaconMajor):\(rest.beaconMinor) = \(major):\(minor)")
+            if rest.beaconMajor != nil && rest.beaconMinor != nil {
+                if rest.beaconMajor == major && rest.beaconMinor == minor {
+                    log.debug("\n\n\n\nResutant found = \(rest.name)\n\n\n\n")
+                    return rest
+                }
             }
         }
-        
+        log.debug("Resutant not found, fetching (\(major):\(minor)) from server")
+
         // None found, request from server
         
-        var urlString = domain + restaurantPath + "?minor=\(minor)&major=\(major)"
+        var urlString = domain + restaurantPath + "?beacon_minor=\(minor)&beacon_major=\(major)"
         
         Utilities.getRequest(urlString) { (rawData, response, error, jsonObject) in
             if let _jsonObject: AnyObject = jsonObject {
@@ -157,10 +150,8 @@ class RestaurantStore: NSObject {
         
         let json = JSON( jsonObject )
         
-        log.verbose("\(json)")
-        
         let data = json["data"] // array of restaurant
-        log.verbose("\(data)")
+        log.debug("data = \n\(data)")
         
         var result: [Restaurant] = []
         
@@ -183,6 +174,8 @@ class RestaurantStore: NSObject {
                 
                 if let beaconMinor = rest["beacon_minor"].string {
                     r.beaconMinor = beaconMinor
+                } else {
+                    log.error("failed to parse beacon minor for \(name)")
                 }
                 
                 if let pic_url = rest["pic_url"].string {
@@ -193,6 +186,10 @@ class RestaurantStore: NSObject {
                     r.email = email
                 }
                 let phone = rest["phone"].arrayValue
+                
+                if let require_beacon = rest["require_beacon"].bool {
+                    r.require_beacon = require_beacon
+                }
                 
                 for num in phone {
                     let type = num["type"].string
@@ -222,7 +219,7 @@ class RestaurantStore: NSObject {
     
     func restaurantsNeedUpdate() {
         
-        log.debug("")
+//        log.debug("")
         let note = NSNotification(name: "restaurantsNeedUpdateNotification", object: self)
         
         NSNotificationCenter.defaultCenter().postNotification(note)
@@ -230,7 +227,6 @@ class RestaurantStore: NSObject {
     
     func restaurantWithRequestedBeaconFound() {
         
-        log.debug("")
         let note = NSNotification(name: "restaurantWithRequestedBeaconFound", object: self)
         
         NSNotificationCenter.defaultCenter().postNotification(note)
