@@ -22,7 +22,6 @@ class DrinkCollectionViewController:
     var restaurant: Restaurant?
     var isObservingRestaurant: Bool = false
     let refreshControl = UIRefreshControl()
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -169,16 +168,14 @@ class DrinkCollectionViewController:
             } else {
                 url = NSURL(string: "")
             }
-//            if let image = menu.image {
-//                cell.imageView.image = image
-//            } else {
-                var frame = cell.frame
-                cell.imageView.sd_setImageWithURL(url, placeholderImage: Utilities.defaultImageWithSize(frame.size), completed: { (image, error, cacheType, url) in
-                    if image != nil {
-                        menu.image = image
-                    }
-                })
-//            }
+
+            var frame = cell.frame
+            cell.imageView.sd_setImageWithURL(url, placeholderImage: Utilities.defaultImageWithSize(frame.size), completed: { (image, error, cacheType, url) in
+                if image != nil {
+                    menu.image = image
+                }
+            })
+
         } else {
             cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! MenuCollectionViewCell
         }
@@ -237,9 +234,6 @@ class DrinkCollectionViewController:
         if let ID = self.restaurant?._id {
             // Check if current cart is for current restaurant
             if ShoppingCartStore.sharedInstance.restaurant?._id == ID {
-                
-                //Check if in region, if not disallow ordering
-                if BeaconManager.sharedInstance.closestBeacon != nil || self.restaurant!.require_beacon == false {
                     if let order = selectedMenu {
                         ShoppingCartStore.sharedInstance.addMenuToCurrentOrder(order)
                     } else {
@@ -249,22 +243,6 @@ class DrinkCollectionViewController:
                     if sender is UIView {
                         sender.dismissPresentingPopup()
                     }
-                } else {
-                    if sender is UIView {
-                        sender.dismissPresentingPopup()
-                    }
-                    
-                    var alert = UIAlertController(title: "Cannot Order", message: "You must be in the restaurant to order", preferredStyle: .Alert)
-                    
- 
-                    var cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
-                        (action) -> Void in
-                    })
-                    
-                    alert.addAction(cancel)
-                    
-                    self.presentViewController(alert, animated: true, completion: nil)
-                }
 
             } else {
                 //ask to change restaurant

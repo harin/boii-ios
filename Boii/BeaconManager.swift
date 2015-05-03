@@ -184,7 +184,11 @@ class BeaconManager: NSObject, CLLocationManagerDelegate {
     func postWelcomeLocalNotification() {
         if let rest = currentRestaurant {
             let noti = UILocalNotification()
-            noti.alertBody = "Welcome to \(rest.name)"
+            if let ad_phrase = rest.ad_phrase {
+                noti.alertBody = rest.ad_phrase
+            } else {
+                noti.alertBody = "Welcome to \(rest.name)"
+            }
             noti.soundName = UILocalNotificationDefaultSoundName
             UIApplication.sharedApplication().presentLocalNotificationNow(noti)
         }

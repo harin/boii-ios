@@ -27,6 +27,7 @@ class Restaurant: NSObject, NSCoding, Printable  {
     var phone: [tel] = []
     var thumbnailImage: UIImage = UIImage(named:"toofast-375w.jpg")!
     var pic_url: String?
+    var ad_phrase: String?
     dynamic var isFetching: Bool = false
 
     private var drinkList: [MenuItem]

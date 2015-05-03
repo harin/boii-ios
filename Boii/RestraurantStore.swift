@@ -26,7 +26,6 @@ class RestaurantStore: NSObject {
     class var restaurantNeedUpdateNotificationIdentifier: String {
         return "restaurantsNeedUpdateNotification"
     }
-
     
     //properties
     
@@ -189,6 +188,12 @@ class RestaurantStore: NSObject {
                 
                 if let require_beacon = rest["require_beacon"].bool {
                     r.require_beacon = require_beacon
+                }
+                
+                if let ad_phrase = rest["ad_phrase"].string {
+                    r.ad_phrase = ad_phrase
+                } else {
+                    log.error("\n\n\nAd phrase not found\n\n")
                 }
                 
                 for num in phone {

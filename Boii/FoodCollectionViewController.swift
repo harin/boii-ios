@@ -179,32 +179,14 @@ class FoodCollectionViewController:
             // Check if current cart is for current restaurant
             if ShoppingCartStore.sharedInstance.restaurant?._id == rest._id {
                 
-                //Check if in region, if not disallow ordering
-                if BeaconManager.sharedInstance.closestBeacon != nil {
-                    if let order = selectedMenu {
-                        ShoppingCartStore.sharedInstance.addMenuToCurrentOrder(order)
-                    } else {
-                        println("failed to add to cart")
-                    }
-                    
-                    if sender is UIView {
-                        sender.dismissPresentingPopup()
-                    }
+                if let order = selectedMenu {
+                    ShoppingCartStore.sharedInstance.addMenuToCurrentOrder(order)
                 } else {
-                    if sender is UIView {
-                        sender.dismissPresentingPopup()
-                    }
-                    
-                    var alert = UIAlertController(title: "Cannot Order", message: "You must be in the restaurant to order", preferredStyle: .Alert)
-                    
-                    
-                    var cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
-                        (aciton) -> Void in
-                    })
-                    
-                    alert.addAction(cancel)
-                    
-                    self.presentViewController(alert, animated: true, completion: nil)
+                    println("failed to add to cart")
+                }
+                
+                if sender is UIView {
+                    sender.dismissPresentingPopup()
                 }
                 
             } else {
