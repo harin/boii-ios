@@ -154,10 +154,6 @@ class CartViewController: UITableViewController {
         return nRow
     }
     
-    func orderIdxFromSection( section: Int) -> Int {
-        return self.cartStore.ordered.count - ( section-2 ) - 1
-    }
-    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         var cell: UITableViewCell
@@ -198,16 +194,6 @@ class CartViewController: UITableViewController {
         return cell
     }
 
-    @IBAction func removeButtonAction(sender: AnyObject) {
-        
-        if let clickedCell = sender.superview??.superview as? UITableViewCell {
-            if let clickedPath = self.tableView.indexPathForCell(clickedCell) {
-                cartStore.removeMenuFromCurrentOrder(clickedPath.row)
-                self.tableView.reloadData()
-            }
-        }
-    }
-
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.section == 0 {
             self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
@@ -226,37 +212,6 @@ class CartViewController: UITableViewController {
         }
     }
     
-    func sendOrder() {
-        if self.cartStore.getCurrentOrder().menuItems.count > 0 {
-            MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-            self.cartStore.sendOrder() {
-                (success: Bool, msg: String?) in
-                dispatch_async(dispatch_get_main_queue()){
-                    log.debug("Send order should've completed with success(\(success)) and msg(\(msg))")
-                    MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
-                    if !success {
-                        var message = "Something went wrong."
-                        if let unwrappedMsg = msg {
-                            message = unwrappedMsg
-                        }
-                        Utilities.displayOKAlert("Error", msg: message, viewController: self)
-                        
-                    }
-                }
-            }
-        }
-    }
-    
-    func orderReadyNotification () {
-        let contentView = NSBundle.mainBundle().loadNibNamed("OrderReadyNotificationView", owner: self, options: nil).first as! UIView
-        
-        let orderIDLabel = contentView.viewWithTag(300) as! UILabel
-        orderIDLabel.text = "999"
-        
-        let popup = KLCPopup(contentView: contentView)
-        popup.show()
-    }
-    
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if indexPath.section == 0 {
             return 70.0
@@ -273,29 +228,29 @@ class CartViewController: UITableViewController {
         }
         return 50.0
     }
-    
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch section {
-        case 0: // do nothing should not display header here
-            return nil
-        case 1: // currentOrder - no order code yet
-            return nil
-        default: //should have order code
-            var order = cartStore.ordered[section-2]
-            if let code = order?.orderCode {
-                return "Order Code \(code)"
-            } else {
-                return "Order Code Unknown"
-            }
-        }
-    }
+//    
+//    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        switch section {
+//        case 0: // do nothing should not display header here
+//            return nil
+//        case 1: // currentOrder - no order code yet
+//            return nil
+//        default: //should have order code
+//            var order = cartStore.ordered[section-2]
+//            if let code = order?.orderCode {
+//                return "Order Code \(code)"
+//            } else {
+//                return "Order Code Unknown"
+//            }
+//        }
+//    }
 
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         if section < 2 { return nil }
 
         // Get order for this section
-        var order = cartStore.ordered[section-2]
+        var order = cartStore.ordered[orderIdxFromSection(section)]
         if order == nil { return nil }
         
 //        log.debug("Preparing view for headerInSection\(section)")
@@ -369,4 +324,49 @@ class CartViewController: UITableViewController {
         return view
     }
 
+    // MARK: Helpers
+    @IBAction func removeButtonAction(sender: AnyObject) {
+        
+        if let clickedCell = sender.superview??.superview as? UITableViewCell {
+            if let clickedPath = self.tableView.indexPathForCell(clickedCell) {
+                cartStore.removeMenuFromCurrentOrder(clickedPath.row)
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
+    func sendOrder() {
+        if self.cartStore.getCurrentOrder().menuItems.count > 0 {
+            MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+            self.cartStore.sendOrder() {
+                (success: Bool, msg: String?) in
+                dispatch_async(dispatch_get_main_queue()){
+                    log.debug("Send order should've completed with success(\(success)) and msg(\(msg))")
+                    MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
+                    if !success {
+                        var message = "Something went wrong."
+                        if let unwrappedMsg = msg {
+                            message = unwrappedMsg
+                        }
+                        Utilities.displayOKAlert("Error", msg: message, viewController: self)
+                        
+                    }
+                }
+            }
+        }
+    }
+    
+    func orderReadyNotification () {
+        let contentView = NSBundle.mainBundle().loadNibNamed("OrderReadyNotificationView", owner: self, options: nil).first as! UIView
+        
+        let orderIDLabel = contentView.viewWithTag(300) as! UILabel
+        orderIDLabel.text = "999"
+        
+        let popup = KLCPopup(contentView: contentView)
+        popup.show()
+    }
+    
+    func orderIdxFromSection( section: Int) -> Int {
+        return self.cartStore.ordered.count - ( section-2 ) - 1
+    }
 }

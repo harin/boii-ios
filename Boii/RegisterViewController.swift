@@ -52,6 +52,7 @@ class RegisterViewController: UIViewController {
             
             self.presentViewController(alert, animated: true, completion: nil)
             
+            return
         }
         
         var hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
