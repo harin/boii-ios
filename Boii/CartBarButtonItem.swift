@@ -80,7 +80,9 @@ class CartBarButtonItem: UIBarButtonItem {
     }
     
     func cartUpdate( sender: AnyObject? ) {
-        self.setCustomTitle("cart(\(cartStore.getCurrentOrder().menuItems.count))")
+        dispatch_async(dispatch_get_main_queue()){
+            self.setCustomTitle("cart(\(self.cartStore.getCurrentOrder().menuItems.count))")
+        }
     }
     
     func setCustomTitle( title: String) {

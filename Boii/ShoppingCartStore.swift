@@ -178,33 +178,33 @@ class ShoppingCartStore: NSObject {
         }
     }
     
-    func askToSwitch(rest: Restaurant){
-        
-        if let nav = UIApplication.sharedApplication().keyWindow?.rootViewController {
-            if nav is UINavigationController {
-                let alertController = UIAlertController(title: "", message: "Your cart is setup for another restaurant, would you like to switch to \(rest.name)", preferredStyle: UIAlertControllerStyle.Alert)
-                
-                let yesAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default) { (action) in
-                    
-                    self._restaurant = rest
-                    self.initOrders()
-                }
-                
-                let noAction = UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel) {
-                    (action) in
-                    
-                }
-                alertController.addAction(yesAction)
-                alertController.addAction(noAction)
-                
-                nav.presentViewController(alertController, animated: true) {}
-            } else {
-                log.debug("Expected a Navigation Controller, got \(nav)")
-            }
-        } else {
-            log.error("Unable to retrieve rootViewController, sry")
-        }
-    }
+//    func askToSwitch(rest: Restaurant){
+//        
+//        if let nav = UIApplication.sharedApplication().keyWindow?.rootViewController {
+//            if nav is UINavigationController {
+//                let alertController = UIAlertController(title: "", message: "Your cart is setup for another restaurant, would you like to switch to \(rest.name)", preferredStyle: UIAlertControllerStyle.Alert)
+//                
+//                let yesAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default) { (action) in
+//                    
+//                    self._restaurant = rest
+//                    self.initOrders()
+//                }
+//                
+//                let noAction = UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel) {
+//                    (action) in
+//                    
+//                }
+//                alertController.addAction(yesAction)
+//                alertController.addAction(noAction)
+//                
+//                nav.presentViewController(alertController, animated: true) {}
+//            } else {
+//                log.debug("Expected a Navigation Controller, got \(nav)")
+//            }
+//        } else {
+//            log.error("Unable to retrieve rootViewController, sry")
+//        }
+//    }
     
     
     private func dataForOrder(user_id: String) -> AnyObject{

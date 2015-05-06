@@ -161,6 +161,12 @@ class DrinkCollectionViewController:
             cell.priceLabel.text = "฿ \(menu.price)"
             cell.titleLabel.text = menu.name
             
+            var doubleTapFolderGesture = UITapGestureRecognizer(target: self, action: "doubleTapCell:")
+            doubleTapFolderGesture.numberOfTapsRequired = 2
+            doubleTapFolderGesture.numberOfTouchesRequired = 1
+            doubleTapFolderGesture.delaysTouchesBegan = true
+            cell.addGestureRecognizer(doubleTapFolderGesture)
+            
             var url: NSURL?
             log.debug("\(menu.pic_url)")
             if let urlString = menu.pic_url {
@@ -181,6 +187,23 @@ class DrinkCollectionViewController:
         }
 
         return cell
+    }
+    
+    func doubleTapCell( sender: UITapGestureRecognizer) {
+        log.debug("Double Tapped!")
+        
+        if sender.state == UIGestureRecognizerState.Ended {
+            let location = sender.locationInView(self.collectionView)
+            let indexPath = self.collectionView?.indexPathForItemAtPoint(location)
+            
+            if let idxPath = indexPath {
+                if let menu = self.restaurant?.drinks {
+                    self.selectedMenu = menu[idxPath.row]
+                }
+            }
+        }
+        
+        addButtonPressed(sender)
     }
 
     // MARK: UICollectionViewDelegate

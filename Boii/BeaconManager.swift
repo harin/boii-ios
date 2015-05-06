@@ -106,7 +106,7 @@ class BeaconManager: NSObject, CLLocationManagerDelegate {
         if beacons.count > 0 {
             log.debug("beaconcount = \(beacons)")
         } else {
-            log.debug("beaconcount(0) = \(beacons)")
+//            log.debug("beaconcount(0) = \(beacons)")
             if self.closestBeacon != nil {
                 self.closestBeacon = nil
                 log.debug("set closest beacon to \(self.closestBeacon)")

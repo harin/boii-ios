@@ -198,10 +198,11 @@ class FoodCollectionViewController:
     }
     
     // MARK: UICollectionViewDelegateFlowLayout
-    private let sectionInsets = UIEdgeInsets(top: 64.0, left: 0, bottom: 48,right: 0)
+    private var sectionInsets = UIEdgeInsets(top: 48.0, left: 0, bottom: 48,right: 0)
     private let interitemSpacing: CGFloat = 0.0
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+    
         
         let width = self.view.frame.width / 2 -  interitemSpacing
         let height = (4 * width) / 3

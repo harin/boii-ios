@@ -78,6 +78,16 @@ class MenuCollectionViewCell: UICollectionViewCell {
         return image
     }
 
+//    override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
+//        if let touch = touches.first as? UITouch {
+//            if touch.tapCount == 2 {
+//                log.debug("Double TAPPED")
+//                super.touchesEnded(touches, withEvent: event)
+//            }
+//        } else {
+//            log.error("Umm, not sure what i'm doing")
+//        }
+//    }
     
     
     
